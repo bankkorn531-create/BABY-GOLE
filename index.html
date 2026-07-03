@@ -267,10 +267,20 @@
 
     <section id="adminPage" class="hidden" style="padding: 40px 10%;">
         <div class="card page-animation">
-            <h2 style="color: var(--warn);"><i class="fa-solid fa-users-gear"></i> ระบบจัดการ (Admin Dashboard)</h2>
+            <h2 style="color: var(--warn);"><i class="fa-solid fa-users-gear"></i> ระบบจัดการหลังบ้าน (Admin Dashboard)</h2>
+            <p style="color: var(--gray); font-size: 0.95rem;">ข้อมูลสมาชิกทั้งหมดในระบบจะถูกอัปเดตและแสดงที่นี่ทันทีหลังการสมัครสมาชิก</p>
             <div style="overflow-x: auto;">
                 <table class="custom-table">
-                    <thead><tr><th>ชื่อ-สกุล</th><th>Username</th><th>เบอร์โทร</th><th>Email</th><th>สถานะ</th></tr></thead>
+                    <thead>
+                        <tr>
+                            <th>ชื่อ-สกุล</th>
+                            <th>Username</th>
+                            <th>เบอร์โทร</th>
+                            <th>Email</th>
+                            <th>สถานะ</th>
+                            <th>การจัดการ</th>
+                        </tr>
+                    </thead>
                     <tbody id="adminUserTableBody"></tbody>
                 </table>
             </div>
@@ -278,24 +288,26 @@
     </section>
 
     <script>
-        // ================= Data & State =================
-        let currentUser = null;
-        let isAdminMode = false;
-        
-        // ข้อมูลผู้ใช้
-        const users = [
+        // ================= ระบบฐานข้อมูล LocalStorage ยึดโยงหลังบ้าน =================
+        const defaultUsers = [
             { name: "ผู้ดูแลระบบ", user: "admin", pass: "admin123", phone: "0888888888", email: "admin@babygole.com", isAdmin: true },
             { name: "คุณแม่ สมปอง", user: "user", pass: "1234", phone: "0991234567", email: "sompong@email.com", isAdmin: false }
         ];
 
-        // ข้อมูลสมุดพก
-        let trackerRecords = [];
-
-        // ข้อมูลเว็บบอร์ด
-        let forumPosts = [
+        // ดึงข้อมูลจาก LocalStorage ถ้าไม่มีให้ใช้ค่าเริ่มต้น
+        let users = JSON.parse(localStorage.getItem('babygole_users')) || defaultUsers;
+        let trackerRecords = JSON.parse(localStorage.getItem('babygole_tracker')) || [];
+        let forumPosts = JSON.parse(localStorage.getItem('babygole_forum')) || [
             { id: 1, author: "แม่น้องติน", title: "น้อง 8 เดือน ไม่ยอมกินข้าวบด ทำยังไงดีคะ?", detail: "พ่นข้าวออกตลอดเลยค่ะ", replies: [{author: "ผู้ดูแลระบบ", text: "ลองเปลี่ยนเป็นวิธี BLW ให้หยิบจับเองดูนะครับ อาจจะเบื่อเนื้อสัมผัสเดิมๆ"}] },
             { id: 2, author: "SuperMom", title: "แพมเพิสกลางคืนยี่ห้อไหนซึมซับดีบ้าง?", detail: "น้องตื่นเพราะแพมเพิสเต็มบ่อยมาก", replies: [] }
         ];
+
+        let currentUser = null;
+        let isAdminMode = false;
+
+        function saveUsersToStorage() {
+            localStorage.setItem('babygole_users', JSON.stringify(users));
+        }
 
         // ข้อมูลอาหาร (20 เมนู)
         const foodsData = [
@@ -333,7 +345,7 @@
             if(pageId === 'devPage' && !document.querySelector('.tab-btn.active')) setDevInfo('0-1');
         }
 
-        // --- ระบบ Auth ---
+        // --- ระบบล็อกอิน / สมัครสมาชิก ---
         function toggleAdmin() {
             isAdminMode = !isAdminMode;
             document.getElementById('adminBadge').classList.toggle('hidden', !isAdminMode);
@@ -368,9 +380,24 @@
         function register() {
             const n = document.getElementById('regName').value, ph = document.getElementById('regPhone').value;
             const e = document.getElementById('regEmail').value, u = document.getElementById('regUser').value, p = document.getElementById('regPass').value;
+            
             if(!n || !ph || !u || !p) return alert("กรุณากรอกข้อมูลสำคัญให้ครบ");
+            
+            // ตรวจสอบชื่อซ้ำ
+            if(users.some(x => x.user === u)) return alert("Username นี้ถูกใช้ไปแล้ว กรุณาเปลี่ยนใหม่");
+
+            // เพิ่มข้อมูลลงฐานข้อมูลชั่วคราว
             users.push({ name: n, user: u, pass: p, phone: ph, email: e, isAdmin: false });
-            alert("สมัครสมาชิกสำเร็จ"); showPage('loginPage');
+            saveUsersToStorage(); // บันทึกลงระบบหลังบ้านทันที
+            
+            alert("สมัครสมาชิกสำเร็จ! ข้อมูลของคุณถูกส่งไปยังระบบหลังบ้านแล้ว");
+            
+            // เคลียร์ค่าในช่องกรอกข้อมูล
+            document.getElementById('regName').value = ''; document.getElementById('regPhone').value = '';
+            document.getElementById('regEmail').value = ''; document.getElementById('regUser').value = '';
+            document.getElementById('regPass').value = '';
+            
+            showPage('loginPage');
         }
 
         function forgotPassword() {
@@ -381,8 +408,28 @@
             else { alert("ไม่พบ Username นี้ในระบบ"); res.classList.add('hidden'); }
         }
 
+        // --- ระบบหลังบ้านสำหรับ Admin (แสดงรายชื่อทันทีและจัดการได้) ---
         function loadAdminData() {
-            document.getElementById('adminUserTableBody').innerHTML = users.map(u => `<tr><td>${u.name}</td><td>${u.user}</td><td>${u.phone}</td><td>${u.email}</td><td>${u.isAdmin ? '<b style="color:red">Admin</b>' : 'User'}</td></tr>`).join('');
+            document.getElementById('adminUserTableBody').innerHTML = users.map((u, index) => `
+                <tr>
+                    <td>${u.name}</td>
+                    <td>${u.user}</td>
+                    <td>${u.phone}</td>
+                    <td>${u.email}</td>
+                    <td>${u.isAdmin ? '<b style="color:red"><i class="fa-solid fa-user-shield"></i> Admin</b>' : '<span style="color:green">User</span>'}</td>
+                    <td>
+                        ${u.isAdmin ? '-' : `<button class="btn btn-outline btn-sm" style="color:var(--warn); border-color:var(--warn); padding:2px 8px;" onclick="deleteUser(${index})">ลบผู้ใช้</button>`}
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function deleteUser(index) {
+            if(confirm(`คุณแน่ใจหรือไม่ที่จะลบผู้ใช้ "${users[index].name}" ออกจากระบบหลังบ้าน?`)) {
+                users.splice(index, 1);
+                saveUsersToStorage();
+                loadAdminData(); // โหลดตารางใหม่ทันที
+            }
         }
 
         // --- ระบบหน้าแรก (ลิงก์ไปพัฒนาการ) ---
@@ -417,6 +464,7 @@
             const d = document.getElementById('trackDate').value, a = document.getElementById('trackAge').value, w = document.getElementById('trackWeight').value, h = document.getElementById('trackHeight').value;
             if(!d || !a || !w || !h) return alert("กรุณากรอกข้อมูลให้ครบถ้วน");
             trackerRecords.push({ d, a, w, h });
+            localStorage.setItem('babygole_tracker', JSON.stringify(trackerRecords));
             renderTracker();
             document.getElementById('trackAge').value = ''; document.getElementById('trackWeight').value = ''; document.getElementById('trackHeight').value = '';
             alert("บันทึกข้อมูลสำเร็จ!");
@@ -442,7 +490,7 @@
             } else if(input.includes("ไข้") && input.includes("ตุ่ม")) {
                 response = "<span style='color:red;'><b>ควรพบแพทย์ครับ!</b></span> อาการมีไข้ร่วมกับมีตุ่มขึ้น อาจเป็นสัญญาณของโรคมือเท้าปาก หรืออีสุกอีใส แนะนำให้แยกเด็กออกจากเด็กคนอื่นและพาไปพบกุมารแพทย์เพื่อวินิจฉัยอย่างถูกต้องครับ";
             } else if(input.includes("ไม่กิน") || input.includes("เบื่ออาหาร")) {
-                response = "อาการเบื่ออาหารพบได้บ่อย ลองเปลี่ยนเนื้อสัมผัสอาหาร (เช่น จากบดเป็นสับ หรือทำเป็นเมนูหยิบจับ BLW) หรือตกแต่งจานให้มีสีสันน่าทาน และอย่าบังคับกดดันตอนกินครับ";
+                response = "อาการเบื่ออาหารพบได้บ่อย ลองเปลี่ยนเนื้อสัมหันอาหาร (เช่น จากบดเป็นสับ หรือทำเป็นเมนูหยิบจับ BLW) หรือตกแต่งจานให้มีสีสันน่าทาน และอย่าบังคับกดดันตอนกินครับ";
             } else {
                 response = "รับทราบข้อมูลครับ จากอาการที่คุณแจ้ง แนะนำให้สังเกตอาการอย่างใกล้ชิด หากเด็กยังร่าเริง ทานนมได้ปกติ ถือว่ายังปลอดภัย แต่หากเด็กซึม ร้องไห้ผิดปกติ หรือคุณแม่มีความกังวลใจ แนะนำให้ปรึกษากุมารแพทย์ครับ";
             }
@@ -455,6 +503,7 @@
             if(!t) return alert("กรุณาใส่หัวข้อกระทู้");
             const author = currentUser ? currentUser.name : "ผู้เยี่ยมชม";
             forumPosts.unshift({ id: Date.now(), author, title: t, detail: d, replies: [] });
+            localStorage.setItem('babygole_forum', JSON.stringify(forumPosts));
             document.getElementById('postTitle').value = ''; document.getElementById('postDetail').value = '';
             renderForum();
         }
@@ -464,6 +513,7 @@
             const post = forumPosts.find(p => p.id === postId);
             const author = currentUser ? currentUser.name : "ผู้เยี่ยมชม";
             post.replies.push({ author, text: inp.value });
+            localStorage.setItem('babygole_forum', JSON.stringify(forumPosts));
             inp.value = '';
             renderForum();
         }
@@ -488,6 +538,7 @@
         // --- Initial Render ---
         window.onload = () => {
             document.getElementById('trackDate').valueAsDate = new Date();
+            renderTracker();
 
             // Render Foods
             document.getElementById('foodContainer').innerHTML = foodsData.map(f => `
