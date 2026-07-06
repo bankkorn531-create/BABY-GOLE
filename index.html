@@ -17,7 +17,25 @@
         body { background-color: var(--bg); margin: 0; color: #333; overflow-x: hidden; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes floatSlow { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-8px) rotate(-2deg); } }
+        @keyframes pulseSoft { 0%,100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+        @keyframes wobble { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-3px); } 75% { transform: translateX(3px); } }
+        @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+        @keyframes drift { 0%,100% { transform: translateX(0) translateY(0); } 50% { transform: translateX(4px) translateY(-4px); } }
+        @keyframes rise { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes glow { 0%,100% { box-shadow: 0 10px 25px rgba(56,189,248,0.15); } 50% { box-shadow: 0 16px 35px rgba(56,189,248,0.28); } }
+        @keyframes tilt { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-2deg); } }
         .page-animation { animation: fadeIn 0.4s ease-out forwards; }
+        .page-visual { display: block; width: 100%; max-width: 240px; margin: 8px auto 18px; padding: 10px; border-radius: 20px; background: linear-gradient(135deg, #ffffff, #f0f9ff); box-shadow: 0 10px 25px rgba(15,23,42,0.08); overflow: hidden; }
+        .page-visual img { width: 100%; height: auto; display: block; border-radius: 14px; }
+        .float-slow { animation: floatSlow 3.4s ease-in-out infinite; }
+        .pulse-soft { animation: pulseSoft 2.6s ease-in-out infinite; }
+        .wobble { animation: wobble 2.8s ease-in-out infinite; }
+        .bob { animation: bob 2.8s ease-in-out infinite; }
+        .drift { animation: drift 3.4s ease-in-out infinite; }
+        .rise { animation: rise 3s ease-in-out infinite; }
+        .glow { animation: glow 2.8s ease-in-out infinite; }
+        .tilt { animation: tilt 3.2s ease-in-out infinite; }
         .hidden { display: none !important; }
         
         .card { background: var(--white); border-radius: 20px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; }
@@ -45,9 +63,19 @@
         .custom-table { width: 100%; border-collapse: collapse; margin-top: 15px; text-align: left; }
         .custom-table th { background-color: var(--soft-blue); color: var(--primary); padding: 12px; border-bottom: 2px solid var(--secondary); }
         .custom-table td { padding: 12px; border-bottom: 1px solid #e2e8f0; }
+        .admin-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin: 20px 0; }
+        .admin-stat-card { background: linear-gradient(135deg, #eff6ff 0%, #f8fafc 100%); border: 1px solid #dbeafe; border-radius: 18px; padding: 16px; }
+        .admin-stat-card .stat-label { color: var(--gray); font-size: 0.95rem; }
+        .admin-stat-card .stat-value { font-size: 1.5rem; font-weight: 700; color: var(--primary); margin-top: 5px; }
+        .admin-panel { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 18px; padding: 18px; margin-top: 18px; }
+        .admin-panel h3 { margin-top: 0; color: var(--primary); }
+        .notification-badge { display: inline-flex; align-items: center; gap: 6px; background: #fee2e2; color: var(--warn); padding: 8px 12px; border-radius: 999px; font-size: 0.9rem; font-weight: 600; margin-left: 10px; }
+        .notification-card { border: 1px solid #dbeafe; background: linear-gradient(135deg, #f8fbff 0%, #fefefe 100%); border-radius: 16px; padding: 14px; margin-bottom: 12px; }
+        .toast-notice { position: fixed; right: 20px; bottom: 20px; background: var(--primary); color: white; padding: 14px 16px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 5000; max-width: 320px; line-height: 1.5; }
+        .toast-notice.success { background: var(--success); }
 
         /* Custom BGs */
-        .landing-bg { background: url('baby-gole-bg.png.png') center/cover no-repeat; min-height: 100vh; display: flex; justify-content: center; align-items: center; }
+        .landing-bg { background: linear-gradient(135deg, rgba(224,242,254,0.95), rgba(186,230,253,0.95)), url('assets/landing-bg.svg') center/cover no-repeat; min-height: 100vh; display: flex; justify-content: center; align-items: center; }
         .auth-container { min-height: 100vh; display: flex; justify-content: center; align-items: center; background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); padding: 20px; }
         .auth-card { background: var(--white); padding: 40px; border-radius: 25px; width: 100%; max-width: 450px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
         .banner-content { background: rgba(255, 255, 255, 0.95); padding: 40px; border-radius: 25px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); max-width: 600px; width: 100%; text-align: center; }
@@ -84,6 +112,7 @@
             <a onclick="showPage('knowledgePage')" id="link-knowledge"><i class="fa-solid fa-book"></i> ความรู้</a>
             <a onclick="showPage('aiPage')" id="link-ai"><i class="fa-solid fa-robot"></i> AI วิเคราะห์</a>
             <a onclick="showPage('communityPage')" id="link-community"><i class="fa-solid fa-comments"></i> ชุมชน</a>
+            <a onclick="showPage('notificationsPage')" id="link-notifications"><i class="fa-solid fa-bell"></i> แจ้งเตือน</a>
             <a onclick="showPage('aboutPage')" id="link-about"><i class="fa-solid fa-circle-info"></i> เกี่ยวกับ</a>
             <a onclick="showPage('profilePage')" id="link-profile"><i class="fa-solid fa-user"></i> โปรไฟล์</a>
             <a onclick="showPage('adminPage')" id="link-admin" class="hidden" style="color:var(--warn); font-weight:bold;"><i class="fa-solid fa-shield-halved"></i> Admin</a>
@@ -92,15 +121,20 @@
     </nav>
 
     <section id="landingPage" class="landing-bg page-animation">
-        <div class="banner-content">
-            <h1 style="color: var(--primary); margin-top: 0; font-size: 2.2rem;">ยินดีต้อนรับสู่ baby Gole</h1>
-            <p style="color: var(--gray); font-size: 1.1rem;">ศูนย์ดูแลเด็กเล็กครบวงจรเพื่อลูกรักของคุณ</p>
-            <button class="btn btn-primary" onclick="showPage('loginPage')">เข้าสู่ระบบ / สมัครสมาชิก</button>
+        <div class="banner-content" style="position: relative; overflow: hidden;">
+            <div style="position:absolute; inset:0; background:linear-gradient(135deg, rgba(255,255,255,0.9), rgba(240,249,255,0.8)); z-index:0;"></div>
+            <div style="position:relative; z-index:1;">
+                <h1 style="color: var(--primary); margin-top: 0; font-size: 2.2rem;">ยินดีต้อนรับสู่ baby Gole</h1>
+                <p style="color: var(--gray); font-size: 1.1rem;">ศูนย์ดูแลเด็กเล็กครบวงจรเพื่อลูกรักของคุณ</p>
+                <div class="page-visual float-slow" style="max-width: 320px; margin: 18px auto 22px;"><img src="assets/landing-bg.svg" alt="welcome illustration"></div>
+                <button class="btn btn-primary" onclick="showPage('loginPage')">เข้าสู่ระบบ / สมัครสมาชิก</button>
+            </div>
         </div>
     </section>
 
     <section id="loginPage" class="auth-container hidden">
         <div class="auth-card page-animation">
+            <div class="page-visual float-slow"><img src="assets/login.svg" alt="illustration login"></div>
             <h2 id="loginTitle" style="color: var(--primary);">เข้าสู่ระบบสมาชิก</h2>
             <div id="adminBadge" class="hidden" style="background:#fee2e2; color:#ef4444; padding:5px; border-radius:8px; margin-bottom:15px; font-weight:bold;">โหมดผู้ดูแลระบบ (Admin)</div>
             <input type="text" id="loginUser" placeholder="Username หรือ Email">
@@ -112,6 +146,7 @@
             </div>
             
             <button class="btn btn-primary" style="width: 100%; margin-top: 10px;" onclick="login()">เข้าสู่ระบบ</button>
+            <div style="margin-top: 8px; font-size: 0.9rem; color: var(--gray);">สามารถเข้าสู่ระบบด้วย Username, Email หลัก, อีเมลสำรอง หรือเบอร์โทร</div>
             <div style="margin-top: 15px; font-size: 0.9rem;">
                 <a href="#" id="adminToggleLink" onclick="toggleAdmin()">เข้าสู่ระบบ Admin</a> | 
                 <a href="#" onclick="showPage('forgotPage')">ลืมรหัสผ่าน?</a>
@@ -124,13 +159,15 @@
 
     <section id="registerPage" class="auth-container hidden">
         <div class="auth-card page-animation">
+            <div class="page-visual pulse-soft"><img src="assets/register.svg" alt="illustration register"></div>
             <h2 style="color: var(--primary);">สมัครสมาชิก</h2>
             <input type="text" id="regName" placeholder="ชื่อ-นามสกุล">
             <input type="text" id="regPhone" placeholder="เบอร์โทรศัพท์">
             <input type="email" id="regEmail" placeholder="Email" required>
+            <input type="email" id="regAltEmail" placeholder="อีเมลสำรองสำหรับเข้าสู่ระบบ (ไม่บังคับ)">
             <input type="text" id="regUser" placeholder="Username (ชื่อบัญชี)" required>
             <input type="password" id="regPass" placeholder="Password" required>
-            <div style="font-size:0.9rem; color:var(--gray); margin-bottom:12px;">Username และ Email ต้องไม่ซ้ำกับบัญชีที่มีอยู่แล้ว</div>
+            <div style="font-size:0.9rem; color:var(--gray); margin-bottom:12px;">Username, Email หลัก และอีเมลสำรองต้องไม่ซ้ำกับบัญชีที่มีอยู่แล้ว</div>
             <button class="btn btn-primary" style="width: 100%; margin-top: 15px;" onclick="register()">ยืนยันสมัครสมาชิก</button>
             <button class="btn btn-outline" style="width: 100%; margin-top: 10px;" onclick="showPage('loginPage')">กลับไปล็อกอิน</button>
         </div>
@@ -138,6 +175,7 @@
 
     <section id="forgotPage" class="auth-container hidden">
         <div class="auth-card page-animation">
+            <div class="page-visual wobble"><img src="assets/forgot.svg" alt="illustration forgot password"></div>
             <h2 style="color: var(--primary);">ลืมรหัสผ่าน</h2>
             <input type="text" id="forgotUser" placeholder="Username หรือ Email ของคุณ">
             <button class="btn btn-primary" style="width: 100%;" onclick="forgotPassword()">ค้นหารหัสผ่าน</button>
@@ -148,29 +186,80 @@
     </section>
 
     <section id="homePage" class="hidden" style="padding: 40px 10%;">
-        <div class="card page-animation" style="text-align: center; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);">
-            <h2 style="color: var(--primary);">คุณพ่อคุณแม่ต้องการดูข้อมูลวัยไหน?</h2>
-            <p style="color: var(--gray);">เลือกระยะอายุของลูกน้อย แล้วระบบจะพาท่านไปยังหน้าพัฒนาการที่เหมาะสม</p>
-            <select id="homeAgeSelect" style="max-width: 300px; text-align: center; font-size: 1.1rem; padding: 10px; border-radius: 8px;">
-                <option value="0-1">เด็กทารก (0 - 1 ปี)</option>
-                <option value="1-3">วัยเตาะแตะ (1 - 3 ปี)</option>
-                <option value="3-6">วัยก่อนเรียน (3 - 6 ปี)</option>
-                <option value="6+">วัยเรียน (6 ปีขึ้นไป)</option>
-            </select>
-            <br>
-            <button class="btn btn-primary" style="margin-top: 15px;" onclick="goToDevFromHome()">ไปดูข้อมูลพัฒนาการเลย <i class="fa-solid fa-arrow-right"></i></button>
+        <div class="card page-animation" style="text-align: center; max-width: 760px; margin: 0 auto; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);">
+            <div class="page-visual float-slow"><img src="assets/home-hero.svg" alt="family illustration"></div>
+            <h2 style="color: var(--primary);">baby Gole ช่วยคุณพ่อคุณแม่ดูแลลูกน้อยได้ง่ายขึ้น</h2>
+            <p style="color: var(--gray); font-size: 1rem; line-height: 1.8; max-width: 680px; margin: 0 auto;">
+                ระบบครบวงจรสำหรับครอบครัวยุคใหม่ ทั้งข้อมูลพัฒนาการ, วัคซีน, โภชนาการ, สมุดพกการเจริญเติบโต, คลังความรู้ และ AI ประเมินอาการเบื้องต้น.
+                เหมาะทั้งลูกวัยทารกจนถึงเด็กโต ให้คุณพ่อคุณแม่มั่นใจทุกช่วงวัย.
+            </p>
+            <div class="grid-2" style="gap: 15px; margin-top: 25px;">
+                <div style="background: rgba(56, 189, 248, 0.1); border-radius: 18px; padding: 18px; text-align: left;">
+                    <h4 style="margin-top: 0; color: var(--primary);">ข้อมูลครบกว่า 50 เรื่อง</h4>
+                    <p style="color: var(--gray); line-height: 1.7;">มีทั้งบทความความรู้, เมนูโภชนาการ, เคล็ดลับการเลี้ยงลูก และรายชื่อวัคซีนที่สำคัญ</p>
+                </div>
+                <div style="background: rgba(251, 191, 36, 0.15); border-radius: 18px; padding: 18px; text-align: left;">
+                    <h4 style="margin-top: 0; color: var(--primary);">ใช้งานง่ายในหน้าเดียว</h4>
+                    <p style="color: var(--gray); line-height: 1.7;">เลื่อนดูข้อมูลสำคัญ, บันทึกผลการเจริญเติบโต และตั้งคำถามในชุมชนได้ทันที</p>
+                </div>
+            </div>
+            <div style="margin-top: 20px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+                <button class="btn btn-primary" onclick="goToDevFromHome()">ดูพัฒนาการลูกน้อย</button>
+                <button class="btn btn-secondary" onclick="showPage('knowledgePage')">อ่านความรู้ 50+ ข้อ</button>
+                <button class="btn btn-outline" onclick="showPage('foodPage')">ดูเมนูอาหารเด็ก</button>
+            </div>
         </div>
-        
-        <div class="card page-animation" style="max-width: 800px; margin: 20px auto;">
-            <h3 style="color: var(--accent);"><i class="fa-solid fa-lightbulb"></i> แนะนำการใช้งานเว็บไซต์ baby Gole</h3>
-            <div class="grid-2" style="gap: 15px; font-size: 0.95rem;">
+
+        <div class="card page-animation" style="max-width: 1000px; margin: 20px auto;">
+            <h3 style="color: var(--accent);"><i class="fa-solid fa-star"></i> ฟีเจอร์เด่นของ baby Gole</h3>
+            <div class="grid-3" style="gap: 18px; margin-top: 20px;">
+                <div class="card" style="background: #f8fafc; padding: 20px; border-radius: 18px;">
+                    <h4 style="margin-top: 0; color: var(--primary);">พัฒนาการตามวัย</h4>
+                    <p style="color: var(--gray); line-height: 1.8;">คำแนะนำพร้อมข้อควรระวังสำหรับเด็กแต่ละช่วงวัยตั้งแต่แรกเกิดไปจนถึงวัยเรียน</p>
+                </div>
+                <div class="card" style="background: #f0fdf4; padding: 20px; border-radius: 18px;">
+                    <h4 style="margin-top: 0; color: var(--primary);">เมนูอาหาร 50+ รายการ</h4>
+                    <p style="color: var(--gray); line-height: 1.8;">รวมสูตรอาหารเด็กหลากหลายทั้งวัยเริ่มเคี้ยวและวัยทานร่วมครอบครัว</p>
+                </div>
+                <div class="card" style="background: #fff7ed; padding: 20px; border-radius: 18px;">
+                    <h4 style="margin-top: 0; color: var(--primary);">คอมมูนิตี้และ AI</h4>
+                    <p style="color: var(--gray); line-height: 1.8;">ถามตอบ แชร์ประสบการณ์ และรับคำปรึกษาเบื้องต้นจาก AI ได้ทันที</p>
+                </div>
+            </div>
+            <div class="grid-2" style="gap: 18px; margin-top: 25px; font-size: 0.95rem; color: var(--gray);">
                 <div>
-                    <p><b>1. พัฒนาการ & วัคซีน:</b> ตรวจสอบว่าลูกน้อยมีพัฒนาการตรงตามวัยหรือไม่ และเช็คตารางวัคซีน</p>
-                    <p><b>2. โภชนาการ:</b> รวมเมนูอาหารเด็ก 50 เมนู แบ่งตามช่วงวัย เพื่อให้ได้รับสารอาหารครบถ้วน</p>
+                    <p>• ตรวจพัฒนาการเด็กตามวัยได้ครบทุกด้าน</p>
+                    <p>• เช็คลิสต์วัคซีนสำคัญสำหรับทุกช่วงอายุ</p>
+                    <p>• บันทึกน้ำหนัก-ส่วนสูงและดูประวัติย้อนหลัง</p>
+                    <p>• คลังความรู้แม่ลูกพร้อมอ่านทันที</p>
                 </div>
                 <div>
-                    <p><b>3. สมุดพก:</b> บันทึกน้ำหนัก ส่วนสูง เพื่อติดตามการเจริญเติบโตของลูกรัก</p>
-                    <p><b>4. คลังความรู้ & AI:</b> ศึกษาคู่มือคุณแม่มือใหม่ ใช้ AI ประเมินอาการ และตั้งกระทู้ในชุมชน</p>
+                    <p>• เมนูอาหารเด็กกว่า 50 รายการ</p>
+                    <p>• เกร็ดความรู้ด้านการนอนและสุขภาพ</p>
+                    <p>• รองรับทั้งบัญชีผู้ใช้และ Admin</p>
+                    <p>• พื้นที่ชุมชนถาม-ตอบสำหรับคุณพ่อคุณแม่</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card page-animation" style="max-width: 1000px; margin: 20px auto;">
+            <h3 style="color: var(--primary);"><i class="fa-solid fa-clipboard-list"></i> 4 ขั้นตอนเริ่มต้นใช้งาน</h3>
+            <div class="grid-4" style="gap: 18px; margin-top: 20px;">
+                <div class="card" style="background: #eff6ff; padding: 18px; border-radius: 18px;">
+                    <h4 style="margin-top: 0; color: var(--primary);">1. สมัครสมาชิก</h4>
+                    <p style="color: var(--gray);">สร้างบัญชีแล้วล็อกอิน เพื่อเก็บโปรไฟล์และข้อมูลลูกน้อย</p>
+                </div>
+                <div class="card" style="background: #f8fafc; padding: 18px; border-radius: 18px;">
+                    <h4 style="margin-top: 0; color: var(--primary);">2. สำรวจพัฒนาการ</h4>
+                    <p style="color: var(--gray);">เลือกช่วงอายุและอ่านคำแนะนำเรื่องการเจริญเติบโตที่เหมาะสม</p>
+                </div>
+                <div class="card" style="background: #fef3c7; padding: 18px; border-radius: 18px;">
+                    <h4 style="margin-top: 0; color: var(--primary);">3. ดูเมนูโภชนาการ</h4>
+                    <p style="color: var(--gray);">เลือกเมนูอาหารเด็กตามวัยและบันทึกเป็นเมนูโปรดได้เอง</p>
+                </div>
+                <div class="card" style="background: #ecfdf5; padding: 18px; border-radius: 18px;">
+                    <h4 style="margin-top: 0; color: var(--primary);">4. เข้าใจและถามได้</h4>
+                    <p style="color: var(--gray);">อ่านความรู้เพิ่มเติม เขียนกระทู้ หรือให้ AI ช่วยวิเคราะห์อาการ</p>
                 </div>
             </div>
         </div>
@@ -189,20 +278,24 @@
 
     <section id="vaccinePage" class="hidden" style="padding: 40px 10%;">
         <div class="card page-animation">
+            <div class="page-visual pulse-soft"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 180'%3E%3Crect width='240' height='180' rx='24' fill='%23eff6ff'/%3E%3Crect x='64' y='56' width='110' height='78' rx='16' fill='%23ffffff' stroke='%231a4b82' stroke-width='8'/%3E%3Crect x='118' y='40' width='40' height='28' rx='10' fill='%2338bdf8'/%3E%3Crect x='82' y='76' width='42' height='12' rx='6' fill='%23f59e0b'/%3E%3Crect x='82' y='98' width='60' height='12' rx='6' fill='%231a4b82'/%3E%3Ccircle cx='178' cy='96' r='30' fill='%23ef4444'/%3E%3C/svg%3E" alt="vaccine illustration"></div>
             <h2 style="color: var(--primary);"><i class="fa-solid fa-syringe"></i> ตารางวัคซีนพื้นฐานและวัคซีนเสริม</h2>
             <div style="overflow-x: auto;">
                 <table class="custom-table">
                     <thead><tr><th>อายุ</th><th>วัคซีนที่ต้องได้รับ</th><th>ป้องกันโรค</th><th>ประเภท</th></tr></thead>
                     <tbody>
                         <tr><td>แรกเกิด</td><td>BCG, HB1</td><td>วัณโรค, ไวรัสตับอักเสบบี</td><td><span style="color:green">พื้นฐาน</span></td></tr>
-                        <tr><td>2 เดือน</td><td>DTP-HB-Hib1, OPV1, Rota1, IPV1</td><td>คอตีบ บาดทะยัก ไอกรน ตับอักเสบบี ฮิบ, โปลิโอ, โรต้าไวรัส(ท้องร่วง)</td><td><span style="color:green">พื้นฐาน</span> + เสริม</td></tr>
-                        <tr><td>4 เดือน</td><td>DTP-HB-Hib2, OPV2, IPV2, Rota2</td><td>(รับเข็มที่ 2 ของกลุ่มอายุ 2 เดือน)</td><td><span style="color:green">พื้นฐาน</span> + เสริม</td></tr>
-                        <tr><td>6 เดือน</td><td>DTP-HB-Hib3, OPV3, Rota3, Flu</td><td>(รับเข็มที่ 3), ไข้หวัดใหญ่</td><td><span style="color:green">พื้นฐาน</span> + เสริม</td></tr>
-                        <tr><td>9-12 เดือน</td><td>MMR1, LAJE1</td><td>หัด หัดเยอรมัน คางทูม, ไข้สมองอักเสบเจอี</td><td><span style="color:green">พื้นฐาน</span></td></tr>
-                        <tr><td>1 ปี - 1.5 ปี</td><td>DTP4, OPV4, MMR2, LAJE2, Varicella, HAV</td><td>(กระตุ้น), อีสุกอีใส, ไวรัสตับอักเสบเอ</td><td><span style="color:green">พื้นฐาน</span> + เสริม</td></tr>
-                        <tr><td>2 ปี - 2.5 ปี</td><td>Typhoid, Dengue</td><td>ไข้ไทฟอยด์, ไข้เลือดออก (ตามแพทย์แนะนำ)</td><td>เสริม</td></tr>
-                        <tr><td>4 ปี - 6 ปี</td><td>DTP5, OPV5</td><td>คอตีบ บาดทะยัก ไอกรน โปลิโอ (กระตุ้น)</td><td><span style="color:green">พื้นฐาน</span></td></tr>
-                        <tr><td>9 ปี - 12 ปี</td><td>HPV (2 เข็ม)</td><td>ป้องกันมะเร็งปากมดลูก (และหูดหงอนไก่)</td><td><span style="color:green">พื้นฐาน</span></td></tr>
+                        <tr><td>2 เดือน</td><td>DTP-HB-Hib1, OPV1, Rota1, IPV1</td><td>คอตีบ, บาดทะยัก, ไอกรน, ตับอักเสบบี, ฮิบ, โปลิโอ, โรต้าไวรัส</td><td><span style="color:green">พื้นฐาน</span> + เสริม</td></tr>
+                        <tr><td>4 เดือน</td><td>DTP-HB-Hib2, OPV2, IPV2, Rota2</td><td>กระตุ้นภูมิต้านทานต่อโรคกลุ่มแรก</td><td><span style="color:green">พื้นฐาน</span> + เสริม</td></tr>
+                        <tr><td>6 เดือน</td><td>DTP-HB-Hib3, OPV3, Rota3, Flu</td><td>กระตุ้นครั้งสุดท้าย, ไข้หวัดใหญ่</td><td><span style="color:green">พื้นฐาน</span> + เสริม</td></tr>
+                        <tr><td>9-12 เดือน</td><td>MMR1, LAJE1</td><td>หัด, หัดเยอรมัน, คางทูม, ไข้สมองอักเสบเจอี</td><td><span style="color:green">พื้นฐาน</span></td></tr>
+                        <tr><td>1 ปี - 1.5 ปี</td><td>DTP4, OPV4, MMR2, LAJE2, Varicella, HAV</td><td>กระตุ้น, อีสุกอีใส, ไวรัสตับอักเสบเอ</td><td><span style="color:green">พื้นฐาน</span> + เสริม</td></tr>
+                        <tr><td>18-24 เดือน</td><td>PCV, MMR2, Varicella (ถ้ายังไม่ครบ)</td><td>ปอดอักเสบ, หัด, อีสุกอีใส</td><td><span style="color:green">พื้นฐาน</span> + เสริม</td></tr>
+                        <tr><td>3 ปี - 4 ปี</td><td>MMR2, DTP5, OPV5</td><td>กระตุ้นภูมิต้านทาน, ป้องกันโรคพื้นฐาน</td><td><span style="color:green">พื้นฐาน</span></td></tr>
+                        <tr><td>5 ปี - 6 ปี</td><td>IPV3, DTP5 (กระตุ้น), Flu</td><td>โปลิโอ, คอตีบ, บาดทะยัก, ไอกรน, ไข้หวัดใหญ่</td><td><span style="color:green">พื้นฐาน</span> + เสริม</td></tr>
+                        <tr><td>9 ปี - 12 ปี</td><td>HPV (2 เข็ม), Td Booster</td><td>ป้องกันมะเร็งปากมดลูก, เรียนรู้ภูมิคุ้มกันถัดไป</td><td><span style="color:green">พื้นฐาน</span></td></tr>
+                        <tr><td>13 ปี - 15 ปี</td><td>HPV เข็มที่ 2 หากยังไม่ครบ, Td Booster</td><td>กระตุ้นภูมิต้านทานระยะยาว</td><td><span style="color:green">เสริม</span></td></tr>
+                        <tr><td>16 ปี ขึ้นไป</td><td>Flu รายปี, Td/Tdap ตามคำแนะนำ</td><td>ไข้หวัดใหญ่, คอตีบ, บาดทะยัก, ไอกรน</td><td><span style="color:green">เสริม</span></td></tr>
                     </tbody>
                 </table>
             </div>
@@ -261,13 +354,26 @@
                 <textarea id="aiInput" rows="2" style="flex: 1; resize: none; margin: 0;" placeholder="พิมพ์อาการที่นี่... เช่น อายุ 5 เดือน มีไข้ 38 องศา"></textarea>
                 <button class="btn btn-secondary" onclick="analyzeAI()"><i class="fa-solid fa-paper-plane"></i> ส่ง</button>
             </div>
+            <div style="margin-top: 15px; padding: 12px; background: #f8fafc; border-radius: 10px; color: var(--gray);">
+                <p style="margin: 0 0 8px; font-weight: bold;">ตัวอย่างคำถามที่ใช้ได้</p>
+                <ul style="margin: 0; padding-left: 20px; line-height: 1.7;">
+                    <li>อายุ 4 เดือน มีน้ำมูก และสะอึกหนัก ควรทำอย่างไร?</li>
+                    <li>ลูก 18 เดือน ปวดหูและร้องมากตอนกลางคืน</li>
+                    <li>ลูก 2 ขวบท้องเสีย 2 วันแล้ว</li>
+                    <li>ลูก 5 ปี ไอแห้งๆ ไม่ค่อยมีไข้</li>
+                </ul>
+            </div>
             <p style="font-size: 0.8rem; color: var(--warn); margin-top: 15px;">* หมายเหตุ: นี่เป็นการวิเคราะห์เบื้องต้น หากเด็กมีอาการรุนแรงควรพบแพทย์ทันที</p>
         </div>
     </section>
 
     <section id="communityPage" class="hidden" style="padding: 40px 10%;">
         <div class="card page-animation">
-            <h2 style="color: var(--primary);"><i class="fa-solid fa-comments"></i> ชุมชนถาม-ตอบ (Baby Gole Forum)</h2>
+            <div class="page-visual rise"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 180'%3E%3Crect width='240' height='180' rx='24' fill='%23fefce8'/%3E%3Crect x='48' y='48' width='118' height='70' rx='16' fill='%23ffffff' stroke='%231a4b82' stroke-width='6'/%3E%3Crect x='74' y='64' width='70' height='14' rx='7' fill='%2338bdf8'/%3E%3Crect x='74' y='86' width='46' height='12' rx='6' fill='%23f59e0b'/%3E%3Crect x='102' y='92' width='98' height='44' rx='14' fill='%23ffffff' stroke='%231a4b82' stroke-width='6'/%3E%3C/svg%3E" alt="community illustration"></div>
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
+                <h2 style="color: var(--primary); margin: 0;"><i class="fa-solid fa-comments"></i> ชุมชนถาม-ตอบ (Baby Gole Forum)</h2>
+                <div id="communityAlertBadge" class="notification-badge hidden">🔔 มีการแจ้งเตือนใหม่</div>
+            </div>
             <div style="background: var(--bg); padding: 20px; border-radius: 15px; margin-bottom: 25px;">
                 <input type="text" id="postTitle" placeholder="หัวข้อคำถาม / เรื่องที่อยากแชร์...">
                 <textarea id="postDetail" rows="2" placeholder="รายละเอียดเพิ่มเติม..."></textarea>
@@ -277,8 +383,19 @@
         </div>
     </section>
 
+    <section id="notificationsPage" class="hidden" style="padding: 40px 10%;">
+        <div class="card page-animation">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
+                <h2 style="color: var(--primary); margin: 0;"><i class="fa-solid fa-bell"></i> การแจ้งเตือนชุมชน</h2>
+                <button class="btn btn-outline btn-sm" onclick="clearCommunityNotifications()">ลบทั้งหมด</button>
+            </div>
+            <div id="notificationsList"></div>
+        </div>
+    </section>
+
     <section id="aboutPage" class="hidden" style="padding: 40px 10%;">
         <div class="card page-animation" style="max-width: 600px; margin: 0 auto; text-align: center;">
+            <div class="page-visual drift"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 180'%3E%3Crect width='240' height='180' rx='24' fill='%23fef2f2'/%3E%3Ccircle cx='120' cy='86' r='44' fill='%231a4b82'/%3E%3Cpath d='M92 90c8-24 48-24 56 0' stroke='%23ffffff' stroke-width='8' stroke-linecap='round'/%3E%3Cpath d='M88 64c2-20 22-32 32-32 10 0 30 9 32 32' stroke='%23f59e0b' stroke-width='8' stroke-linecap='round'/%3E%3C/svg%3E" alt="about illustration"></div>
             <div class="logo" style="font-size: 2.5rem; margin-bottom: 15px;">baby <span>Gole</span></div>
             <h3 style="color: var(--primary); margin-top: 0;">เกี่ยวกับเว็บไซต์ของเรา</h3>
             <p style="color: var(--gray); line-height: 1.6; text-align: justify;">
@@ -302,6 +419,7 @@
 
     <section id="profilePage" class="hidden" style="padding: 40px 10%;">
         <div class="card page-animation" style="max-width: 500px; margin: auto; text-align: center;">
+            <div class="page-visual pulse-soft"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 180'%3E%3Crect width='240' height='180' rx='24' fill='%23f0f9ff'/%3E%3Ccircle cx='120' cy='76' r='34' fill='%231a4b82'/%3E%3Cpath d='M82 132c8-24 45-28 76 0' fill='%2338bdf8'/%3E%3Ccircle cx='120' cy='76' r='14' fill='%23ffffff'/%3E%3C/svg%3E" alt="profile illustration"></div>
             <div class="profile-pic-container" onclick="document.getElementById('fileInput').click()">
                 <img id="profPic" class="profile-pic" src="https://via.placeholder.com/150/e0f2fe/1a4b82?text=User" alt="Profile">
                 <div class="profile-pic-overlay"><i class="fa-solid fa-camera"></i></div>
@@ -312,7 +430,12 @@
             <p id="profUserDisplay" style="color: var(--secondary); font-weight: bold; margin-top: 0;">@username</p>
             <div style="background: var(--bg); padding: 15px; border-radius: 15px; text-align: left; margin-bottom: 20px;">
                 <p><b><i class="fa-solid fa-phone"></i> เบอร์โทร:</b> <span id="profPhoneDisplay">-</span></p>
-                <p><b><i class="fa-solid fa-envelope"></i> อีเมล:</b> <span id="profEmailDisplay">-</span></p>
+                <p><b><i class="fa-solid fa-envelope"></i> อีเมลหลัก:</b> <span id="profEmailDisplay">-</span></p>
+                <p><b><i class="fa-solid fa-envelope-open-text"></i> อีเมลสำรอง:</b> <span id="profAltEmailsDisplay">-</span></p>
+            </div>
+            <div style="display:flex; gap:10px; margin-bottom: 15px;">
+                <input type="email" id="profileAltEmailInput" placeholder="เพิ่มอีเมลสำรองสำหรับเข้าสู่ระบบ" style="margin:0;">
+                <button class="btn btn-secondary btn-sm" onclick="addAlternateEmail()">เพิ่ม</button>
             </div>
             <p style="font-size: 0.8rem; color: var(--gray);">* แตะที่รูปภาพเพื่อเปลี่ยนรูปโปรไฟล์ของคุณ</p>
         </div>
@@ -320,12 +443,67 @@
 
     <section id="adminPage" class="hidden" style="padding: 40px 10%;">
         <div class="card page-animation">
-            <h2 style="color: var(--warn);"><i class="fa-solid fa-users-gear"></i> ระบบจัดการหลังบ้าน (Admin Dashboard)</h2>
-            <div style="overflow-x: auto;">
-                <table class="custom-table">
-                    <thead><tr><th>รูป</th><th>ชื่อ-สกุล</th><th>Username</th><th>รหัสผ่าน</th><th>เบอร์โทร</th><th>Email</th><th>สถานะ</th><th>จัดการ</th></tr></thead>
-                    <tbody id="adminUserTableBody"></tbody>
-                </table>
+            <div class="page-visual tilt"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 180'%3E%3Crect width='240' height='180' rx='24' fill='%23f8fafc'/%3E%3Crect x='66' y='38' width='108' height='102' rx='16' fill='%23ffffff' stroke='%231a4b82' stroke-width='8'/%3E%3Crect x='78' y='54' width='84' height='18' rx='9' fill='%2338bdf8'/%3E%3Crect x='78' y='84' width='58' height='12' rx='6' fill='%23f59e0b'/%3E%3Crect x='78' y='108' width='72' height='12' rx='6' fill='%231a4b82'/%3E%3Cpath d='M162 56l16 16-16 16' stroke='%23ef4444' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" alt="admin illustration"></div>
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
+                <h2 style="color: var(--warn); margin: 0;"><i class="fa-solid fa-users-gear"></i> ระบบจัดการหลังบ้าน (Admin Dashboard)</h2>
+                <button class="btn btn-outline btn-sm" onclick="loadAdminData()">รีเฟรชข้อมูล</button>
+            </div>
+
+            <div class="admin-stats">
+                <div class="admin-stat-card">
+                    <div class="stat-label">ผู้ใช้ทั้งหมด</div>
+                    <div class="stat-value" id="adminTotalUsers">0</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="stat-label">จำนวน Admin</div>
+                    <div class="stat-value" id="adminCount">0</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="stat-label">กระทู้ในชุมชน</div>
+                    <div class="stat-value" id="adminForumCount">0</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="stat-label">คอมเมนต์ทั้งหมด</div>
+                    <div class="stat-value" id="adminReplyCount">0</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="stat-label">บันทึกพัฒนาการ</div>
+                    <div class="stat-value" id="adminTrackerCount">0</div>
+                </div>
+            </div>
+
+            <div class="admin-panel">
+                <h3>➕ เพิ่มผู้ใช้ใหม่</h3>
+                <div class="grid-2">
+                    <div><label>ชื่อ-นามสกุล</label><input type="text" id="adminNewName" placeholder="เช่น คุณแม่สมศรี"></div>
+                    <div><label>Username</label><input type="text" id="adminNewUser" placeholder="username"></div>
+                    <div><label>รหัสผ่าน</label><input type="password" id="adminNewPass" placeholder="password"></div>
+                    <div><label>เบอร์โทร</label><input type="text" id="adminNewPhone" placeholder="08xxxxxxxx"></div>
+                    <div><label>Email</label><input type="email" id="adminNewEmail" placeholder="name@email.com"></div>
+                    <div>
+                        <label>สิทธิ์</label>
+                        <select id="adminNewRole">
+                            <option value="user">ผู้ใช้ทั่วไป</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="addUserByAdmin()">บันทึกผู้ใช้ใหม่</button>
+            </div>
+
+            <div class="admin-panel">
+                <h3>👥 จัดการผู้ใช้</h3>
+                <div style="overflow-x: auto;">
+                    <table class="custom-table">
+                        <thead><tr><th>รูป</th><th>ชื่อ-สกุล</th><th>Username</th><th>รหัสผ่าน</th><th>เบอร์โทร</th><th>Email</th><th>สถานะ</th><th>จัดการ</th></tr></thead>
+                        <tbody id="adminUserTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="admin-panel">
+                <h3>📝 จัดการกระทู้ในชุมชน</h3>
+                <div id="adminForumList"></div>
             </div>
         </div>
     </section>
@@ -337,19 +515,146 @@
         ];
 
         let users = [];
+        let trackerRecords = [];
+        let forumPosts = [];
+        let adminSyncChannel = null;
+        let communityNotifications = [];
+        let communityToastTimer = null;
+
+        function loadFromDatabase(key, fallback) {
+            try {
+                const stored = localStorage.getItem(key);
+                if (stored) return JSON.parse(stored);
+            } catch (e) {
+                console.warn('Failed to load storage', key, e);
+            }
+            return fallback;
+        }
+
+        function saveToDatabase(key, value) {
+            localStorage.setItem(key, JSON.stringify(value));
+            notifyDataChanged();
+        }
+
+        function notifyDataChanged() {
+            if (adminSyncChannel) {
+                adminSyncChannel.postMessage({ type: 'data-updated' });
+            }
+        }
+
+        function showCommunityToast(message) {
+            if (communityToastTimer) clearTimeout(communityToastTimer);
+            const existing = document.getElementById('communityToast');
+            if (existing) existing.remove();
+            const toast = document.createElement('div');
+            toast.id = 'communityToast';
+            toast.className = 'toast-notice success';
+            toast.innerHTML = `<strong>แจ้งเตือนชุมชน</strong><div>${message}</div>`;
+            document.body.appendChild(toast);
+            communityToastTimer = setTimeout(() => toast.remove(), 3500);
+        }
+
+        function pushCommunityNotification(message) {
+            communityNotifications.unshift({ id: Date.now(), text: message, createdAt: new Date().toLocaleString('th-TH') });
+            localStorage.setItem('babygole_community_notifications', JSON.stringify(communityNotifications));
+            showCommunityToast(message);
+            updateCommunityBadge();
+            renderNotificationsPage();
+        }
+
+        function updateCommunityBadge() {
+            const badge = document.getElementById('communityAlertBadge');
+            const navBadge = document.getElementById('link-notifications');
+            if (badge) {
+                badge.classList.toggle('hidden', communityNotifications.length === 0);
+                badge.innerHTML = `🔔 ${communityNotifications.length} รายการแจ้งเตือนใหม่`;
+            }
+            if (navBadge) {
+                navBadge.innerHTML = `<i class="fa-solid fa-bell"></i> แจ้งเตือน${communityNotifications.length ? ' (' + communityNotifications.length + ')' : ''}`;
+            }
+        }
+
+        function loadCommunityNotifications() {
+            communityNotifications = loadFromDatabase('babygole_community_notifications', []);
+            updateCommunityBadge();
+            renderNotificationsPage();
+        }
+
+        function renderNotificationsPage() {
+            const list = document.getElementById('notificationsList');
+            if (!list) return;
+            if (communityNotifications.length === 0) {
+                list.innerHTML = '<div class="notification-card"><strong>ยังไม่มีการแจ้งเตือน</strong><div style="color:var(--gray); margin-top:6px;">เมื่อมีคนตั้งโพสต์หรือตอบกลับในชุมชน ข้อมูลจะปรากฏที่นี่</div></div>';
+                return;
+            }
+            list.innerHTML = communityNotifications.map(item => `
+                <div class="notification-card">
+                    <div style="font-weight:600; color:var(--primary);">${item.text}</div>
+                    <div style="color:var(--gray); font-size:0.9rem; margin-top:6px;">${item.createdAt}</div>
+                </div>
+            `).join('');
+        }
+
+        function clearCommunityNotifications() {
+            communityNotifications = [];
+            localStorage.setItem('babygole_community_notifications', JSON.stringify(communityNotifications));
+            updateCommunityBadge();
+            renderNotificationsPage();
+        }
+
+        function initAdminSync() {
+            if (typeof BroadcastChannel !== 'undefined' && !adminSyncChannel) {
+                adminSyncChannel = new BroadcastChannel('babygole_admin_sync');
+                adminSyncChannel.onmessage = (event) => {
+                    if (event.data?.type === 'data-updated') {
+                        refreshAdminIfOpen();
+                        refreshCommunityIfOpen();
+                    }
+                };
+            }
+
+            window.addEventListener('storage', (event) => {
+                if (['babygole_users', 'babygole_forum', 'babygole_tracker'].includes(event.key)) {
+                    refreshAdminIfOpen();
+                    refreshCommunityIfOpen();
+                }
+            });
+        }
+
+        function refreshAdminIfOpen() {
+            const adminPage = document.getElementById('adminPage');
+            if (adminPage && !adminPage.classList.contains('hidden')) {
+                loadUsersFromStorage();
+                trackerRecords = loadFromDatabase('babygole_tracker', trackerRecords);
+                forumPosts = loadFromDatabase('babygole_forum', forumPosts);
+                loadAdminData();
+            }
+        }
+
+        function refreshCommunityIfOpen() {
+            const communityPage = document.getElementById('communityPage');
+            if (communityPage && !communityPage.classList.contains('hidden')) {
+                forumPosts = loadFromDatabase('babygole_forum', forumPosts);
+                renderForum();
+            }
+        }
 
         function loadUsersFromStorage() {
-            const stored = localStorage.getItem('babygole_users');
-            if (stored) { users = JSON.parse(stored); } 
-            else { users = [...defaultUsers]; localStorage.setItem('babygole_users', JSON.stringify(users)); }
+            const stored = loadFromDatabase('babygole_users', null);
+            if (stored) { users = stored; }
+            else { users = [...defaultUsers]; saveToDatabase('babygole_users', users); }
         }
         
         loadUsersFromStorage();
-
-        let trackerRecords = JSON.parse(localStorage.getItem('babygole_tracker')) || [];
-        let forumPosts = JSON.parse(localStorage.getItem('babygole_forum')) || [
-            { id: 1, author: "แม่น้องติน", title: "น้อง 8 เดือน ไม่ยอมกินข้าวบด ทำยังไงดีคะ?", detail: "พ่นข้าวออกตลอดเลยค่ะ", replies: [{author: "ผู้ดูแลระบบ", text: "ลองเปลี่ยนเป็นวิธี BLW ให้หยิบจับเองดูนะครับ"}] }
-        ];
+        trackerRecords = loadFromDatabase('babygole_tracker', []);
+        loadCommunityNotifications();
+        forumPosts = loadFromDatabase('babygole_forum', [
+            { id: 1, author: "แม่น้องติน", title: "น้อง 8 เดือน ไม่ยอมกินข้าวบด ทำยังไงดีคะ?", detail: "พ่นข้าวออกตลอดเลยค่ะ", replies: [{author: "ผู้ดูแลระบบ", text: "ลองเปลี่ยนเป็นวิธี BLW ให้หยิบจับเองดูนะครับ"}] },
+            { id: 2, author: "พ่อแม่น้องเหนือ", title: "ลูกเริ่มหัดเดินแล้วกลัวเดินเอง", detail: "เวลาปล่อยเดินจะกลัวและร้องไห้ ไม่กล้าปล่อยมือ", replies: [{author: "ผู้ดูแลระบบ", text: "ให้วางของเล่นใกล้ ๆ และค่อย ๆ ปล่อยมือทีละนิด พร้อมให้กำลังใจ"}] },
+            { id: 3, author: "คุณแม่เจิน", title: "ผื่นแพ้ผ้าอ้อมขึ้นบ่อยควรทำอย่างไร", detail: "เวลาทำความสะอาดแล้วก็ยังแดงและแสบ", replies: [{author: "แม่ชาวบ้าน", text: "ลองเปลี่ยนผ้าอ้อมบ่อย ๆ และใช้ครีมบำรุงผิวเด็ก"}] },
+            { id: 4, author: "นายเปิ้ล", title: "ลูกมีปัญหาการนอนยาวช่วงกลางคืน", detail: "นอนหลับไม่ต่อเนื่อง ตื่นกลางดึกบ่อยมาก", replies: [{author: "ผู้เชี่ยวชาญ", text: "จัดตารางนอนให้เป็นเวลา ลดการเล่นก่อนนอน และตรวจสอบสิ่งแวดล้อมในห้อง"}] },
+            { id: 5, author: "แม่จันทร์", title: "ลูกน้อยชอบหยิบของเข้าปากตลอด", detail: "กังวลเรื่องของเล็กและความสะอาด", replies: [{author: "คุณหมอ", text: "เตรียมของเล่นปลอดภัยให้หยิบจับ และคอยดูแลอย่างใกล้ชิด"}] }
+        ]);
 
         let currentUser = null;
         let isAdminMode = false;
@@ -358,55 +663,233 @@
         const devDataMap = {
             '0-1': { 
                 t: "เด็กทารก (0 - 1 ปี)", 
-                b: "ชันคอ พลิกคว่ำพลิกหงาย คลาน นั่งได้โดยไม่ต้องพิง เกาะยืน และเริ่มเดินเตาะแตะ หยิบของชิ้นเล็กด้วยนิ้วโป้งและนิ้วชี้", 
-                s: "จำหน้าและเสียงพ่อแม่ได้ เริ่มเข้าใจคำสั่งง่ายๆ เช่น 'ไม่', 'มานี่', หันหาเสียงเรียกชื่อตนเอง", 
-                a: "ยิ้มตอบเมื่อมีคนเล่นด้วย ร้องไห้เพื่อสื่อสาร (หิว, ง่วง, เจ็บ) เริ่มมีอาการติดคนเลี้ยงและกลัวคนแปลกหน้า",
-                w: "หากอายุ 6 เดือนยังไม่ชันคอ หรือ 12 เดือนยังไม่เกาะยืน ควรปรึกษาแพทย์"
+                b: "ช่วงแรกของชีวิตเด็กจะพัฒนากล้ามเนื้อและการทรงตัวอย่างช้า ๆ แต่ต่อเนื่อง เช่น ชันคอ พลิกคว่ำ พลิกหงาย คลาน นั่งได้โดยไม่ต้องพิง เกาะยืน และเริ่มเดินเตาะแตะ หยิบของชิ้นเล็กด้วยนิ้วโป้งและนิ้วชี้. ให้เวลาเล่นบนพื้นและใช้ของเล่นนิ่ม ๆ เพื่อกระตุ้นการเคลื่อนไหวและความสนใจ.", 
+                s: "เด็กเริ่มจำหน้าและเสียงพ่อแม่ได้ เข้าใจคำสั่งง่าย ๆ เช่น 'ไม่', 'มานี่' และหันมองเมื่อมีคนเรียกชื่อ. การคุยกับลูก เล่านิทานสั้น ๆ และยิ้มตอบกันทุกวันช่วยพัฒนาภาษาและความสัมพันธ์ได้ดี.", 
+                a: "เด็กจะเริ่มยิ้มตอบเมื่อมีคนเล่นด้วย ร้องไห้เพื่อสื่อสารความต้องการ เช่น หิว ง่วง เจ็บ และเริ่มมีความกลัวคนแปลกหน้า. คุณแม่ควรใช้เสียงอ่อนนุ่มและสัมผัสที่มีความอบอุ่นเพื่อให้ลูกรู้สึกปลอดภัย.",
+                w: "หากอายุ 6 เดือนยังไม่ชันคอหรือ 12 เดือนยังไม่เกาะยืน ควรปรึกษาแพทย์ หากไม่ตอบสนองต่อเสียงเรียก ไม่มองหน้า หรือมีอาการตัวแข็งเกินไป ควรเฝ้าสังเกตและปรึกษาผู้เชี่ยวชาญ",
+                momTips: [
+                    "ให้ลูกได้พักผ่อนและนอนหลับตามความต้องการ เพราะการนอนมีผลต่อพัฒนาการมาก",
+                    "ใช้เวลา 10-15 นาทีคุยเล่นกับลูกทุกวัน แม้จะเป็นแค่การยิ้มและพูดคุยแบบเรียบง่าย",
+                    "สังเกตสัญญาณของลูกเช่น หิว ง่วง หรือไม่สบาย เพื่อป้องกันการร้องไห้รุนแรง",
+                    "ไม่ต้องกดดันให้ลูกทำอะไรเร็วกว่าค่าเฉลี่ย เพราะช่วงนี้พัฒนาตามลำดับของแต่ละคน"
+                ],
+                activities: [
+                    "ปล่อยให้ลูกนอนเล่นบนพื้นและเลื่อนตามองสิ่งต่าง ๆ รอบตัว",
+                    "ใช้ของเล่นสีสดใสและมีเสียงเบา ๆ เพื่อกระตุ้นการมองและการได้ยิน",
+                    "เล่านิทานหรือร้องเพลงให้ลูกฟังเป็นประจำเพื่อพัฒนาทักษะภาษา"
+                ],
+                dailyCare: [
+                    "เช็ดตัวและเปลี่ยนผ้าอ้อมบ่อย ๆ เพื่อให้ลูกรู้สึกสบาย",
+                    "ดูแลการนอนหลับและห้องนอนให้อบอุ่นและเงียบสงบ",
+                    "สังเกตอุจจาระและปริมาณน้ำนมหรืออาหารที่ลูกรับประทาน"
+                ],
+                commonConcerns: [
+                    "หากลูกมีไข้สูง หายใจเร็ว หรือไม่กินนม ควรปรึกษาแพทย์ทันที",
+                    "หากลูกอ่อนแรงเกินไปหรือไม่ตอบสนองต่อสิ่งเร้า ควรพบหมออย่างเร่งด่วน"
+                ]
             },
             '1-3': { 
                 t: "วัยเตาะแตะ (1 - 3 ปี)", 
-                b: "เดินได้คล่อง วิ่ง ปีนป่าย ขีดเขียนเป็นเส้นยุ่งๆ ต่อบล็อกไม้ได้ 2-4 ชั้น ถือช้อนตักอาหารเองได้", 
-                s: "พูดเป็นประโยคสั้นๆ 2-3 คำติดกัน รู้จักและชี้อวัยวะบนใบหน้าได้ ทำตามคำสั่งต่อเนื่องได้ 2 ขั้นตอน", 
-                a: "เริ่มแสดงความเป็นเจ้าของ 'ของหนู' หวงของ มีอารมณ์หงุดหงิดเวลาถูกขัดใจ (วัยทอง 2 ขวบ)",
-                w: "หากอายุ 2 ขวบยังไม่พูดคำที่มีความหมาย หรือเดินเขย่งปลายเท้าตลอดเวลา ควรพบแพทย์"
+                b: "เด็กจะเดินได้คล่อง วิ่ง ปีนป่าย ขีดเขียนเป็นเส้นยุ่ง ๆ ต่อบล็อกไม้ได้ 2-4 ชั้น และถือช้อนตักอาหารเองได้. ช่วงนี้เป็นช่วงที่กล้ามเนื้อใหญ่และกล้ามเนื้อมัดเล็กพัฒนาอย่างรวดเร็ว จึงควรให้เวลาวิ่งเล่นและเล่นกับของเล่นที่กระตุ้นการใช้มือ.", 
+                s: "พูดเป็นประโยคสั้น ๆ 2-3 คำติดกัน รู้จักและชี้อวัยวะบนใบหน้าได้ ทำตามคำสั่งต่อเนื่องได้ 2 ขั้นตอน และเริ่มเข้าใจคำว่า 'ขอบคุณ' 'ขอโทษ' และ 'รอ' ได้. คุณแม่สามารถพัฒนาภาษาโดยการเล่านิทานและถามคำถามง่าย ๆ.", 
+                a: "เด็กเริ่มแสดงความเป็นเจ้าของและหวงของ มีอารมณ์หงุดหงิดเมื่อถูกขัดใจ และเริ่มเรียนรู้การแบ่งปันและรอคอย. คุณแม่ควรสอนด้วยคำพูดที่อ่อนโยนและให้โอกาสให้ลูกลองทำเองบ้าง.", 
+                w: "หากอายุ 2 ขวบยังไม่พูดคำที่มีความหมาย หรือเดินเขย่งปลายเท้าตลอดเวลา ควรพบแพทย์ หากเด็กไม่สนใจเล่นกับเด็กอื่น ไม่สบตา หรือมีอารมณ์ฉุนเฉียวมากเกินไป ควรให้คำปรึกษาเพิ่มเติม",
+                momTips: [
+                    "ให้ลูกมีเวลาวิ่งเล่นกลางแจ้งทุกวันเพื่อพัฒนากล้ามเนื้อและสมาธิ",
+                    "ใช้คำสั้น ๆ และชัดเจนเมื่อสอนลูก เพราะช่วงนี้ลูกเข้าใจคำมากกว่าคำยาว",
+                    "ปล่อยให้ลูกลองทำสิ่งง่าย ๆ ด้วยตนเอง เช่น เก็บของเล่น หรือช่วยตั้งโต๊ะ",
+                    "รักษาเวลาเช้า-กลางวัน-กลางคืนให้เป็นระเบียบเพื่อช่วยให้ลูกควบคุมอารมณ์ได้ดีขึ้น"
+                ],
+                activities: [
+                    "เล่นเรียงบล็อก การต่อก้อนหรือซ้อนกล่อง",
+                    "วาดเส้นและใช้ปากกาสีเพื่อฝึกมือและความคิดสร้างสรรค์",
+                    "ปล่อยให้ลูกช่วยงานบ้านง่าย ๆ เช่น เอาผ้าขนหนูไปวางหรือเอาของไปใส่ตะกร้า"
+                ],
+                dailyCare: [
+                    "นอนหลับให้เพียงพอและควบคุมเวลาเล่นก่อนนอนให้ไม่ตื่นเต้นเกินไป",
+                    "เลือกอาหารที่ปลอดภัยและหลากหลาย เพื่อฝึกการรับประทานด้วยตัวเอง",
+                    "ดูแลสุขภาพฟันและการแปรงฟันอย่างสม่ำเสมอ"
+                ],
+                commonConcerns: [
+                    "หากลูกติดกีดกันและไม่ยอมแบ่งปันหรือไม่ยอมเล่นกับผู้อื่น อาจต้องฝึกอย่างสม่ำเสมอ",
+                    "หากลูกมีอาการชัก หายใจหอบ หรือมีปัญหากินมากขึ้น ควรรีบพบแพทย์"
+                ]
             },
             '3-6': { 
                 t: "วัยก่อนเรียน (3 - 6 ปี)", 
-                b: "ทรงตัวดี วิ่งสลับขา กระโดดสองขา แปรงฟันและอาบน้ำเองได้บางส่วน วาดรูปวงกลมและคนแบบง่ายๆ", 
-                s: "นับเลข 1-10 ได้ ช่างซักถาม 'ทำไม?' 'อะไร?' เข้าใจเรื่องสี เล่าเรื่องราวเป็นตุเป็นตะ", 
-                a: "ชอบเล่นกับเพื่อน (Play ร่วมกัน) เข้าใจกติกาการรอคอย แบ่งปันของเล่น เริ่มมีความเห็นอกเห็นใจผู้อื่น",
-                w: "หากไม่สบตา ไม่สนใจเล่นกับเด็กวัยเดียวกัน หรือพูดไม่ชัดจนคนอื่นฟังไม่รู้เรื่อง ควรปรึกษาผู้เชี่ยวชาญ"
+                b: "เด็กจะทรงตัวดีขึ้น วิ่งสลับขา กระโดดสองขา แปรงฟันและอาบน้ำเองได้บางส่วน วาดรูปวงกลมและคนแบบง่าย ๆ. ช่วงนี้เหมาะกับการเล่นกีฬาเบา ๆ การเล่นกลุ่ม และกิจกรรมที่ฝึกความอดทนและความรับผิดชอบ.", 
+                s: "เด็กนับเลข 1-10 ได้ ชอบถามคำถามว่า 'ทำไม?' 'อะไร?' เข้าใจเรื่องสีและเล่าเรื่องราวเป็นตำนานง่าย ๆ ได้. การอ่านนิทานและถามคำถามปลายเปิดจะช่วยพัฒนาความคิดและคำศัพท์ได้เยอะ.", 
+                a: "เด็กชอบเล่นกับเพื่อน เข้าใจกติกาการรอคอย แบ่งปันของเล่น และเริ่มเห็นอกเห็นใจผู้อื่น. คุณแม่สามารถช่วยฝึกความเป็นเลิศในสังคมด้วยการปล่อยให้ลูกเล่นกับเพื่อนและสอนกฎง่าย ๆ.",
+                w: "หากไม่สบตา ไม่สนใจเล่นกับเด็กวัยเดียวกัน หรือพูดไม่ชัดจนคนอื่นฟังไม่รู้เรื่อง ควรปรึกษาผู้เชี่ยวชาญ หากมีปัญหาเรื่องควบคุมอารมณ์ ปฏิเสธการเปลี่ยนกิจกรรม หรือเครียดมากเกินไป ควรสังเกตในระยะยาว",
+                momTips: [
+                    "ช่วงนี้ลูกเรียนรู้จากการเล่นและการสังเกต จึงควรจัดสภาพแวดล้อมให้ปลอดภัยและสนุก",
+                    "ให้ลูกมีโอกาสเล่นกับเพื่อนหรือพี่น้องเพื่อฝึกความร่วมมือ",
+                    "สร้างกิจวัตรง่าย ๆ เช่น ทำการบ้านก่อนเล่น หรือช่วยเก็บของก่อนนอน",
+                    "ชมความพยายามของลูกเสมอ เพื่อสร้างความมั่นใจ"
+                ],
+                activities: [
+                    "เล่นเกมแบบง่าย ๆ เช่น ซ่อนของหรือเรียงลำดับ",
+                    "วาดภาพและปั้นแป้งเพื่อฝึกจินตนาการ",
+                    "เดินเล่นกลางแจ้งและดูสัตว์พาหะหรือพืชผักเพื่อกระตุ้นความอยากรู้อยากเห็น"
+                ],
+                dailyCare: [
+                    "จัดเวลาเรียนรู้และเวลาเล่นให้สมดุลกัน",
+                    "สอนการแปรงฟันและการล้างมืออย่างสม่ำเสมอ",
+                    "คอยดูแลโภชนาการและน้ำดื่มให้เพียงพอ"
+                ],
+                commonConcerns: [
+                    "หากลูกชอบแยกตัว หงุดหงิดง่าย หรือมีปัญหาในการนอนหลับ ควรสังเกตว่าเกิดจากความเครียดหรือความไม่สะดวกในชีวิตประจำวัน",
+                    "หากลูกมีอาการหอบ ไอเรื้อรัง หรือมีการเจริญเติบโตช้า ควรพบแพทย์"
+                ]
             },
             '6+': { 
                 t: "วัยเรียน (6 ปีขึ้นไป)", 
-                b: "แข็งแรง เล่นกีฬา กิจกรรมโลดโผน ปั่นจักรยานสองล้อได้ การใช้กล้ามเนื้อมัดเล็กในการเขียนหนังสือแม่นยำขึ้น", 
-                s: "อ่านออกเขียนได้ มีสมาธิจดจ่อกับบทเรียนได้นานขึ้น เข้าใจตรรกะและเหตุผลที่เป็นนามธรรมมากขึ้น", 
-                a: "ให้ความสำคัญกับกลุ่มเพื่อน (ติดเพื่อน) เริ่มเปรียบเทียบตัวเองกับคนอื่น เข้าใจความรู้สึกและเคารพสิทธิของผู้อื่น",
-                w: "หากมีปัญหาด้านการอ่านเขียนรุนแรง (สลับตัวอักษร) หรือไม่มีสมาธิจนรบกวนการเรียน อาจเข้าข่ายสมาธิสั้นหรือ LD"
+                b: "เด็กจะแข็งแรงขึ้น เล่นกีฬา กิจกรรมโลดโผน ปั่นจักรยานสองล้อได้ และใช้กล้ามเนื้อมัดเล็กในการเขียนหนังสือแม่นยำขึ้น. ช่วงนี้พัฒนาความรับผิดชอบและความมั่นใจจากการทำงานกลุ่มและงานบ้านเล็ก ๆ.", 
+                s: "เด็กอ่านออกเขียนได้ มีสมาธิจดจ่อกับบทเรียนได้นานขึ้น เข้าใจตรรกะและเหตุผลที่เป็นนามธรรมมากขึ้น. คุณแม่สามารถส่งเสริมด้วยการอ่านหนังสือร่วมกันและช่วยแก้ปัญหาง่าย ๆ โดยไม่ทำให้ลูกรู้สึกกดดัน.", 
+                a: "เด็กให้ความสำคัญกับกลุ่มเพื่อน เริ่มเปรียบเทียบตัวเองกับผู้อื่น และมีความเข้าใจในความรู้สึกของคนอื่นมากขึ้น. การสอนให้รู้จักแบ่งปัน กฎกติกา และสื่อสารอย่างเหมาะสมจะช่วยให้เขาเติบโตอย่างมั่นคง.",
+                w: "หากมีปัญหาด้านการอ่านเขียนรุนแรง (สลับตัวอักษร) หรือไม่มีสมาธิจนรบกวนการเรียน อาจเข้าข่ายสมาธิสั้นหรือ LD หากมีอาการซึมเศร้า วิตกกังวล หรือปฏิเสธการเข้าสังคม ควรปรึกษาผู้เชี่ยวชาญ",
+                momTips: [
+                    "สร้างพฤติกรรมที่ดีตั้งแต่เล็ก ๆ เช่น การช่วยเก็บของ ทำความสะอาดโต๊ะ และรับผิดชอบงานเล็ก ๆ",
+                    "คอยสังเกตความเครียดจากการเรียนหรือเพื่อนสนิท เพราะช่วงนี้อาจมีความกังวลจากสังคมมากขึ้น",
+                    "ใช้คำชมและคำชื่นชมเพื่อเสริมความมั่นใจในตัวเอง",
+                    "คุยกับลูกเป็นประจำเพื่อให้เขารู้สึกว่าคุณแม่เข้าใจเขา"
+                ],
+                activities: [
+                    "ปล่อยให้ลูกทำงานบ้านเล็ก ๆ เช่น ช่วยล้างจานหรือเก็บหนังสือ",
+                    "สนับสนุนการเล่นกีฬาตามวัยเพื่อเสริมสุขภาพและความอดทน",
+                    "อ่านหนังสือและคุยเรื่องราวในชีวิตประจำวันเพื่อพัฒนาทักษะทางภาษา"
+                ],
+                dailyCare: [
+                    "ดูแลการนอนหลับและเวลาหน้าโรงเรียนให้เพียงพอ",
+                    "สอนนิสัยการล้างมือก่อนอาหารและหลังจากใช้ห้องน้ำ",
+                    "คอยช่วยให้ลูกมีสมดุลระหว่างเรียน เล่น และพักผ่อน"
+                ],
+                commonConcerns: [
+                    "หากลูกมีปัญหากับเพื่อนหรือกลัวการไปโรงเรียน ควรคุยและให้กำลังใจอย่างสม่ำเสมอ",
+                    "หากมีอาการบกพร่องทางการเรียนหรือซึมเศร้า ควรปรึกษาผู้เชี่ยวชาญโดยเร็ว"
+                ]
             }
         };
 
         // --- ข้อมูลโภชนาการ (50 เมนู) ---
         const foodsData = [
-            { c: "อาหารสำหรับวัย 6 เดือน (บดละเอียด)", items: [ "ข้าวบดตำลึงตับหมู", "ซุปฟักทองนมแม่", "อะโวคาโดบดกล้วย", "ข้าวบดแครอทไข่แดง", "มันเทศบดแอปเปิ้ล", "ข้าวโอ๊ตบดผสมนมแม่", "ซุปผักกาดขาวเต้าหู้หลอด", "ปวยเล้งบดไก่สับละเอียด", "ข้าวบดมะละกอสุก", "บล็อกโคลี่บดปลาทับทิม", "ข้าวตุ๋นตำลึงหมูสับบด", "ฟักเขียวบดไข่แดง", "กล้วยน้ำว้าขูด", "ข้าวบดฟักทองปลาช่อน", "ซุปข้าวโพดหวานบดละเอียด" ] },
-            { c: "อาหารสำหรับวัย 7-8 เดือน (บดหยาบ/เนื้อสัตว์สับ)", items: [ "ข้าวตุ๋นแครอทไก่สับ", "โจ๊กข้าวกล้องตับหมู", "ซุปมักกะโรนีหมูสับ", "ข้าวต้มปลาแซลมอน", "มันฝรั่งบดผสมไข่คน", "ข้าวบดบร็อคโคลี่กุ้งสับ", "ซุปไก่มันฝรั่งมะเขือเทศ", "ฟักทองผัดไข่บดหยาบ", "ข้าวตุ๋นดอกกะหล่ำปลาแพนกาเซียส", "แกงจืดตำลึงเต้าหู้หมูสับ(ไม่ปรุงรส)", "ข้าวผัดเนยจืดไข่แดง", "ข้าวตุ๋นเห็ดหอมไก่ฉีก", "ซุปหัวหอมไข่ตุ๋น", "พาสต้าจิ๋วซอสมะเขือเทศ", "ข้าวต้มหมูสับใส่ผักโขม" ] },
-            { c: "อาหารสำหรับวัย 9-12 เดือน (หั่นเต๋า/Finger Food)", items: [ "ข้าวผัดสามสีไข่เจียวหั่นเต๋า", "ข้าวปั้นทูน่า", "แพนเค้กกล้วยหอมข้าวโอ๊ต", "มินิเบอร์เกอร์หมูสับผักซ่อน", "ฟักทองอบแท่ง", "ข้าวต้มปลาทูแกะก้าง", "ไข่ม้วนผักรวม", "อุด้งไก่น้ำใส", "ข้าวหมูตุ๋นแครอทนิ่ม", "แซนวิชโรลไส้ไข่ต้มบด" ] },
-            { c: "อาหารสำหรับวัย 1 ปีขึ้นไป (ปรุงรสอ่อน/ทานร่วมครอบครัว)", items: [ "ข้าวผัดกุ้งไข่", "สปาเก็ตตี้คาโบนาร่าเด็ก", "ต้มจืดกระดูกหมูอ่อนเห็ดหอม", "ไก่อบซอสส้ม", "ปลากะพงนึ่งซีอิ๊ว", "หมูปั้นทอดกระเทียม(นิ่ม)", "ข้าวไก่เทอริยากิ", "แกงเลียงกุ้งสดผักรวม(ไม่เผ็ด)", "มักกะโรนีอบชีสใส่บร็อคโคลี่", "บัวลอยฟักทองน้ำกะทิอ่อน" ] }
+            { c: "อาหารสำหรับวัย 6 เดือน (บดละเอียด)", items: [ "ข้าวบดตำลึงตับหมู", "ซุปฟักทองนมแม่", "อะโวคาโดบดกล้วย", "ข้าวบดแครอทไข่แดง", "มันเทศบดแอปเปิ้ล", "ข้าวโอ๊ตบดผสมนมแม่", "ซุปผักกาดขาวเต้าหู้หลอด", "ปวยเล้งบดไก่สับละเอียด", "ข้าวบดมะละกอสุก", "บล็อกโคลี่บดปลาทับทิม", "ข้าวตุ๋นตำลึงหมูสับบด", "ฟักเขียวบดไข่แดง" ] },
+            { c: "อาหารสำหรับวัย 7-8 เดือน (บดหยาบ/เนื้อสัตว์สับ)", items: [ "ข้าวตุ๋นแครอทไก่สับ", "โจ๊กข้าวกล้องตับหมู", "ซุปมักกะโรนีหมูสับ", "ข้าวต้มปลาแซลมอน", "มันฝรั่งบดผสมไข่คน", "ข้าวบดบร็อคโคลี่กุ้งสับ", "ซุปไก่มันฝรั่งมะเขือเทศ", "ฟักทองผัดไข่บดหยาบ", "ข้าวตุ๋นดอกกะหล่ำปลาแพนกาเซียส", "แกงจืดตำลึงเต้าหู้หมูสับ(ไม่ปรุงรส)", "ข้าวผัดเนยจืดไข่แดง", "ข้าวตุ๋นเห็ดหอมไก่ฉีก", "ซุปหัวหอมไข่ตุ๋น", "พาสต้าจิ๋วซอสมะเขือเทศ" ] },
+            { c: "อาหารสำหรับวัย 9-12 เดือน (หั่นเต๋า/Finger Food)", items: [ "ข้าวผัดสามสีไข่เจียวหั่นเต๋า", "ข้าวปั้นทูน่า", "แพนเค้กกล้วยหอมข้าวโอ๊ต", "มินิเบอร์เกอร์หมูสับผักซ่อน", "ฟักทองอบแท่ง", "ข้าวต้มปลาทูแกะก้าง", "ไข่ม้วนผักรวม", "อุด้งไก่น้ำใส", "ข้าวหมูตุ๋นแครอทนิ่ม", "แซนวิชโรลไส้ไข่ต้มบด", "ข้าวกล้องคลุกผักกุ้ง", "ข้าวต้มปลาทูผสมผัก" ] },
+            { c: "อาหารสำหรับวัย 1 ปีขึ้นไป (ปรุงรสอ่อน/ทานร่วมครอบครัว)", items: [ "ข้าวผัดกุ้งไข่", "สปาเก็ตตี้คาโบนาร่าเด็ก", "ต้มจืดกระดูกหมูอ่อนเห็ดหอม", "ไก่อบซอสส้ม", "ปลากะพงนึ่งซีอิ๊ว", "หมูปั้นทอดกระเทียม(นิ่ม)", "ข้าวไก่เทอริยากิ", "แกงเลียงกุ้งสดผักรวม(ไม่เผ็ด)", "มักกะโรนีอบชีสใส่บร็อคโคลี่", "บัวลอยฟักทองน้ำกะทิอ่อน", "แกงส้มชะอมไข่ปลากะพง", "ข้าวต้มไก่ใส่ฟักทอง" ] },
+            { c: "อาหารสำหรับวัย 2-3 ปี (ทานเองได้มากขึ้น)", items: [ "ข้าวผัดผักรวมเนื้อไก่", "สลัดฟักทองนิ่ม", "แซนวิชไข่ต้ม", "สปาเก็ตตี้ซอสมะเขือเทศเด็ก", "ต้มจืดเต้าหู้หมูสับ", "แผ่นไข่เจียวหั่นเส้น", "แกงจืดผักกาดขาวไก่", "ข้าวต้มเปื่อยหมูสับ", "ขนมปังอบเนยถั่ว", "สลัดผลไม้บดนม" ] },
+            { c: "อาหารสำหรับวัย 3-4 ปี (ฝึกทานเองกับครอบครัว)", items: [ "ข้าวผัดแฮมผักรวม", "สปาเก็ตตี้ซอสมะเขือเทศกับเนื้อบด", "ลูกชิ้นทอดนิ่ม", "แกงจืดวุ้นเส้นหมูสับ", "ข้าวต้มเห็ดหอมไก่", "ซุปบล็อกโคลี่ครีม", "ขนมปังปิ้งกับเนยถั่ว", "ไข่คนผักโขม", "สลัดผักต้มแครอท", "เส้นก๋วยเตี๋ยวผักต้ม" ] },
+            { c: "อาหารสำหรับวัย 4-5 ปี (ร่วมทานครอบครัว)", items: [ "ข้าวผัดปลากระพง", "ผัดบล็อกโคลี่ไก่", "สปาเก็ตตี้คาโบนาร่าไก่", "แกงจืดผักกาดขาว", "ปลานึ่งมะนาวไม่เผ็ด", "สลัดวุ้นเส้นผักสด", "ไข่ตุ๋นผักรวม", "ข้าวโพดต้มเนย", "ขนมปังโฮลวีทใส่ชีส", "ข้าวกล้องผัดไข่" ] },
+            { c: "เมนูว่างสุขภาพสำหรับเด็ก", items: [ "ขนมปังข้าวไรย์เนยถั่ว", "โยเกิร์ตผลไม้บด", "ลูกเกดและธัญพืชอ่อน", "เต้าหู้ทอดนิ่ม", "แครอทต้มผสมฮัมมุส", "ข้าวโอ๊ตปั่นกับกล้วย", "แตงกวาหั่นแท่งคู่ชีส", "แตงโมหั่นเต๋า", "มะม่วงสุกบดกับข้าวเหนียวจืด", "สมูทตี้ผลไม้และผักโขม" ] }
         ];
 
         // --- ข้อมูลความรู้ ---
         const knowledgeData = [
-            { cat: "เตรียมพร้อมคุณแม่มือใหม่ (การดูแลตัวเอง)", items: [ "ภาวะเบบี้บลูส์ (Baby Blues) หรืออารมณ์เศร้าหลังคลอดเป็นเรื่องปกติ ควรหาคนช่วยเลี้ยงและพักผ่อนให้เพียงพอ", "คุณแม่ควรหาเวลานอนพักผ่อนพร้อมกับตอนที่ลูกหลับ (Sleep when baby sleeps)", "ดื่มน้ำให้เยอะๆ อย่างน้อยวันละ 2-3 ลิตร เพื่อช่วยเรื่องการผลิตน้ำนม", "อย่ากดดันตัวเองมากเกินไป การเป็นแม่คือการเรียนรู้ไปพร้อมกับลูก" ] },
-            { cat: "การให้นมและการปั๊มนม", items: [ "ทารกแรกเกิดควรดูดนมทุกๆ 2-3 ชั่วโมง หรือประมาณ 8-12 ครั้งต่อวัน", "วิธีสังเกตว่าลูกอิ่ม: ลูกคายเต้าเอง, มือแบออกและผ่อนคลาย, หลับสนิท, และปัสสาวะ 6-8 ครั้งต่อวัน", "น้ำนมแม่ที่ปั๊มแล้ว แช่ช่องแข็งตู้เย็น 2 ประตู สามารถเก็บได้นาน 3-6 เดือน", "อาหารบำรุงน้ำนม เช่น หัวปลี, ขิง, ฟักทอง, ใบกะเพรา, และอินทผลัม" ] },
-            { cat: "การดูแลทารกแรกเกิด (Newborn Care)", items: [ "การเช็ดสะดือ: ควรเช็ดด้วยแอลกอฮอล์ 70% จากโคนไปปลายจนกว่าสะดือจะหลุดและแห้งสนิท (ประมาณ 7-14 วัน)", "ผื่นผ้าอ้อม: เปลี่ยนผ้าอ้อมทุก 2-3 ชม. ทำความสะอาดและซับผิวให้แห้งสนิทก่อนใส่ผืนใหม่เสมอ", "การห่อตัวทารกช่วยให้เด็กรู้สึกปลอดภัยเหมือนอยู่ในครรภ์แม่ และลดอาการสะดุ้งตื่น (Moro Reflex)", "การอาบน้ำ: ไม่จำเป็นต้องอาบน้ำบ่อย วันละ 1-2 ครั้งก็เพียงพอ ใช้น้ำอุณหภูมิปกติ-อุ่นเล็กน้อย" ] },
-            { cat: "การสังเกตอาการผิดปกติ (สุขภาพทารก)", items: [ "อุจจาระของทารกที่ทานนมแม่มักจะเหลว สีเหลืองทอง และมีเม็ดมะเขือเทศ ถือว่าเป็นเรื่องปกติ", "ภาวะตัวเหลือง in ทารกแรกเกิด มักเกิดในช่วง 2-3 วันแรก หากเหลืองมากจนลามมาถึงขาควรพาไปพบแพทย์", "อาการโคลิค (ร้องไห้รุนแรงช่วงเย็น-ค่ำ) มักเกิดในช่วงอายุ 2-4 สัปดาห์ และจะค่อยๆ ดีขึ้นเมื่ออายุ 3-4 เดือน", "ทารกอายุต่ำกว่า 3 เดือน หากมีไข้สูงเกิน 38 องศาเซลเซียส ควรรีบพาไปพบแพทย์ทันที" ] },
-            { cat: "การนอนหลับของลูกน้อย", items: [ "ทารกแรกเกิดต้องการนอน 14-17 ชม. ต่อวัน", "ควรให้ทารกนอนหงาย ปราศจากหมอน ผ้าห่มหนาๆ และตุ๊กตารอบตัว เพื่อลดความเสี่ยง SIDS (โรคไหลตายในทารก)", "จัดตารางเวลานอน (Bedtime Routine) ให้สม่ำเสมอ เช่น อาบน้ำ อ่านนิทาน ปิดไฟ", "กลางวันควรให้มีแสงสว่างและเสียงปกติ กลางคืนควรมืดและเงียบ เพื่อให้ลูกเรียนรู้กลางวัน-กลางคืน" ] },
-            { cat: "ความปลอดภัยขั้นพื้นฐาน", items: [ "ปิดปลั๊กไฟด้วยที่ครอบ และเก็บของมีคม สารเคมี ให้พ้นมือและสายตาเด็ก", "คาร์ซีท (Car Seat) เป็นสิ่งจำเป็น ห้ามอุ้มเด็กนั่งตักเวลาเดินทางด้วยรถยนต์เด็ดขาด", "ระวังของชิ้นเล็ก เช่น เหรียญ ถ่านกระดุม เข้าปาก เพราะเสี่ยงต่อการติดคอหลอดลม", "อย่าปล่อยเด็กไว้ในอ่างอาบน้ำหรือบนเตียงสูงตามลำพังแม้แต่วินาทีเดียว" ] }
+            { cat: "เตรียมพร้อมคุณแม่มือใหม่ (การดูแลตัวเอง)", items: [
+                "ภาวะเบบี้บลูส์ (Baby Blues) หรืออารมณ์เศร้าหลังคลอดเป็นเรื่องปกติ ควรหาคนช่วยเลี้ยงและพักผ่อนให้เพียงพอ",
+                "คุณแม่ควรหาเวลานอนพักผ่อนพร้อมกับตอนที่ลูกหลับ (Sleep when baby sleeps)",
+                "ดื่มน้ำให้เยอะๆ อย่างน้อยวันละ 2-3 ลิตร เพื่อช่วยเรื่องการผลิตน้ำนม",
+                "อย่ากดดันตัวเองมากเกินไป การเป็นแม่คือการเรียนรู้ไปพร้อมกับลูก",
+                "หาเวลาออกกำลังกายแบบเบาๆ เช่น เดินช้า ๆ หรือยืดเหยียด เพื่อช่วยคลายเครียด",
+                "แบ่งหน้าที่กับคนดูแลคนอื่นได้ เช่น คุณพ่อ คุณยาย หรือพี่เลี้ยง เพื่อพักผ่อนบ้าง",
+                "บันทึกอารมณ์ความรู้สึกไว้เป็นประจำ เพื่อช่วยสังเกตว่าควรปรึกษาผู้เชี่ยวชาญหรือเปล่า",
+                "กินอาหารให้ครบ 5 หมู่และพักผ่อนให้เพียงพอ เพราะสุขภาพแม่ส่งผลต่อสุขภาพลูก"
+            ] },
+            { cat: "การให้นมและการปั๊มนม", items: [
+                "ทารกแรกเกิดควรดูดนมทุกๆ 2-3 ชั่วโมง หรือประมาณ 8-12 ครั้งต่อวัน",
+                "วิธีสังเกตว่าลูกอิ่ม: ลูกคายเต้าเอง, มือแบออกและผ่อนคลาย, หลับสนิท, และปัสสาวะ 6-8 ครั้งต่อวัน",
+                "น้ำนมแม่ที่ปั๊มแล้ว แช่ช่องแข็งตู้เย็น 2 ประตู สามารถเก็บได้นาน 3-6 เดือน",
+                "อาหารบำรุงน้ำนม เช่น หัวปลี, ขิง, ฟักทอง, ใบกะเพรา, และอินทผลัม",
+                "ถ้าปั๊มไม่ออก ลองนวดเต้านมและอาบน้ำอุ่นก่อนเพื่อกระตุ้นการไหลของน้ำนม",
+                "ยึดเวลาการให้นมให้สม่ำเสมอ แม้จะรอบหลัก ช่วยให้ทารกรู้สึกปลอดภัย",
+                "เปลี่ยนข้างการให้นมในแต่ละมื้อ เพื่อให้เต้านมได้รับการกระตุ้นอย่างเท่าเทียม",
+                "ทำความสะอาดอุปกรณ์ปั๊มนมทุกครั้งหลังใช้ เพื่อป้องกันการติดเชื้อ"
+            ] },
+            { cat: "การดูแลทารกแรกเกิด (Newborn Care)", items: [
+                "การเช็ดสะดือ: ควรเช็ดด้วยแอลกอฮอล์ 70% จากโคนไปปลายจนกว่าสะดือจะหลุดและแห้งสนิท (ประมาณ 7-14 วัน)",
+                "ผื่นผ้าอ้อม: เปลี่ยนผ้าอ้อมทุก 2-3 ชม. ทำความสะอาดและซับผิวให้แห้งสนิทก่อนใส่ผืนใหม่เสมอ",
+                "การห่อตัวทารกช่วยให้เด็กรู้สึกปลอดภัยเหมือนอยู่ในครรภ์แม่ และลดอาการสะดุ้งตื่น (Moro Reflex)",
+                "การอาบน้ำ: ไม่จำเป็นต้องอาบน้ำบ่อย วันละ 1-2 ครั้งก็เพียงพอ ใช้น้ำอุณหภูมิปกติ-อุ่นเล็กน้อย",
+                "การตัดเล็บลูกน้อย: ใช้กรรไกรปลายมนและตัดเมื่อเล็บแห้ง เพื่อป้องกันบาดผิว",
+                "วิธีใส่ผ้าอ้อม: อย่าใส่แน่นเกินไป ป้องกันการเสียดสีและรอยแดง",
+                "การนวดทารก: นวดเบา ๆ ด้วยน้ำมันธรรมชาติ ช่วยผ่อนคลายและกระตุ้นระบบไหลเวียนเลือด",
+                "สังเกตการหายใจ: หากลูกหายใจเร็วหรือมีเสียงคราง ควรรีบพบแพทย์"
+            ] },
+            { cat: "การสังเกตอาการผิดปกติ (สุขภาพทารก)", items: [
+                "อุจจาระของทารกที่ทานนมแม่มักจะเหลว สีเหลืองทอง และมีเม็ดมะเขือเทศ ถือว่าเป็นเรื่องปกติ",
+                "ภาวะตัวเหลืองในทารกแรกเกิด มักเกิดในช่วง 2-3 วันแรก หากเหลืองมากจนลามมาถึงขาควรพาไปพบแพทย์",
+                "อาการโคลิค (ร้องไห้รุนแรงช่วงเย็น-ค่ำ) มักเกิดในช่วงอายุ 2-4 สัปดาห์ และจะค่อยๆ ดีขึ้นเมื่ออายุ 3-4 เดือน",
+                "ทารกอายุต่ำกว่า 3 เดือน หากมีไข้สูงเกิน 38 องศาเซลเซียส ควรรีบพาไปพบแพทย์ทันที",
+                "ถ้าลูกกินนมได้น้อยลง ปัสสาวะน้อย หรือหลุดน้ำหนัก ควรปรึกษากุมารแพทย์",
+                "หากพบปากแห้ง ริมฝีปากแตก หรือดวงตาไม่สดใส เป็นสัญญาณว่าอาจขาดน้ำ",
+                "เสียงครางตอนหายใจหรือมีน้ำมูกหนาติดต่อกันควรสังเกตและพาไปตรวจรักษา",
+                "หากเลือดออกจากจมูกบ่อยครั้ง หรือมีรอยช้ำโดยไม่ทราบสาเหตุ ควรปรึกษาแพทย์"
+            ] },
+            { cat: "การนอนหลับของลูกน้อย", items: [
+                "ทารกแรกเกิดต้องการนอน 14-17 ชม. ต่อวัน",
+                "ควรให้ทารกนอนหงาย ปราศจากหมอน ผ้าห่มหนาๆ และตุ๊กตารอบตัว เพื่อลดความเสี่ยง SIDS (โรคไหลตายในทารก)",
+                "จัดตารางเวลานอน (Bedtime Routine) ให้สม่ำเสมอ เช่น อาบน้ำ อ่านนิทาน ปิดไฟ",
+                "กลางวันควรให้มีแสงสว่างและเสียงปกติ กลางคืนควรมืดและเงียบ เพื่อให้ลูกเรียนรู้กลางวัน-กลางคืน",
+                "ไม่ควรปล่อยให้ลูกหลับมืดบ่อยๆ ตลอดทั้งวัน เพราะจะทำให้ตอนกลางคืนตื่นบ่อย",
+                "ห้องนอนควรมีอุณหภูมิพอเหมาะ ไม่ร้อนเกินไปและไม่เย็นจนเกินไป",
+                "ถ้าลูกตื่นบ่อย ลองตรวจสอบผ้าอ้อม แสง และเสียงรบกวนก่อน",
+                "อ่านนิทานหรือเปิดเพลงเบา ๆ ก่อนนอนช่วยให้ลูกผ่อนคลายและหลับง่ายขึ้น"
+            ] },
+            { cat: "ความปลอดภัยขั้นพื้นฐาน", items: [
+                "ปิดปลั๊กไฟด้วยที่ครอบ และเก็บของมีคม สารเคมี ให้พ้นมือและสายตาเด็ก",
+                "คาร์ซีท (Car Seat) เป็นสิ่งจำเป็น ห้ามอุ้มเด็กนั่งตักเวลาเดินทางด้วยรถยนต์เด็ดขาด",
+                "ระวังของชิ้นเล็ก เช่น เหรียญ ถ่านกระดุม เข้าปาก เพราะเสี่ยงต่อการติดคอหลอดลม",
+                "อย่าปล่อยเด็กไว้ในอ่างอาบน้ำหรือบนเตียงสูงตามลำพังแม้แต่วินาทีเดียว",
+                "ตรวจสอบสภาพของเล่นเป็นประจำ หากมีชิ้นส่วนหลุดง่ายให้ทิ้งทันที",
+                "อย่าใช้ผ้าห่มหนาหรือหมอนในเปลของทารก เพื่อป้องกันการสำลักและ SIDS",
+                "ติดบาร์กันตกบนเตียงหรือโต๊ะที่เด็กอาจปีนป่ายไปได้",
+                "วางยาทุกชนิดในตู้ล็อกหรือที่สูงเกินเอื้อมป้องกันเด็กหยิบเล่น"
+            ] },
+            { cat: "การส่งเสริมพัฒนาการด้านภาษา", items: [
+                "พูดคุยกับลูกบ่อยๆ ไม่จำเป็นต้องรอให้ลูกพูดก่อน",
+                "เล่านิทานสั้น ๆ ประกอบท่าทางช่วยให้ลูกเข้าใจคำศัพท์ได้ดีขึ้น",
+                "ร้องเพลงกล่อมและเล่นคำคล้องจองเพื่อฝึกการฟังและการออกเสียง",
+                "ตอบกลับเสียงหรือท่าทางของลูก เพื่อให้เขารู้ว่าการสื่อสารได้ผล",
+                "ใช้คำง่าย ๆ พร้อมชี้สิ่งของเพื่อสอนคำศัพท์ใหม่",
+                "อ่านป้ายหรือฉลากอาหารให้ลูกฟังในชีวิตประจำวัน",
+                "เล่นเกมถาม-ตอบง่าย ๆ เช่น 'อะไรอยู่ในตะกร้า' เพื่อกระตุ้นการคิด",
+                "ให้โอกาสลูกพูดซ้ำและชมเมื่อเขาพยายามพูดคำใหม่"
+            ] },
+            { cat: "กิจวัตรประจำวันและเวลาเล่น", items: [
+                "จัดตารางเวลาเล่นและพักผ่อนให้สม่ำเสมอ ช่วยให้ลูกมีความมั่นคง",
+                "ให้เวลาเล่นกลางแจ้งเล็กน้อย เพื่อรับแสงแดดและออกกำลังกาย",
+                "จัดมุมเล่นปลอดภัยที่มีของเล่นส่งเสริมพัฒนาการ เช่น บล็อกไม้และลูกบอล",
+                "ฝึกให้ลูกช่วยเก็บของเล่นเล็กน้อยตามวัย เพื่อสร้างความรับผิดชอบ",
+                "แนะนำกิจกรรมง่าย ๆ เช่น วาดรูป ปั้นแป้ง หรือต่อบล็อก",
+                "สลับกิจกรรมระหว่างการเคลื่อนไหวและการเล่นเงียบ เพื่อไม่ให้ลูกตื่นเต้นเกินไป",
+                "ให้ลูกมีเวลาเล่นกับเพื่อนหรือพี่น้อง เพื่อสอนการแบ่งปัน",
+                "ใช้เวลาคุณภาพร่วมกัน เช่น การเล่นด้วยกันหรืออ่านนิทานก่อนนอน"
+            ] },
+            { cat: "การดูแลเด็กป่วยและการใช้ยา", items: [
+                "เมื่อลูกมีไข้ ควรเช็ดตัวด้วยน้ำอุ่นและให้ดื่มน้ำให้เพียงพอ",
+                "ใช้ยาลดไข้ตามคำแนะนำของกุมารแพทย์ ห้ามให้ยาเกินขนาด",
+                "ถ้าลูกท้องเสีย ให้ให้ดื่มน้ำเกลือแร่และงดอาหารย่อยยาก",
+                "หากลูกไอหรือจามบ่อย ให้ตรวจสภาพห้องและความชื้น",
+                "ไม่ควรให้ยาแก้ไอเด็กเกินอายุก่อนปรึกษาแพทย์",
+                "บันทึกอาการและเวลาที่เริ่มมีไข้ เพื่อช่วยแพทย์วินิจฉัย",
+                "ถ้าลูกมีผื่นขึ้นหลังใช้ยา ควรหยุดยาและปรึกษาแพทย์ทันที",
+                "เตรียมชุดปฐมพยาบาลพื้นฐานไว้ใกล้มือ เช่น พลาสเตอร์ น้ำยาฆ่าเชื้อ และผ้าก๊อซ"
+            ] },
+            { cat: "เคล็ดลับสำหรับคุณพ่อคุณแม่ทำงาน", items: [
+                "วางแผนตารางงานและเวลากลับบ้านให้ชัดเจน เพื่อจัดเวลาเลี้ยงลูกได้ดีขึ้น",
+                "สื่อสารกับคนดูแลเด็กอย่างสม่ำเสมอ เพื่อให้รู้ถึงพัฒนาการและปัญหา",
+                "ใช้เทคโนโลยีช่วยบันทึกการกิน การนอน และอารมณ์ของลูก",
+                "เตรียมของจำเป็นสำหรับลูกไว้ที่บ้านและที่ทำงาน เช่น เสื้อผ้าสำรอง ผ้าอ้อม",
+                "จัดสรรเวลาพักผ่อนสำหรับตัวเอง เพราะพ่อแม่ที่มีสุขภาพดีจะดูแลลูกได้ดีขึ้น",
+                "เรียนรู้การปล่อยวาง และให้ตัวเองพักได้เมื่อต้องการ",
+                "หาเครือข่ายเพื่อนพ่อแม่หรือครอบครัวที่สามารถช่วยแบ่งเบาภาระได้",
+                "พูดคุยกับคู่สมรสเกี่ยวกับหน้าที่การดูแลลูก เพื่อช่วยกันวางแผนอย่างเป็นระบบ"
+            ] }
         ];
 
         // ================= Functions =================
         function showPage(pageId) {
-            const pages = ['landingPage', 'loginPage', 'registerPage', 'forgotPage', 'homePage', 'devPage', 'vaccinePage', 'foodPage', 'trackerPage', 'knowledgePage', 'aiPage', 'communityPage', 'aboutPage', 'profilePage', 'adminPage'];
+            const pages = ['landingPage', 'loginPage', 'registerPage', 'forgotPage', 'homePage', 'devPage', 'vaccinePage', 'foodPage', 'trackerPage', 'knowledgePage', 'aiPage', 'communityPage', 'notificationsPage', 'aboutPage', 'profilePage', 'adminPage'];
             pages.forEach(p => document.getElementById(p).classList.add('hidden'));
             document.getElementById(pageId).classList.remove('hidden');
 
@@ -419,7 +902,13 @@
             }
 
             if(pageId === 'adminPage') loadAdminData();
-            if(pageId === 'communityPage') renderForum();
+            if(pageId === 'communityPage') {
+                renderForum();
+                updateCommunityBadge();
+            }
+            if(pageId === 'notificationsPage') {
+                renderNotificationsPage();
+            }
             if(pageId === 'devPage' && !document.querySelector('.tab-btn.active')) setDevInfo('0-1');
             if(pageId === 'profilePage') updateProfileUI();
         }
@@ -436,9 +925,12 @@
             loadUsersFromStorage(); 
             const u = document.getElementById('loginUser').value.trim(); // ตัดเว้นวรรคเพื่อป้องกันการกดพลาด
             const p = document.getElementById('loginPass').value;
+            const loginValue = u.toLowerCase();
             
-            // ปรับเงื่อนไขให้ x.user === u หรือ x.email === u เพื่อล็อกอินผ่านอีเมลได้คู่กับรหัสเดิม
-            const found = users.find(x => (x.user === u || x.email === u) && x.pass === p);
+            const found = users.find(x => {
+                const candidates = [x.user, x.email, x.phone, ...(x.altEmails || [])];
+                return candidates.some(v => String(v || '').toLowerCase() === loginValue) && x.pass === p;
+            });
             
             if(found) {
                 if(isAdminMode && !found.isAdmin) return alert("บัญชีนี้ไม่มีสิทธิ์ Admin");
@@ -478,51 +970,89 @@
             }
         }
 
+        function normalizeUsername(value) {
+            return String(value || '').trim().toLowerCase();
+        }
+
+        function isUsernameTaken(username) {
+            const normalized = normalizeUsername(username);
+            return users.some(x => normalizeUsername(x.user) === normalized);
+        }
+
         function register() {
             loadUsersFromStorage(); 
             const n = document.getElementById('regName').value.trim();
             const ph = document.getElementById('regPhone').value.trim();
             const e = document.getElementById('regEmail').value.trim();
+            const altEmail = document.getElementById('regAltEmail').value.trim();
             const u = document.getElementById('regUser').value.trim();
             const p = document.getElementById('regPass').value;
 
             if(!n || !ph || !e || !u || !p) return alert("กรุณากรอกข้อมูลสำคัญให้ครบทุกช่อง โดยเฉพาะ Email และ Username");
-            if(users.some(x => x.user === u)) return alert("Username นี้ถูกใช้ไปแล้ว กรุณาเปลี่ยนใหม่");
+            if(isUsernameTaken(u)) return alert("ชื่อผู้ใช้งานนี้ถูกใช้ไปแล้ว");
             if(users.some(x => x.email === e)) return alert("Email นี้ถูกใช้ไปแล้ว กรุณาใช้อีเมลอื่น");
+            if(altEmail && users.some(x => x.email === altEmail || (x.altEmails || []).includes(altEmail))) return alert("อีเมลสำรองนี้ถูกใช้ไปแล้ว");
 
-            users.push({ name: n, user: u, pass: p, phone: ph, email: e, isAdmin: false, profilePic: "" });
-            localStorage.setItem('babygole_users', JSON.stringify(users));
+            const altEmails = altEmail ? [altEmail] : [];
+            users.push({ name: n, user: u, pass: p, phone: ph, email: e, altEmails, isAdmin: false, profilePic: "" });
+            saveToDatabase('babygole_users', users);
             
             alert("สมัครสมาชิกสำเร็จ!");
             document.querySelectorAll('#registerPage input').forEach(inp => inp.value = '');
+            if (document.getElementById('adminPage') && !document.getElementById('adminPage').classList.contains('hidden')) {
+                loadAdminData();
+            }
             showPage('loginPage');
         }
 
         function forgotPassword() {
             loadUsersFromStorage();
             const u = document.getElementById('forgotUser').value.trim();
-            // รองรับการกู้รหัสผ่านผ่าน username หรือ email
-            const found = users.find(x => x.user === u || x.email === u);
+            const loginValue = u.toLowerCase();
+            const found = users.find(x => {
+                const candidates = [x.user, x.email, x.phone, ...(x.altEmails || [])];
+                return candidates.some(v => String(v || '').toLowerCase() === loginValue);
+            });
             const res = document.getElementById('passResult');
             if(!found) {
-                alert("ไม่พบ Username หรือ Email นี้ในระบบ");
-                res.classList.add('hidden');
-                return;
-            }
-
-            if(found.isAdmin) {
-                res.innerHTML = "ไม่สามารถดูรหัสผ่านได้";
+                res.innerHTML = "ไม่สามารถพบรหัสผ่านของคุณได้";
                 res.classList.remove('hidden');
                 return;
             }
 
-            res.innerHTML = "รหัสผ่านของคุณคือ: <b>" + found.pass + "</b>";
+            if(found.isAdmin) {
+                res.innerHTML = "ไม่สามารถพบรหัสผ่านของคุณได้";
+                res.classList.remove('hidden');
+                return;
+            }
+
+            if(!found.email) {
+                res.innerHTML = "ไม่พบอีเมลสำหรับบัญชีนี้ กรุณาติดต่อผู้ดูแลระบบ";
+                res.classList.remove('hidden');
+                return;
+            }
+
+            const subject = encodeURIComponent('baby Gole: รหัสผ่านของคุณ');
+            const body = encodeURIComponent(`สวัสดี ${found.name || found.user}\n\nรหัสผ่านของคุณคือ: ${found.pass}\n\nกรุณาเปลี่ยนรหัสผ่านหลังจากเข้าสู่ระบบครั้งแรก`);
+            window.location.href = `mailto:${found.email}?subject=${subject}&body=${body}`;
+            res.innerHTML = `ระบบได้เตรียมส่งรหัสผ่านไปยังอีเมล ${found.email}`;
             res.classList.remove('hidden');
         }
 
-        // แก้ไขให้เพิ่มคอลัมน์ดึงค่า u.pass (รหัสผ่าน) ออกมาแสดงในตาราง Admin
         function loadAdminData() {
-            loadUsersFromStorage(); 
+            loadUsersFromStorage();
+            const adminCount = users.filter(u => u.isAdmin).length;
+            const userCount = users.length - adminCount;
+            const forumCount = forumPosts.length;
+            const replyCount = forumPosts.reduce((sum, p) => sum + (p.replies ? p.replies.length : 0), 0);
+            const trackerCount = trackerRecords.length;
+
+            document.getElementById('adminTotalUsers').innerText = users.length;
+            document.getElementById('adminCount').innerText = adminCount;
+            document.getElementById('adminForumCount').innerText = forumCount;
+            document.getElementById('adminReplyCount').innerText = replyCount;
+            document.getElementById('adminTrackerCount').innerText = trackerCount;
+
             document.getElementById('adminUserTableBody').innerHTML = users.map((u, index) => `
                 <tr>
                     <td><img src="${u.profilePic || 'https://via.placeholder.com/40'}" style="width:40px; height:40px; border-radius:50%; object-fit:cover;"></td>
@@ -530,18 +1060,77 @@
                     <td>${u.user}</td>
                     <td><code style="background:#fee2e2; color:#ef4444; padding:2px 6px; border-radius:6px; font-weight:bold;">${u.pass}</code></td>
                     <td>${u.phone}</td>
-                    <td>${u.email || '-'}</td>
+                    <td>${u.email || '-'}<br>${(u.altEmails || []).join('<br>') || ''}</td>
                     <td>${u.isAdmin ? '<b style="color:red"><i class="fa-solid fa-user-shield"></i> Admin</b>' : '<span style="color:green">User</span>'}</td>
-                    <td>${u.isAdmin ? '-' : `<button class="btn btn-outline btn-sm" style="color:var(--warn); border-color:var(--warn); padding:2px 8px;" onclick="deleteUser(${index})">ลบผู้ใช้</button>`}</td>
+                    <td>
+                        ${u.isAdmin ? `<button class="btn btn-outline btn-sm" style="color:var(--primary); border-color:var(--primary); padding:2px 8px;" onclick="toggleAdminRole(${index})">ถอดสิทธิ์ Admin</button>` : `<button class="btn btn-outline btn-sm" style="color:var(--secondary); border-color:var(--secondary); padding:2px 8px;" onclick="toggleAdminRole(${index})">แต่งตั้ง Admin</button>`}
+                        <button class="btn btn-outline btn-sm" style="color:var(--warn); border-color:var(--warn); padding:2px 8px; margin-left:5px;" onclick="deleteUser(${index})">ลบ</button>
+                    </td>
                 </tr>
             `).join('');
+
+            document.getElementById('adminForumList').innerHTML = forumPosts.map(post => `
+                <div class="card" style="padding:15px; margin-bottom:12px; border-left:4px solid var(--secondary);">
+                    <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
+                        <div>
+                            <h4 style="margin:0 0 5px; color:var(--primary);">${post.title}</h4>
+                            <p style="margin:0; color:var(--gray); font-size:0.95rem;">โดย ${post.author} · คอมเมนต์ ${post.replies ? post.replies.length : 0}</p>
+                        </div>
+                        <button class="btn btn-outline btn-sm" style="color:var(--warn); border-color:var(--warn); padding:2px 8px;" onclick="deleteForumPost(${post.id})">ลบกระทู้</button>
+                    </div>
+                    <p style="margin:10px 0 0; color:#475569;">${post.detail || '-'}</p>
+                </div>
+            `).join('');
+        }
+
+        function addUserByAdmin() {
+            const name = document.getElementById('adminNewName').value.trim();
+            const user = document.getElementById('adminNewUser').value.trim();
+            const pass = document.getElementById('adminNewPass').value;
+            const phone = document.getElementById('adminNewPhone').value.trim();
+            const email = document.getElementById('adminNewEmail').value.trim();
+            const role = document.getElementById('adminNewRole').value;
+
+            if(!name || !user || !pass || !phone || !email) return alert('กรุณากรอกข้อมูลให้ครบทุกช่อง');
+            if(isUsernameTaken(user)) return alert('ชื่อผู้ใช้งานนี้ถูกใช้ไปแล้ว');
+            if(users.some(x => x.email === email)) return alert('Email นี้ถูกใช้แล้ว');
+
+            users.push({ name, user, pass, phone, email, isAdmin: role === 'admin', profilePic: '' });
+            saveToDatabase('babygole_users', users);
+            document.querySelectorAll('#adminPage input, #adminPage select').forEach(el => {
+                if(el.type !== 'button') el.value = '';
+            });
+            loadAdminData();
+            alert('เพิ่มผู้ใช้สำเร็จ');
         }
         
+        function toggleAdminRole(index) {
+            const target = users[index];
+            if(!target) return;
+            if(target.user === currentUser?.user && target.isAdmin) return alert('ไม่สามารถเปลี่ยนสิทธิ์ของตัวเองได้');
+            target.isAdmin = !target.isAdmin;
+            saveToDatabase('babygole_users', users);
+            loadAdminData();
+        }
+
         function deleteUser(index) {
-            if(confirm(`ลบผู้ใช้ "${users[index].name}" ออกจากระบบ?`)) {
+            const target = users[index];
+            if(!target) return;
+            if(target.user === currentUser?.user) return alert('ไม่สามารถลบบัญชีตัวเองได้');
+            if(confirm(`ลบผู้ใช้ "${target.name}" ออกจากระบบ?`)) {
                 users.splice(index, 1);
-                localStorage.setItem('babygole_users', JSON.stringify(users));
+                saveToDatabase('babygole_users', users);
                 loadAdminData(); 
+            }
+        }
+
+        function deleteForumPost(postId) {
+            const index = forumPosts.findIndex(p => p.id === postId);
+            if(index === -1) return;
+            if(confirm('ลบกระทู้นี้ออกจากระบบ?')) {
+                forumPosts.splice(index, 1);
+                saveToDatabase('babygole_forum', forumPosts);
+                loadAdminData();
             }
         }
 
@@ -550,15 +1139,35 @@
             const data = devDataMap[range];
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById('btn-dev-' + range).classList.add('active');
+
+            const renderList = (items = []) => `<ul style="margin: 8px 0 0 18px; line-height: 1.7; color: #475569;">${items.map(item => `<li>${item}</li>`).join('')}</ul>`;
+
             document.getElementById('devContent').innerHTML = `
                 <div class="card" style="border-top: 5px solid var(--secondary);">
                     <h3 style="color:var(--primary); font-size: 1.5rem; text-align: center;">${data.t}</h3>
                     <hr style="border: 0; border-top: 1px dashed #ccc; margin-bottom: 20px;">
-                    <p style="line-height:1.6;"><b>💪 พัฒนาการด้านร่างกาย:</b><br> ${data.b}</p>
-                    <p style="line-height:1.6;"><b>🧠 พัฒนาการด้านสติปัญญาและการเรียนรู้:</b><br> ${data.s}</p>
-                    <p style="line-height:1.6;"><b>🤝 พัฒนาการด้านอารมณ์และสังคม:</b><br> ${data.a}</p>
-                    <div style="background: #fef2f2; border-left: 4px solid var(--warn); padding: 10px; margin-top: 20px; border-radius: 5px;">
-                        <span style="color: var(--warn); font-weight: bold;">⚠️ ข้อควรระวัง (Red Flags):</span> ${data.w}
+                    <p style="line-height:1.7;"><b>💪 พัฒนาการด้านร่างกาย:</b><br> ${data.b}</p>
+                    <p style="line-height:1.7;"><b>🧠 พัฒนาการด้านสติปัญญาและการเรียนรู้:</b><br> ${data.s}</p>
+                    <p style="line-height:1.7;"><b>🤝 พัฒนาการด้านอารมณ์และสังคม:</b><br> ${data.a}</p>
+                    <div style="background: #f0f9ff; border-left: 4px solid var(--secondary); padding: 12px; margin-top: 18px; border-radius: 10px;">
+                        <div style="font-weight: bold; color: var(--primary); margin-bottom: 6px;">🍼 คำแนะนำสำหรับคุณแม่มือใหม่</div>
+                        ${renderList(data.momTips)}
+                    </div>
+                    <div style="background: #fefce8; border-left: 4px solid var(--accent); padding: 12px; margin-top: 12px; border-radius: 10px;">
+                        <div style="font-weight: bold; color: #92400e; margin-bottom: 6px;">🎈 กิจกรรมที่ช่วยพัฒนา</div>
+                        ${renderList(data.activities)}
+                    </div>
+                    <div style="background: #f8fafc; border-left: 4px solid #94a3b8; padding: 12px; margin-top: 12px; border-radius: 10px;">
+                        <div style="font-weight: bold; color: #334155; margin-bottom: 6px;">🧼 การดูแลประจำวัน</div>
+                        ${renderList(data.dailyCare)}
+                    </div>
+                    <div style="background: #fef2f2; border-left: 4px solid var(--warn); padding: 12px; margin-top: 12px; border-radius: 10px;">
+                        <div style="font-weight: bold; color: var(--warn); margin-bottom: 6px;">⚠️ สิ่งที่ควรเฝ้าระวัง</div>
+                        ${renderList(data.commonConcerns)}
+                    </div>
+                    <div style="background: #ecfdf5; border-left: 4px solid var(--success); padding: 12px; margin-top: 12px; border-radius: 10px;">
+                        <div style="font-weight: bold; color: #166534; margin-bottom: 6px;">✅ ข้อควรจำ</div>
+                        <div style="color: #475569; line-height: 1.7;">ทุกเด็กพัฒนาต่างกันและไม่จำเป็นต้องเท่ากันเสมอไป ควรให้ลูกเล่น ปลอดภัย และได้รับการดูแลที่อบอุ่นที่สุด</div>
                     </div>
                 </div>`;
         }
@@ -567,7 +1176,7 @@
             const d = document.getElementById('trackDate').value, a = document.getElementById('trackAge').value, w = document.getElementById('trackWeight').value, h = document.getElementById('trackHeight').value;
             if(!d || !a || !w || !h) return alert("กรุณากรอกข้อมูลให้ครบถ้วน");
             trackerRecords.push({ d, a, w, h });
-            localStorage.setItem('babygole_tracker', JSON.stringify(trackerRecords));
+            saveToDatabase('babygole_tracker', trackerRecords);
             renderTracker();
             document.getElementById('trackAge').value = ''; document.getElementById('trackWeight').value = ''; document.getElementById('trackHeight').value = '';
             alert("บันทึกข้อมูลสำเร็จ!");
@@ -589,6 +1198,7 @@
             history.scrollTop = history.scrollHeight;
 
             setTimeout(() => {
+       
                 let aiResp = "ระบบประเมินอาการเบื้องต้น: จากข้อมูลที่คุณแม่/คุณพ่อแจ้งมา แนะนำให้เฝ้าสังเกตอาการอย่างใกล้ชิด เช็ดตัวลดไข้ หรือหากน้องมีอาการซึม ไม่ทานนม ท้องเสียร่วมด้วย ควรพาไปพบแพทย์เพื่อตรวจละเอียดครับ";
                 history.innerHTML += `<div class="chat-bubble chat-ai">${aiResp}</div>`;
                 history.scrollTop = history.scrollHeight;
@@ -599,7 +1209,8 @@
             const t = document.getElementById('postTitle').value, d = document.getElementById('postDetail').value;
             if(!t) return alert("กรุณาใส่หัวข้อกระทู้");
             forumPosts.unshift({ id: Date.now(), author: currentUser ? currentUser.name : "ผู้เยี่ยมชม", title: t, detail: d, replies: [] });
-            localStorage.setItem('babygole_forum', JSON.stringify(forumPosts));
+            saveToDatabase('babygole_forum', forumPosts);
+            pushCommunityNotification(`${currentUser ? currentUser.name : 'ผู้เยี่ยมชม'} ได้ตั้งกระทู้ใหม่: ${t}`);
             document.getElementById('postTitle').value = ''; document.getElementById('postDetail').value = '';
             renderForum();
         }
@@ -607,13 +1218,17 @@
             const inp = document.getElementById(`reply-input-${postId}`);
             if(!inp.value) return;
             const post = forumPosts.find(p => p.id === postId);
+            if(!post) return;
             post.replies.push({ author: currentUser ? currentUser.name : "ผู้เยี่ยมชม", text: inp.value });
-            localStorage.setItem('babygole_forum', JSON.stringify(forumPosts));
+            saveToDatabase('babygole_forum', forumPosts);
+            pushCommunityNotification(`${currentUser ? currentUser.name : 'ผู้เยี่ยมชม'} ได้ตอบกลับในกระทู้: ${post.title}`);
             inp.value = '';
             renderForum();
         }
         function renderForum() {
-            document.getElementById('forumContainer').innerHTML = forumPosts.map(p => `
+            const container = document.getElementById('forumContainer');
+            if(!container) return;
+            container.innerHTML = forumPosts.map(p => `
                 <div class="forum-post"><h3 style="margin:0 0 5px; color:var(--primary);">${p.title}</h3><p style="font-size:0.9rem; color:var(--gray); margin:0 0 10px;">ตั้งโดย: <b>${p.author}</b></p><p style="margin:0 0 15px;">${p.detail}</p><div style="background:var(--white); padding:10px; border-radius:10px;"><h4 style="margin:0 0 10px; font-size:0.9rem;">💬 ความคิดเห็น</h4>${p.replies.map(r => `<div class="reply-box"><b>${r.author}:</b> ${r.text}</div>`).join('')}<div style="display:flex; gap:10px; margin-top:15px;"><input type="text" id="reply-input-${p.id}" placeholder="พิมพ์คำตอบ..." style="margin:0; padding:8px;"><button class="btn btn-secondary btn-sm" onclick="addReply(${p.id})">ส่ง</button></div></div></div>
             `).join('');
         }
@@ -624,8 +1239,29 @@
             document.getElementById('profUserDisplay').innerText = "@" + currentUser.user;
             document.getElementById('profPhoneDisplay').innerText = currentUser.phone;
             document.getElementById('profEmailDisplay').innerText = currentUser.email || '-';
+            document.getElementById('profAltEmailsDisplay').innerText = (currentUser.altEmails || []).join(', ') || '-';
             if(currentUser.profilePic) { document.getElementById('profPic').src = currentUser.profilePic; }
             else { document.getElementById('profPic').src = "https://via.placeholder.com/150/e0f2fe/1a4b82?text=User"; }
+        }
+
+        function addAlternateEmail() {
+            if(!currentUser) return;
+            const input = document.getElementById('profileAltEmailInput');
+            const newEmail = input.value.trim();
+            if(!newEmail) return alert('กรุณากรอกอีเมลสำรอง');
+            if(newEmail === currentUser.email) return alert('อีเมลนี้เป็นอีเมลหลักอยู่แล้ว');
+            if((currentUser.altEmails || []).includes(newEmail)) return alert('อีเมลนี้ถูกเพิ่มไว้แล้ว');
+            if(users.some(u => u.email === newEmail || (u.altEmails || []).includes(newEmail))) return alert('อีเมลนี้ถูกใช้กับบัญชีอื่นแล้ว');
+
+            currentUser.altEmails = [...(currentUser.altEmails || []), newEmail];
+            const index = users.findIndex(u => u.user === currentUser.user);
+            if(index !== -1) {
+                users[index].altEmails = currentUser.altEmails;
+                saveToDatabase('babygole_users', users);
+            }
+            input.value = '';
+            updateProfileUI();
+            alert('เพิ่มอีเมลสำรองสำหรับเข้าสู่ระบบสำเร็จ');
         }
 
         function changeProfilePic(event) {
@@ -647,8 +1283,11 @@
         }
 
         window.onload = () => {
+            initAdminSync();
             document.getElementById('trackDate').valueAsDate = new Date();
             renderTracker();
+            renderForum();
+            loadCommunityNotifications();
             
             let foodHtml = "";
             foodsData.forEach(cat => {

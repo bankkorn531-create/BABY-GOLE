@@ -1,0 +1,20 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "xprotocol",
+                "enableSsl": "Disabled"
+            },
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 33060,
+            "driver": "MySQL",
+            "name": "MYBABY",
+            "database": "BABYGOLE",
+            "username": "babygole",
+            "password": "2958370426",
+            "connectionTimeout": 30
+        }
+    ]
+}
