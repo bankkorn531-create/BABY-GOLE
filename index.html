@@ -46,8 +46,8 @@
         .custom-table th { background-color: var(--soft-blue); color: var(--primary); padding: 12px; border-bottom: 2px solid var(--secondary); }
         .custom-table td { padding: 12px; border-bottom: 1px solid #e2e8f0; }
 
-        /* Custom BGs */
-        .landing-bg { background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; }
+        /* Custom BGs - อัปเดตรูปพื้นหลังหน้าแรกตรงนี้ */
+        .landing-bg { background: url('baby-gole-bg.png.png') center/cover no-repeat; min-height: 100vh; display: flex; justify-content: center; align-items: center; }
         .auth-container { min-height: 100vh; display: flex; justify-content: center; align-items: center; background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); padding: 20px; }
         .auth-card { background: var(--white); padding: 40px; border-radius: 25px; width: 100%; max-width: 450px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
         .banner-content { background: rgba(255, 255, 255, 0.95); padding: 40px; border-radius: 25px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); max-width: 600px; width: 100%; text-align: center; }
@@ -99,13 +99,18 @@
         </div>
     </section>
 
-    <!-- ระบบ Authentication -->
     <section id="loginPage" class="auth-container hidden">
         <div class="auth-card page-animation">
             <h2 id="loginTitle" style="color: var(--primary);">เข้าสู่ระบบสมาชิก</h2>
             <div id="adminBadge" class="hidden" style="background:#fee2e2; color:#ef4444; padding:5px; border-radius:8px; margin-bottom:15px; font-weight:bold;">โหมดผู้ดูแลระบบ (Admin)</div>
             <input type="text" id="loginUser" placeholder="Username">
             <input type="password" id="loginPass" placeholder="Password">
+            
+            <div style="text-align: left; margin: 10px 5px;">
+                <input type="checkbox" id="rememberMe" style="width: auto; display: inline-block; cursor: pointer;">
+                <label for="rememberMe" style="font-size: 0.95rem; color: var(--gray); cursor: pointer; user-select: none;">จดจำบัญชีและรหัสผ่าน</label>
+            </div>
+            
             <button class="btn btn-primary" style="width: 100%; margin-top: 10px;" onclick="login()">เข้าสู่ระบบ</button>
             <div style="margin-top: 15px; font-size: 0.9rem;">
                 <a href="#" id="adminToggleLink" onclick="toggleAdmin()">เข้าสู่ระบบ Admin</a> | 
@@ -140,7 +145,6 @@
         </div>
     </section>
 
-    <!-- หน้าแรก & แนะนำการใช้งาน -->
     <section id="homePage" class="hidden" style="padding: 40px 10%;">
         <div class="card page-animation" style="text-align: center; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);">
             <h2 style="color: var(--primary);">คุณพ่อคุณแม่ต้องการดูข้อมูลวัยไหนเอ่ย?</h2>
@@ -170,7 +174,6 @@
         </div>
     </section>
 
-    <!-- หน้าพัฒนาการ -->
     <section id="devPage" class="hidden" style="padding: 40px 10%;">
         <h2 style="color: var(--primary); text-align: center;" class="page-animation"><i class="fa-solid fa-child-reaching"></i> พัฒนาการตามช่วงวัย</h2>
         <div class="age-tab page-animation">
@@ -182,7 +185,6 @@
         <div id="devContent" class="page-animation" style="max-width: 800px; margin: auto;"></div>
     </section>
 
-    <!-- หน้าวัคซีน -->
     <section id="vaccinePage" class="hidden" style="padding: 40px 10%;">
         <div class="card page-animation">
             <h2 style="color: var(--primary);"><i class="fa-solid fa-syringe"></i> ตารางวัคซีนพื้นฐานและวัคซีนเสริม</h2>
@@ -206,13 +208,11 @@
         </div>
     </section>
 
-    <!-- หน้าโภชนาการ -->
     <section id="foodPage" class="hidden" style="padding: 40px 10%;">
         <h2 style="color: var(--primary);" class="page-animation"><i class="fa-solid fa-bowl-food"></i> 50 เมนูโภชนาการลูกรัก (แยกตามช่วงวัย)</h2>
         <div id="foodContainer" class="page-animation"></div>
     </section>
 
-    <!-- หน้าสมุดพก -->
     <section id="trackerPage" class="hidden" style="padding: 40px 10%;">
         <h2 style="color: var(--primary);" class="page-animation"><i class="fa-solid fa-chart-line"></i> สมุดพกบันทึกการเจริญเติบโต</h2>
         <div class="grid-2 page-animation">
@@ -238,7 +238,6 @@
         </div>
     </section>
 
-    <!-- หน้าความรู้ -->
     <section id="knowledgePage" class="hidden" style="padding: 40px 10%;">
         <div style="text-align: center; margin-bottom: 20px;">
             <h2 style="color: var(--primary); margin-bottom: 5px;" class="page-animation"><i class="fa-solid fa-book"></i> คลังความรู้สำหรับคุณพ่อคุณแม่มือใหม่</h2>
@@ -247,7 +246,6 @@
         <div id="knowledgeContainer" class="page-animation"></div>
     </section>
 
-    <!-- หน้า AI วิเคราะห์ -->
     <section id="aiPage" class="hidden" style="padding: 40px 10%;">
         <div class="card page-animation" style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column;">
             <h2 style="color: var(--primary);"><i class="fa-solid fa-robot"></i> ผู้ช่วย AI วิเคราะห์อาการเด็ก</h2>
@@ -265,7 +263,6 @@
         </div>
     </section>
 
-    <!-- หน้าชุมชน -->
     <section id="communityPage" class="hidden" style="padding: 40px 10%;">
         <div class="card page-animation">
             <h2 style="color: var(--primary);"><i class="fa-solid fa-comments"></i> ชุมชนถาม-ตอบ (Baby Gole Forum)</h2>
@@ -278,7 +275,6 @@
         </div>
     </section>
 
-    <!-- หน้าเกี่ยวกับ -->
     <section id="aboutPage" class="hidden" style="padding: 40px 10%;">
         <div class="card page-animation" style="max-width: 600px; margin: 0 auto; text-align: center;">
             <div class="logo" style="font-size: 2.5rem; margin-bottom: 15px;">baby <span>Gole</span></div>
@@ -302,7 +298,6 @@
         </div>
     </section>
 
-    <!-- หน้าโปรไฟล์ -->
     <section id="profilePage" class="hidden" style="padding: 40px 10%;">
         <div class="card page-animation" style="max-width: 500px; margin: auto; text-align: center;">
             <div class="profile-pic-container" onclick="document.getElementById('fileInput').click()">
@@ -321,7 +316,6 @@
         </div>
     </section>
 
-    <!-- หน้า Admin -->
     <section id="adminPage" class="hidden" style="padding: 40px 10%;">
         <div class="card page-animation">
             <h2 style="color: var(--warn);"><i class="fa-solid fa-users-gear"></i> ระบบจัดการหลังบ้าน (Admin Dashboard)</h2>
@@ -475,15 +469,42 @@
                 if(isAdminMode && !found.isAdmin) return alert("บัญชีนี้ไม่มีสิทธิ์ Admin");
                 currentUser = found;
                 document.getElementById('link-admin').classList.toggle('hidden', !currentUser.isAdmin);
+                
+                // === ระบบบันทึกรหัสผ่าน (Save to LocalStorage) ===
+                const rememberBox = document.getElementById('rememberMe');
+                if(rememberBox && rememberBox.checked) {
+                    localStorage.setItem('babygole_rem_user', u);
+                    localStorage.setItem('babygole_rem_pass', p);
+                } else {
+                    localStorage.removeItem('babygole_rem_user');
+                    localStorage.removeItem('babygole_rem_pass');
+                }
+                // ===========================================
+
                 showPage('homePage');
             } else { alert("Username หรือ Password ไม่ถูกต้อง"); }
         }
 
         function logout() { 
             currentUser = null; 
-            document.getElementById('loginUser').value = '';
-            document.getElementById('loginPass').value = '';
-            showPage('landingPage'); 
+            
+            // กลับไปที่หน้าล็อกอิน เพื่อให้เห็นว่าถ้าจำรหัสไว้ รหัสจะถูกเติมให้เลย
+            showPage('loginPage'); 
+            
+            // === โหลดรหัสผ่านที่จำไว้มาเติมให้ (ถ้ามี) ===
+            const remUser = localStorage.getItem('babygole_rem_user');
+            const remPass = localStorage.getItem('babygole_rem_pass');
+            if(remUser && remPass) {
+                document.getElementById('loginUser').value = remUser;
+                document.getElementById('loginPass').value = remPass;
+                document.getElementById('rememberMe').checked = true;
+            } else {
+                document.getElementById('loginUser').value = '';
+                document.getElementById('loginPass').value = '';
+                const remCheck = document.getElementById('rememberMe');
+                if(remCheck) remCheck.checked = false;
+            }
+            // ====================================
         }
 
         function register() {
@@ -659,7 +680,21 @@
             // ใช้ grid-2 เพื่อให้การ์ดเรียงสวยงาม
             document.getElementById('knowledgeContainer').innerHTML = `<div class="grid-2">${knowHtml}</div>`;
             
-            showPage('landingPage');
+            // === ระบบดึงข้อมูลรหัสผ่าน & เข้าสู่ระบบอัตโนมัติ (Auto-login) ===
+            const remUser = localStorage.getItem('babygole_rem_user');
+            const remPass = localStorage.getItem('babygole_rem_pass');
+            if(remUser && remPass) {
+                document.getElementById('loginUser').value = remUser;
+                document.getElementById('loginPass').value = remPass;
+                const remCheck = document.getElementById('rememberMe');
+                if(remCheck) remCheck.checked = true;
+                
+                // ถ้าระบบเจอข้อมูลที่จำไว้ จะเข้าสู่ระบบอัตโนมัติทันที
+                login();
+            } else {
+                showPage('landingPage');
+            }
+            // ========================================================
         };
     </script>
 </body>
