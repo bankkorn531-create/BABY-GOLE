@@ -46,7 +46,7 @@
         .custom-table th { background-color: var(--soft-blue); color: var(--primary); padding: 12px; border-bottom: 2px solid var(--secondary); }
         .custom-table td { padding: 12px; border-bottom: 1px solid #e2e8f0; }
 
-        /* Custom BGs - อัปเดตรูปพื้นหลังหน้าแรกตรงนี้ */
+        /* Custom BGs */
         .landing-bg { background: url('baby-gole-bg.png.png') center/cover no-repeat; min-height: 100vh; display: flex; justify-content: center; align-items: center; }
         .auth-container { min-height: 100vh; display: flex; justify-content: center; align-items: center; background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); padding: 20px; }
         .auth-card { background: var(--white); padding: 40px; border-radius: 25px; width: 100%; max-width: 450px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
@@ -103,7 +103,7 @@
         <div class="auth-card page-animation">
             <h2 id="loginTitle" style="color: var(--primary);">เข้าสู่ระบบสมาชิก</h2>
             <div id="adminBadge" class="hidden" style="background:#fee2e2; color:#ef4444; padding:5px; border-radius:8px; margin-bottom:15px; font-weight:bold;">โหมดผู้ดูแลระบบ (Admin)</div>
-            <input type="text" id="loginUser" placeholder="Username">
+            <input type="text" id="loginUser" placeholder="Username หรือ Email">
             <input type="password" id="loginPass" placeholder="Password">
             
             <div style="text-align: left; margin: 10px 5px;">
@@ -127,9 +127,10 @@
             <h2 style="color: var(--primary);">สมัครสมาชิก</h2>
             <input type="text" id="regName" placeholder="ชื่อ-นามสกุล">
             <input type="text" id="regPhone" placeholder="เบอร์โทรศัพท์">
-            <input type="email" id="regEmail" placeholder="Email">
-            <input type="text" id="regUser" placeholder="Username">
-            <input type="password" id="regPass" placeholder="Password">
+            <input type="email" id="regEmail" placeholder="Email" required>
+            <input type="text" id="regUser" placeholder="Username (ชื่อบัญชี)" required>
+            <input type="password" id="regPass" placeholder="Password" required>
+            <div style="font-size:0.9rem; color:var(--gray); margin-bottom:12px;">Username และ Email ต้องไม่ซ้ำกับบัญชีที่มีอยู่แล้ว</div>
             <button class="btn btn-primary" style="width: 100%; margin-top: 15px;" onclick="register()">ยืนยันสมัครสมาชิก</button>
             <button class="btn btn-outline" style="width: 100%; margin-top: 10px;" onclick="showPage('loginPage')">กลับไปล็อกอิน</button>
         </div>
@@ -138,8 +139,9 @@
     <section id="forgotPage" class="auth-container hidden">
         <div class="auth-card page-animation">
             <h2 style="color: var(--primary);">ลืมรหัสผ่าน</h2>
-            <input type="text" id="forgotUser" placeholder="Username ของคุณ">
+            <input type="text" id="forgotUser" placeholder="Username หรือ Email ของคุณ">
             <button class="btn btn-primary" style="width: 100%;" onclick="forgotPassword()">ค้นหารหัสผ่าน</button>
+            <div style="font-size:0.9rem; color:var(--gray); margin-top: 10px;">กรอก Username หรือ Email ที่ลงทะเบียนไว้ ถ้าเป็นบัญชีปกติระบบจะแสดงรหัสผ่าน หากเป็นบัญชี Admin จะแจ้งว่าไม่สามารถดูรหัสผ่านได้</div>
             <div id="passResult" class="hidden" style="margin-top: 15px; padding: 10px; background: #f0fdf4; border-radius: 10px; color: #14532d; font-weight: bold;"></div>
             <button class="btn btn-outline" style="width: 100%; margin-top: 10px;" onclick="showPage('loginPage')">กลับไปล็อกอิน</button>
         </div>
@@ -147,7 +149,7 @@
 
     <section id="homePage" class="hidden" style="padding: 40px 10%;">
         <div class="card page-animation" style="text-align: center; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);">
-            <h2 style="color: var(--primary);">คุณพ่อคุณแม่ต้องการดูข้อมูลวัยไหนเอ่ย?</h2>
+            <h2 style="color: var(--primary);">คุณพ่อคุณแม่ต้องการดูข้อมูลวัยไหน?</h2>
             <p style="color: var(--gray);">เลือกระยะอายุของลูกน้อย แล้วระบบจะพาท่านไปยังหน้าพัฒนาการที่เหมาะสม</p>
             <select id="homeAgeSelect" style="max-width: 300px; text-align: center; font-size: 1.1rem; padding: 10px; border-radius: 8px;">
                 <option value="0-1">เด็กทารก (0 - 1 ปี)</option>
@@ -321,7 +323,7 @@
             <h2 style="color: var(--warn);"><i class="fa-solid fa-users-gear"></i> ระบบจัดการหลังบ้าน (Admin Dashboard)</h2>
             <div style="overflow-x: auto;">
                 <table class="custom-table">
-                    <thead><tr><th>รูป</th><th>ชื่อ-สกุล</th><th>Username</th><th>เบอร์โทร</th><th>Email</th><th>สถานะ</th><th>จัดการ</th></tr></thead>
+                    <thead><tr><th>รูป</th><th>ชื่อ-สกุล</th><th>Username</th><th>รหัสผ่าน</th><th>เบอร์โทร</th><th>Email</th><th>สถานะ</th><th>จัดการ</th></tr></thead>
                     <tbody id="adminUserTableBody"></tbody>
                 </table>
             </div>
@@ -392,44 +394,14 @@
             { c: "อาหารสำหรับวัย 1 ปีขึ้นไป (ปรุงรสอ่อน/ทานร่วมครอบครัว)", items: [ "ข้าวผัดกุ้งไข่", "สปาเก็ตตี้คาโบนาร่าเด็ก", "ต้มจืดกระดูกหมูอ่อนเห็ดหอม", "ไก่อบซอสส้ม", "ปลากะพงนึ่งซีอิ๊ว", "หมูปั้นทอดกระเทียม(นิ่ม)", "ข้าวไก่เทอริยากิ", "แกงเลียงกุ้งสดผักรวม(ไม่เผ็ด)", "มักกะโรนีอบชีสใส่บร็อคโคลี่", "บัวลอยฟักทองน้ำกะทิอ่อน" ] }
         ];
 
-        // --- ข้อมูลความรู้ (อัปเดตใหม่จัดเต็มเพื่อแม่มือใหม่) ---
+        // --- ข้อมูลความรู้ ---
         const knowledgeData = [
-            { cat: "เตรียมพร้อมคุณแม่มือใหม่ (การดูแลตัวเอง)", items: [
-                "ภาวะเบบี้บลูส์ (Baby Blues) หรืออารมณ์เศร้าหลังคลอดเป็นเรื่องปกติ ควรหาคนช่วยเลี้ยงและพักผ่อนให้เพียงพอ", 
-                "คุณแม่ควรหาเวลานอนพักผ่อนพร้อมกับตอนที่ลูกหลับ (Sleep when baby sleeps)", 
-                "ดื่มน้ำให้เยอะๆ อย่างน้อยวันละ 2-3 ลิตร เพื่อช่วยเรื่องการผลิตน้ำนม", 
-                "อย่ากดดันตัวเองมากเกินไป การเป็นแม่คือการเรียนรู้ไปพร้อมกับลูก"
-            ] },
-            { cat: "การให้นมและการปั๊มนม", items: [
-                "ทารกแรกเกิดควรดูดนมทุกๆ 2-3 ชั่วโมง หรือประมาณ 8-12 ครั้งต่อวัน", 
-                "วิธีสังเกตว่าลูกอิ่ม: ลูกคายเต้าเอง, มือแบออกและผ่อนคลาย, หลับสนิท, และปัสสาวะ 6-8 ครั้งต่อวัน", 
-                "น้ำนมแม่ที่ปั๊มแล้ว แช่ช่องแข็งตู้เย็น 2 ประตู สามารถเก็บได้นาน 3-6 เดือน", 
-                "อาหารบำรุงน้ำนม เช่น หัวปลี, ขิง, ฟักทอง, ใบกะเพรา, และอินทผลัม"
-            ] },
-            { cat: "การดูแลทารกแรกเกิด (Newborn Care)", items: [
-                "การเช็ดสะดือ: ควรเช็ดด้วยแอลกอฮอล์ 70% จากโคนไปปลายจนกว่าสะดือจะหลุดและแห้งสนิท (ประมาณ 7-14 วัน)", 
-                "ผื่นผ้าอ้อม: เปลี่ยนผ้าอ้อมทุก 2-3 ชม. ทำความสะอาดและซับผิวให้แห้งสนิทก่อนใส่ผืนใหม่เสมอ", 
-                "การห่อตัวทารกช่วยให้เด็กรู้สึกปลอดภัยเหมือนอยู่ในครรภ์แม่ และลดอาการสะดุ้งตื่น (Moro Reflex)", 
-                "การอาบน้ำ: ไม่จำเป็นต้องอาบน้ำบ่อย วันละ 1-2 ครั้งก็เพียงพอ ใช้น้ำอุณหภูมิปกติ-อุ่นเล็กน้อย"
-            ] },
-            { cat: "การสังเกตอาการผิดปกติ (สุขภาพทารก)", items: [
-                "อุจจาระของทารกที่ทานนมแม่มักจะเหลว สีเหลืองทอง และมีเม็ดมะเขือเทศ ถือว่าเป็นเรื่องปกติ", 
-                "ภาวะตัวเหลืองในทารกแรกเกิด มักเกิดในช่วง 2-3 วันแรก หากเหลืองมากจนลามมาถึงขาควรพาไปพบแพทย์", 
-                "อาการโคลิค (ร้องไห้รุนแรงช่วงเย็น-ค่ำ) มักเกิดในช่วงอายุ 2-4 สัปดาห์ และจะค่อยๆ ดีขึ้นเมื่ออายุ 3-4 เดือน", 
-                "ทารกอายุต่ำกว่า 3 เดือน หากมีไข้สูงเกิน 38 องศาเซลเซียส ควรรีบพาไปพบแพทย์ทันที"
-            ] },
-            { cat: "การนอนหลับของลูกน้อย", items: [
-                "ทารกแรกเกิดต้องการนอน 14-17 ชม. ต่อวัน", 
-                "ควรให้ทารกนอนหงาย ปราศจากหมอน ผ้าห่มหนาๆ และตุ๊กตารอบตัว เพื่อลดความเสี่ยง SIDS (โรคไหลตายในทารก)", 
-                "จัดตารางเวลานอน (Bedtime Routine) ให้สม่ำเสมอ เช่น อาบน้ำ อ่านนิทาน ปิดไฟ",
-                "กลางวันควรให้มีแสงสว่างและเสียงปกติ กลางคืนควรมืดและเงียบ เพื่อให้ลูกเรียนรู้กลางวัน-กลางคืน"
-            ] },
-            { cat: "ความปลอดภัยขั้นพื้นฐาน", items: [
-                "ปิดปลั๊กไฟด้วยที่ครอบ และเก็บของมีคม สารเคมี ให้พ้นมือและสายตาเด็ก", 
-                "คาร์ซีท (Car Seat) เป็นสิ่งจำเป็น ห้ามอุ้มเด็กนั่งตักเวลาเดินทางด้วยรถยนต์เด็ดขาด", 
-                "ระวังของชิ้นเล็ก เช่น เหรียญ ถ่านกระดุม เข้าปาก เพราะเสี่ยงต่อการติดคอหลอดลม", 
-                "อย่าปล่อยเด็กไว้ในอ่างอาบน้ำหรือบนเตียงสูงตามลำพังแม้แต่วินาทีเดียว"
-            ] }
+            { cat: "เตรียมพร้อมคุณแม่มือใหม่ (การดูแลตัวเอง)", items: [ "ภาวะเบบี้บลูส์ (Baby Blues) หรืออารมณ์เศร้าหลังคลอดเป็นเรื่องปกติ ควรหาคนช่วยเลี้ยงและพักผ่อนให้เพียงพอ", "คุณแม่ควรหาเวลานอนพักผ่อนพร้อมกับตอนที่ลูกหลับ (Sleep when baby sleeps)", "ดื่มน้ำให้เยอะๆ อย่างน้อยวันละ 2-3 ลิตร เพื่อช่วยเรื่องการผลิตน้ำนม", "อย่ากดดันตัวเองมากเกินไป การเป็นแม่คือการเรียนรู้ไปพร้อมกับลูก" ] },
+            { cat: "การให้นมและการปั๊มนม", items: [ "ทารกแรกเกิดควรดูดนมทุกๆ 2-3 ชั่วโมง หรือประมาณ 8-12 ครั้งต่อวัน", "วิธีสังเกตว่าลูกอิ่ม: ลูกคายเต้าเอง, มือแบออกและผ่อนคลาย, หลับสนิท, และปัสสาวะ 6-8 ครั้งต่อวัน", "น้ำนมแม่ที่ปั๊มแล้ว แช่ช่องแข็งตู้เย็น 2 ประตู สามารถเก็บได้นาน 3-6 เดือน", "อาหารบำรุงน้ำนม เช่น หัวปลี, ขิง, ฟักทอง, ใบกะเพรา, และอินทผลัม" ] },
+            { cat: "การดูแลทารกแรกเกิด (Newborn Care)", items: [ "การเช็ดสะดือ: ควรเช็ดด้วยแอลกอฮอล์ 70% จากโคนไปปลายจนกว่าสะดือจะหลุดและแห้งสนิท (ประมาณ 7-14 วัน)", "ผื่นผ้าอ้อม: เปลี่ยนผ้าอ้อมทุก 2-3 ชม. ทำความสะอาดและซับผิวให้แห้งสนิทก่อนใส่ผืนใหม่เสมอ", "การห่อตัวทารกช่วยให้เด็กรู้สึกปลอดภัยเหมือนอยู่ในครรภ์แม่ และลดอาการสะดุ้งตื่น (Moro Reflex)", "การอาบน้ำ: ไม่จำเป็นต้องอาบน้ำบ่อย วันละ 1-2 ครั้งก็เพียงพอ ใช้น้ำอุณหภูมิปกติ-อุ่นเล็กน้อย" ] },
+            { cat: "การสังเกตอาการผิดปกติ (สุขภาพทารก)", items: [ "อุจจาระของทารกที่ทานนมแม่มักจะเหลว สีเหลืองทอง และมีเม็ดมะเขือเทศ ถือว่าเป็นเรื่องปกติ", "ภาวะตัวเหลือง in ทารกแรกเกิด มักเกิดในช่วง 2-3 วันแรก หากเหลืองมากจนลามมาถึงขาควรพาไปพบแพทย์", "อาการโคลิค (ร้องไห้รุนแรงช่วงเย็น-ค่ำ) มักเกิดในช่วงอายุ 2-4 สัปดาห์ และจะค่อยๆ ดีขึ้นเมื่ออายุ 3-4 เดือน", "ทารกอายุต่ำกว่า 3 เดือน หากมีไข้สูงเกิน 38 องศาเซลเซียส ควรรีบพาไปพบแพทย์ทันที" ] },
+            { cat: "การนอนหลับของลูกน้อย", items: [ "ทารกแรกเกิดต้องการนอน 14-17 ชม. ต่อวัน", "ควรให้ทารกนอนหงาย ปราศจากหมอน ผ้าห่มหนาๆ และตุ๊กตารอบตัว เพื่อลดความเสี่ยง SIDS (โรคไหลตายในทารก)", "จัดตารางเวลานอน (Bedtime Routine) ให้สม่ำเสมอ เช่น อาบน้ำ อ่านนิทาน ปิดไฟ", "กลางวันควรให้มีแสงสว่างและเสียงปกติ กลางคืนควรมืดและเงียบ เพื่อให้ลูกเรียนรู้กลางวัน-กลางคืน" ] },
+            { cat: "ความปลอดภัยขั้นพื้นฐาน", items: [ "ปิดปลั๊กไฟด้วยที่ครอบ และเก็บของมีคม สารเคมี ให้พ้นมือและสายตาเด็ก", "คาร์ซีท (Car Seat) เป็นสิ่งจำเป็น ห้ามอุ้มเด็กนั่งตักเวลาเดินทางด้วยรถยนต์เด็ดขาด", "ระวังของชิ้นเล็ก เช่น เหรียญ ถ่านกระดุม เข้าปาก เพราะเสี่ยงต่อการติดคอหลอดลม", "อย่าปล่อยเด็กไว้ในอ่างอาบน้ำหรือบนเตียงสูงตามลำพังแม้แต่วินาทีเดียว" ] }
         ];
 
         // ================= Functions =================
@@ -459,11 +431,14 @@
             document.getElementById('adminToggleLink').innerText = isAdminMode ? "สลับเป็นโหมดผู้ใช้ปกติ" : "เข้าสู่ระบบ Admin";
         }
 
+        // แก้ไขระบบล็อกอินให้หาข้อมูลจาก Username "หรือ" Email ก็ได้
         function login() {
             loadUsersFromStorage(); 
-            const u = document.getElementById('loginUser').value;
+            const u = document.getElementById('loginUser').value.trim(); // ตัดเว้นวรรคเพื่อป้องกันการกดพลาด
             const p = document.getElementById('loginPass').value;
-            const found = users.find(x => x.user === u && x.pass === p);
+            
+            // ปรับเงื่อนไขให้ x.user === u หรือ x.email === u เพื่อล็อกอินผ่านอีเมลได้คู่กับรหัสเดิม
+            const found = users.find(x => (x.user === u || x.email === u) && x.pass === p);
             
             if(found) {
                 if(isAdminMode && !found.isAdmin) return alert("บัญชีนี้ไม่มีสิทธิ์ Admin");
@@ -482,16 +457,13 @@
                 // ===========================================
 
                 showPage('homePage');
-            } else { alert("Username หรือ Password ไม่ถูกต้อง"); }
+            } else { alert("Username/Email หรือ Password ไม่ถูกต้อง"); }
         }
 
         function logout() { 
             currentUser = null; 
-            
-            // กลับไปที่หน้าล็อกอิน เพื่อให้เห็นว่าถ้าจำรหัสไว้ รหัสจะถูกเติมให้เลย
             showPage('loginPage'); 
             
-            // === โหลดรหัสผ่านที่จำไว้มาเติมให้ (ถ้ามี) ===
             const remUser = localStorage.getItem('babygole_rem_user');
             const remPass = localStorage.getItem('babygole_rem_pass');
             if(remUser && remPass) {
@@ -504,16 +476,19 @@
                 const remCheck = document.getElementById('rememberMe');
                 if(remCheck) remCheck.checked = false;
             }
-            // ====================================
         }
 
         function register() {
             loadUsersFromStorage(); 
-            const n = document.getElementById('regName').value, ph = document.getElementById('regPhone').value;
-            const e = document.getElementById('regEmail').value, u = document.getElementById('regUser').value, p = document.getElementById('regPass').value;
-            
-            if(!n || !ph || !u || !p) return alert("กรุณากรอกข้อมูลสำคัญให้ครบ");
+            const n = document.getElementById('regName').value.trim();
+            const ph = document.getElementById('regPhone').value.trim();
+            const e = document.getElementById('regEmail').value.trim();
+            const u = document.getElementById('regUser').value.trim();
+            const p = document.getElementById('regPass').value;
+
+            if(!n || !ph || !e || !u || !p) return alert("กรุณากรอกข้อมูลสำคัญให้ครบทุกช่อง โดยเฉพาะ Email และ Username");
             if(users.some(x => x.user === u)) return alert("Username นี้ถูกใช้ไปแล้ว กรุณาเปลี่ยนใหม่");
+            if(users.some(x => x.email === e)) return alert("Email นี้ถูกใช้ไปแล้ว กรุณาใช้อีเมลอื่น");
 
             users.push({ name: n, user: u, pass: p, phone: ph, email: e, isAdmin: false, profilePic: "" });
             localStorage.setItem('babygole_users', JSON.stringify(users));
@@ -525,13 +500,27 @@
 
         function forgotPassword() {
             loadUsersFromStorage();
-            const u = document.getElementById('forgotUser').value;
-            const found = users.find(x => x.user === u);
+            const u = document.getElementById('forgotUser').value.trim();
+            // รองรับการกู้รหัสผ่านผ่าน username หรือ email
+            const found = users.find(x => x.user === u || x.email === u);
             const res = document.getElementById('passResult');
-            if(found) { res.innerHTML = "รหัสผ่านของคุณคือ: <b>" + found.pass + "</b>"; res.classList.remove('hidden'); } 
-            else { alert("ไม่พบ Username นี้ในระบบ"); res.classList.add('hidden'); }
+            if(!found) {
+                alert("ไม่พบ Username หรือ Email นี้ในระบบ");
+                res.classList.add('hidden');
+                return;
+            }
+
+            if(found.isAdmin) {
+                res.innerHTML = "ไม่สามารถดูรหัสผ่านได้";
+                res.classList.remove('hidden');
+                return;
+            }
+
+            res.innerHTML = "รหัสผ่านของคุณคือ: <b>" + found.pass + "</b>";
+            res.classList.remove('hidden');
         }
 
+        // แก้ไขให้เพิ่มคอลัมน์ดึงค่า u.pass (รหัสผ่าน) ออกมาแสดงในตาราง Admin
         function loadAdminData() {
             loadUsersFromStorage(); 
             document.getElementById('adminUserTableBody').innerHTML = users.map((u, index) => `
@@ -539,13 +528,15 @@
                     <td><img src="${u.profilePic || 'https://via.placeholder.com/40'}" style="width:40px; height:40px; border-radius:50%; object-fit:cover;"></td>
                     <td>${u.name}</td>
                     <td>${u.user}</td>
+                    <td><code style="background:#fee2e2; color:#ef4444; padding:2px 6px; border-radius:6px; font-weight:bold;">${u.pass}</code></td>
                     <td>${u.phone}</td>
-                    <td>${u.email}</td>
+                    <td>${u.email || '-'}</td>
                     <td>${u.isAdmin ? '<b style="color:red"><i class="fa-solid fa-user-shield"></i> Admin</b>' : '<span style="color:green">User</span>'}</td>
                     <td>${u.isAdmin ? '-' : `<button class="btn btn-outline btn-sm" style="color:var(--warn); border-color:var(--warn); padding:2px 8px;" onclick="deleteUser(${index})">ลบผู้ใช้</button>`}</td>
                 </tr>
             `).join('');
         }
+        
         function deleteUser(index) {
             if(confirm(`ลบผู้ใช้ "${users[index].name}" ออกจากระบบ?`)) {
                 users.splice(index, 1);
@@ -632,7 +623,7 @@
             document.getElementById('profNameDisplay').innerText = currentUser.name;
             document.getElementById('profUserDisplay').innerText = "@" + currentUser.user;
             document.getElementById('profPhoneDisplay').innerText = currentUser.phone;
-            document.getElementById('profEmailDisplay').innerText = currentUser.email;
+            document.getElementById('profEmailDisplay').innerText = currentUser.email || '-';
             if(currentUser.profilePic) { document.getElementById('profPic').src = currentUser.profilePic; }
             else { document.getElementById('profPic').src = "https://via.placeholder.com/150/e0f2fe/1a4b82?text=User"; }
         }
@@ -659,7 +650,6 @@
             document.getElementById('trackDate').valueAsDate = new Date();
             renderTracker();
             
-            // โภชนาการ
             let foodHtml = "";
             foodsData.forEach(cat => {
                 foodHtml += `<div class="category-header">${cat.c}</div><div class="grid-3">`;
@@ -670,17 +660,14 @@
             });
             document.getElementById('foodContainer').innerHTML = foodHtml;
 
-            // ความรู้ (อัปเดตใหม่)
             let knowHtml = "";
             knowledgeData.forEach(cat => {
                 knowHtml += `<div class="card" style="border-top: 4px solid var(--secondary);"><h3 style="color:var(--primary); border-bottom: 2px solid var(--soft-blue); padding-bottom: 5px; margin-top: 0;">📌 ${cat.cat}</h3><ul style="line-height: 1.8; color: var(--gray); padding-left: 20px; font-size: 0.95rem;">`;
                 cat.items.forEach(item => { knowHtml += `<li style="margin-bottom: 8px;">${item}</li>`; });
                 knowHtml += `</ul></div>`;
             });
-            // ใช้ grid-2 เพื่อให้การ์ดเรียงสวยงาม
             document.getElementById('knowledgeContainer').innerHTML = `<div class="grid-2">${knowHtml}</div>`;
             
-            // === ระบบดึงข้อมูลรหัสผ่าน & เข้าสู่ระบบอัตโนมัติ (Auto-login) ===
             const remUser = localStorage.getItem('babygole_rem_user');
             const remPass = localStorage.getItem('babygole_rem_pass');
             if(remUser && remPass) {
@@ -688,13 +675,10 @@
                 document.getElementById('loginPass').value = remPass;
                 const remCheck = document.getElementById('rememberMe');
                 if(remCheck) remCheck.checked = true;
-                
-                // ถ้าระบบเจอข้อมูลที่จำไว้ จะเข้าสู่ระบบอัตโนมัติทันที
                 login();
             } else {
                 showPage('landingPage');
             }
-            // ========================================================
         };
     </script>
 </body>
