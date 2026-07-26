@@ -1,5 +1,3 @@
-<?php
-
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -52,13 +50,91 @@
         input:focus, select:focus, textarea:focus { border-color: var(--secondary); }
         
         /* Navbar */
-        .navbar { background: var(--white); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); flex-wrap: wrap; gap: 10px;}
-        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); cursor: pointer; }
+        @keyframes navBadgeBob { 0%,100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-3px) rotate(4deg); } }
+        @keyframes navGradientMove { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        @keyframes navPop { 0% { transform: scale(0.85); opacity:0.5; } 60% { transform: scale(1.08); } 100% { transform: scale(1); opacity:1; } }
+
+        .navbar {
+            background: rgba(255,255,255,0.75);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            padding: 10px 4%;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(15,23,42,0.06);
+            border-bottom: 1px solid rgba(56,189,248,0.15);
+        }
+        .navbar::before {
+            content: '';
+            position: absolute;
+            left: 0; right: 0; top: 0; height: 3px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent), var(--primary), var(--secondary));
+            background-size: 300% 100%;
+            animation: navGradientMove 6s ease infinite;
+        }
+        .logo {
+            display: flex; align-items: center; gap: 8px;
+            font-size: 1.35rem; font-weight: 700; color: var(--primary); cursor: pointer;
+            flex-shrink: 0; white-space: nowrap;
+        }
+        .logo::before {
+            content: '👶';
+            display: inline-flex; align-items:center; justify-content:center;
+            width: 34px; height: 34px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            font-size: 1.05rem;
+            animation: navBadgeBob 2.6s ease-in-out infinite;
+            box-shadow: 0 4px 12px rgba(56,189,248,0.35);
+        }
         .logo span { color: var(--accent); }
-        .nav-links { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; flex: 1;}
-        .nav-links a { text-decoration: none; color: var(--gray); padding: 8px 12px; border-radius: 10px; font-size: 0.9rem; cursor: pointer;}
-        .nav-links a:hover, .nav-links a.active { background: var(--soft-blue); color: var(--primary); font-weight: 600; }
-        
+
+        .nav-links {
+            display: flex; gap: 6px; flex-wrap: nowrap;
+            flex: 1; min-width: 0;
+            overflow-x: auto; scroll-behavior: smooth;
+            scrollbar-width: none; -ms-overflow-style: none;
+            padding: 4px 2px;
+            scroll-snap-type: x proximity;
+        }
+        .nav-links::-webkit-scrollbar { display: none; }
+        .nav-links a {
+            text-decoration: none; color: var(--gray);
+            padding: 9px 14px; border-radius: 999px; font-size: 0.88rem;
+            cursor: pointer; white-space: nowrap; flex-shrink: 0;
+            display: flex; align-items: center; gap: 6px;
+            border: 1.5px solid transparent;
+            scroll-snap-align: start;
+            position: relative;
+        }
+        .nav-links a i { transition: transform 0.25s ease; }
+        .nav-links a:hover { background: var(--soft-blue); color: var(--primary); border-color: rgba(56,189,248,0.35); }
+        .nav-links a:hover i { transform: translateY(-2px) scale(1.1); }
+        .nav-links a.active {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: #fff; font-weight: 600;
+            box-shadow: 0 6px 16px rgba(26,75,130,0.3);
+            animation: navPop 0.35s ease;
+        }
+        .nav-links a.active i { transform: scale(1.1); }
+
+        .navbar > .btn-outline {
+            flex-shrink: 0; border-radius: 999px; display: flex; align-items: center; gap: 6px;
+        }
+
+        @media (max-width: 640px) {
+            .navbar { padding: 8px 3%; gap: 8px; }
+            .logo { font-size: 0; }
+            .logo::before { width: 32px; height: 32px; margin: 0; }
+            .nav-links a span.nav-label { display: none; }
+            .nav-links a { padding: 10px 12px; font-size: 1rem; }
+            .navbar > .btn-outline span.logout-label { display: none; }
+            .navbar > .btn-outline { padding: 8px 10px !important; }
+        }
+
         /* Layouts */
         .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
         .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 20px 0; }
@@ -95,10 +171,19 @@
 
         .category-header { font-size: 1.2rem; color: var(--primary); margin-top: 25px; border-bottom: 2px solid var(--soft-blue); padding-bottom: 5px; }
         
-        .ai-chat-history { max-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
-        .chat-bubble { padding: 12px 15px; border-radius: 15px; max-width: 80%; line-height: 1.5; font-size: 0.95rem; }
+        .ai-chat-history { max-height: 420px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-top: 20px; padding-right: 4px; }
+        .chat-bubble { padding: 12px 15px; border-radius: 15px; max-width: 80%; line-height: 1.5; font-size: 0.95rem; white-space: pre-wrap; }
         .chat-user { background: var(--soft-blue); color: var(--primary); align-self: flex-end; border-bottom-right-radius: 2px; }
         .chat-ai { background: #f1f5f9; color: #333; align-self: flex-start; border-bottom-left-radius: 2px; border-left: 4px solid var(--secondary); }
+        .chat-ai.error { background: #fef2f2; border-left-color: var(--warn); color: #991b1b; }
+        .ai-chat-header { display: flex; align-items: center; gap: 15px; padding-bottom: 15px; border-bottom: 1px solid #e2e8f0; }
+        .ai-chat-header .bot-avatar { width: 48px; height: 48px; min-width: 48px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+        .ai-chat-header .header-badge { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--success); font-weight: 500; }
+        .ai-chat-header .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--success); display: inline-block; }
+        .disclaimer-note { font-size: 0.8rem; color: var(--gray); margin-top: 10px; text-align: center; }
+        .chat-sources { margin-top: 8px; padding-top: 8px; border-top: 1px solid #e2e8f0; font-size: 0.8rem; }
+        .chat-sources a { color: var(--primary); text-decoration: none; word-break: break-all; }
+        .chat-sources a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
@@ -106,21 +191,22 @@
     <nav class="navbar hidden" id="mainNav">
         <div class="logo" onclick="showPage('homePage')">baby <span>Gole</span></div>
         <div class="nav-links">
-            <a onclick="showPage('homePage')" id="link-home"><i class="fa-solid fa-house"></i> หน้าแรก</a>
-            <a onclick="showPage('devPage')" id="link-dev"><i class="fa-solid fa-child-reaching"></i> พัฒนาการ</a>
-            <a onclick="showPage('vaccinePage')" id="link-vaccine"><i class="fa-solid fa-syringe"></i> วัคซีน</a>
-            <a onclick="showPage('foodPage')" id="link-food"><i class="fa-solid fa-bowl-food"></i> โภชนาการ</a>
-            <a onclick="showPage('trackerPage')" id="link-tracker"><i class="fa-solid fa-chart-line"></i> สมุดพก</a>
-            <a onclick="showPage('knowledgePage')" id="link-knowledge"><i class="fa-solid fa-book"></i> ความรู้</a>
-            <a onclick="showPage('aiPage')" id="link-ai"><i class="fa-solid fa-robot"></i> AI วิเคราะห์</a>
-            <a onclick="showPage('communityPage')" id="link-community"><i class="fa-solid fa-comments"></i> ชุมชน</a>
-            <a onclick="showPage('notificationsPage')" id="link-notifications"><i class="fa-solid fa-bell"></i> แจ้งเตือน</a>
-            <a onclick="showPage('aboutPage')" id="link-about"><i class="fa-solid fa-circle-info"></i> เกี่ยวกับ</a>
-            <a onclick="showPage('profilePage')" id="link-profile"><i class="fa-solid fa-user"></i> โปรไฟล์</a>
-            <a onclick="showPage('adminPage')" id="link-admin" class="hidden" style="color:var(--warn); font-weight:bold;"><i class="fa-solid fa-shield-halved"></i> Admin</a>
+            <a onclick="showPage('homePage')" id="link-home"><i class="fa-solid fa-house"></i><span class="nav-label">หน้าแรก</span></a>
+            <a onclick="showPage('devPage')" id="link-dev"><i class="fa-solid fa-child-reaching"></i><span class="nav-label">พัฒนาการ</span></a>
+            <a onclick="showPage('vaccinePage')" id="link-vaccine"><i class="fa-solid fa-syringe"></i><span class="nav-label">วัคซีน</span></a>
+            <a onclick="showPage('foodPage')" id="link-food"><i class="fa-solid fa-bowl-food"></i><span class="nav-label">โภชนาการ</span></a>
+            <a onclick="showPage('trackerPage')" id="link-tracker"><i class="fa-solid fa-chart-line"></i><span class="nav-label">สมุดพก</span></a>
+            <a onclick="showPage('knowledgePage')" id="link-knowledge"><i class="fa-solid fa-book"></i><span class="nav-label">ความรู้</span></a>
+            <a onclick="showPage('aiPage')" id="link-ai"><i class="fa-solid fa-robot"></i><span class="nav-label">AI วิเคราะห์</span></a>
+            <a onclick="showPage('communityPage')" id="link-community"><i class="fa-solid fa-comments"></i><span class="nav-label">ชุมชน</span></a>
+            <a onclick="showPage('notificationsPage')" id="link-notifications"><i class="fa-solid fa-bell"></i><span class="nav-label">แจ้งเตือน</span></a>
+            <a onclick="showPage('aboutPage')" id="link-about"><i class="fa-solid fa-circle-info"></i><span class="nav-label">เกี่ยวกับ</span></a>
+            <a onclick="showPage('profilePage')" id="link-profile"><i class="fa-solid fa-user"></i><span class="nav-label">โปรไฟล์</span></a>
+            <a onclick="showPage('adminPage')" id="link-admin" class="hidden" style="color:var(--warn); font-weight:bold;"><i class="fa-solid fa-shield-halved"></i><span class="nav-label">Admin</span></a>
         </div>
-        <button class="btn btn-outline" style="padding: 5px 15px;" onclick="logout()">ออกจากระบบ</button>
+        <button class="btn btn-outline" style="padding: 5px 15px;" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> <span class="logout-label">ออกจากระบบ</span></button>
     </nav>
+
 
     <section id="landingPage" class="landing-bg page-animation">
         <div class="banner-content" style="position: relative; overflow: hidden;">
@@ -343,59 +429,36 @@
     </section>
 
     <section id="aiPage" class="hidden" style="padding: 40px 10%;">
-        <div class="chat-container">
+        <div class="card page-animation" style="max-width: 800px; margin: 0 auto;">
             <!-- Header -->
-            <header class="chat-header">
-                <div class="header-info">
-                    <div class="bot-avatar">
-                        <i class="fa-solid fa-baby"></i>
-                    </div>
-                    <div>
-                        <h1>Baby Go Health Assistant</h1>
-                        <p>Specialized care guide for children aged 0–6 years</p>
-                    </div>
+            <div class="ai-chat-header">
+                <div class="bot-avatar"><i class="fa-solid fa-baby"></i></div>
+                <div style="flex:1;">
+                    <h2 style="margin:0; color: var(--primary);">Baby Gole AI ผู้ช่วยด้านสุขภาพลูกน้อย</h2>
+                    <p style="margin:2px 0 0; color: var(--gray); font-size:0.9rem;">ถามได้ทุกเรื่อง ไข้ ผื่น การนอน โภชนาการ พัฒนาการ (0-6 ปี) — ค้นข้อมูลล่าสุดจากอินเทอร์เน็ตให้ด้วย</p>
                 </div>
-                <div class="header-badge">
-                    <span class="status-dot"></span> Online
-                </div>
-            </header>
+                <div class="header-badge"><span class="status-dot"></span> Online</div>
+            </div>
 
             <!-- Chat Messages Area -->
-            <div id="chat-messages" class="chat-messages">
-                <div class="message ai-message">
-                    <div class="message-avatar">
-                        <i class="fa-solid fa-baby"></i>
-                    </div>
-                    <div class="message-content">
-                        <p>Hello! I am your <strong>Baby Go Health Assistant</strong>. I'm here to provide educational guidance on health, nutrition, development, and care for children aged 0 to 6 years old.</p>
-                        <p>How can I help you and your little one today?</p>
-                    </div>
+            <div id="aiHistoryContainer" class="ai-chat-history">
+                <div class="chat-bubble chat-ai">
+                    สวัสดีค่ะ/ครับ ดิฉันคือ <b>Baby Gole AI</b> ผู้ช่วยให้ข้อมูลด้านสุขภาพ พัฒนาการ และการดูแลเด็กเล็กวัย 0-6 ปี สามารถถามอาการ หรือขอให้ช่วยค้นหาข้อมูลล่าสุดจากอินเทอร์เน็ตได้เลยค่ะ 👶
                 </div>
             </div>
 
             <!-- Typing Indicator -->
-            <div id="typing-indicator" class="typing-indicator hidden">
-                <div class="message-avatar">
-                    <i class="fa-solid fa-baby"></i>
-                </div>
-                <div class="typing-bubble">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
+            <div id="aiTypingIndicator" class="chat-bubble chat-ai hidden" style="width:fit-content;">
+                <i class="fa-solid fa-ellipsis fa-fade"></i> กำลังค้นหาและวิเคราะห์ข้อมูล...
             </div>
 
             <!-- Input Area -->
-            <div class="chat-input-area">
-                <form id="chat-form">
-                    <textarea id="user-input" rows="1" placeholder="Ask about fever, rashes, sleep, nutrition, or symptoms (0-6 years)..." required></textarea>
-                    <button type="submit" id="send-button" aria-label="Send message">
-                        <i class="fa-solid fa-paper-plane"></i>
-                    </button>
-                </form>
-                <div class="disclaimer-note">
-                    <i class="fa-solid fa-triangle-exclamation"></i> Educational guide only. Not a medical diagnosis.
-                </div>
+            <form id="aiChatForm" style="display:flex; gap:10px; margin-top:15px; align-items:flex-start;" onsubmit="event.preventDefault(); analyzeAI();">
+                <textarea id="aiInput" rows="1" placeholder="พิมพ์คำถาม เช่น ลูกไข้สูง 38.5 ทำไงดี..." style="margin:0; resize:none;" required onkeydown="if(event.key==='Enter' && !event.shiftKey){ event.preventDefault(); analyzeAI(); }"></textarea>
+                <button type="submit" class="btn btn-primary" style="white-space:nowrap;" id="aiSendBtn"><i class="fa-solid fa-paper-plane"></i> ส่ง</button>
+            </form>
+            <div class="disclaimer-note">
+                <i class="fa-solid fa-triangle-exclamation"></i> ข้อมูลเพื่อการศึกษาเบื้องต้นเท่านั้น ไม่ใช่การวินิจฉัยทางการแพทย์ หากอาการรุนแรงหรือฉุกเฉิน ควรพบแพทย์ทันที
             </div>
         </div>
     </section>
@@ -1220,22 +1283,66 @@
             tbody.innerHTML = trackerRecords.map(r => `<tr><td>${r.d}</td><td>${r.a}</td><td>${r.w}</td><td>${r.h}</td></tr>`).join('');
         }
 
-        function analyzeAI() {
+        let aiChatHistory = []; // { role: 'user'|'assistant', content: string }
+        let aiRequestInFlight = false;
+
+        function escapeHtml(str) {
+            const d = document.createElement('div');
+            d.innerText = str;
+            return d.innerHTML;
+        }
+
+        async function analyzeAI() {
             const inputEl = document.getElementById('aiInput');
             const input = inputEl.value.trim();
             const history = document.getElementById('aiHistoryContainer');
-            if(!input) return;
+            const typingEl = document.getElementById('aiTypingIndicator');
+            const sendBtn = document.getElementById('aiSendBtn');
+            if(!input || aiRequestInFlight) return;
 
-            history.innerHTML += `<div class="chat-bubble chat-user">${input}</div>`;
+            history.innerHTML += `<div class="chat-bubble chat-user">${escapeHtml(input)}</div>`;
+            aiChatHistory.push({ role: 'user', content: input });
             inputEl.value = '';
             history.scrollTop = history.scrollHeight;
 
-            setTimeout(() => {
-       
-                let aiResp = "ระบบประเมินอาการเบื้องต้น: จากข้อมูลที่คุณแม่/คุณพ่อแจ้งมา แนะนำให้เฝ้าสังเกตอาการอย่างใกล้ชิด เช็ดตัวลดไข้ หรือหากน้องมีอาการซึม ไม่ทานนม ท้องเสียร่วมด้วย ควรพาไปพบแพทย์เพื่อตรวจละเอียดครับ";
-                history.innerHTML += `<div class="chat-bubble chat-ai">${aiResp}</div>`;
+            aiRequestInFlight = true;
+            sendBtn.disabled = true;
+            typingEl.classList.remove('hidden');
+            history.scrollTop = history.scrollHeight;
+
+            try {
+                const res = await fetch('ai_chat.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: input,
+                        history: aiChatHistory.slice(0, -1) // ส่งประวัติก่อนหน้า ไม่รวมข้อความล่าสุด (ส่งแยกใน message)
+                    })
+                });
+
+                if(!res.ok) throw new Error('เซิร์ฟเวอร์ตอบกลับผิดพลาด (' + res.status + ')');
+                const data = await res.json();
+                if(data.error) throw new Error(data.error);
+
+                const replyText = data.reply || 'ขออภัยค่ะ ไม่สามารถประมวลผลคำตอบได้ในขณะนี้';
+                aiChatHistory.push({ role: 'assistant', content: replyText });
+
+                let sourcesHtml = '';
+                if(Array.isArray(data.sources) && data.sources.length > 0) {
+                    sourcesHtml = `<div class="chat-sources">🔎 แหล่งข้อมูลอ้างอิง:<br>` +
+                        data.sources.slice(0, 5).map(s => `<a href="${escapeHtml(s.url)}" target="_blank" rel="noopener">${escapeHtml(s.title || s.url)}</a>`).join('<br>') +
+                        `</div>`;
+                }
+
+                history.innerHTML += `<div class="chat-bubble chat-ai">${escapeHtml(replyText)}${sourcesHtml}</div>`;
+            } catch(err) {
+                history.innerHTML += `<div class="chat-bubble chat-ai error">⚠️ เกิดข้อผิดพลาด: ${escapeHtml(err.message)}</div>`;
+            } finally {
+                aiRequestInFlight = false;
+                sendBtn.disabled = false;
+                typingEl.classList.add('hidden');
                 history.scrollTop = history.scrollHeight;
-            }, 800);
+            }
         }
 
         function createPost() {
