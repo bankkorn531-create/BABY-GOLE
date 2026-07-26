@@ -1,6 +1,5 @@
 <?php
- include("connect.php")
-?>
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -190,7 +189,6 @@
 
     <section id="homePage" class="hidden" style="padding: 40px 10%;">
         <div class="card page-animation" style="text-align: center; max-width: 760px; margin: 0 auto; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);">
-            <div class="page-visual float-slow"><img src="assets/home-hero.svg" alt="family illustration"></div>
             <h2 style="color: var(--primary);">baby Gole ช่วยคุณพ่อคุณแม่ดูแลลูกน้อยได้ง่ายขึ้น</h2>
             <p style="color: var(--gray); font-size: 1rem; line-height: 1.8; max-width: 680px; margin: 0 auto;">
                 ระบบครบวงจรสำหรับครอบครัวยุคใหม่ ทั้งข้อมูลพัฒนาการ, วัคซีน, โภชนาการ, สมุดพกการเจริญเติบโต, คลังความรู้ และ AI ประเมินอาการเบื้องต้น.
@@ -345,28 +343,60 @@
     </section>
 
     <section id="aiPage" class="hidden" style="padding: 40px 10%;">
-        <div class="card page-animation" style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column;">
-            <h2 style="color: var(--primary);"><i class="fa-solid fa-robot"></i> ผู้ช่วย AI วิเคราะห์อาการเด็ก</h2>
-            <p style="color: var(--gray);">พิมพ์อาการและอายุของลูกน้อยให้ AI ช่วยประเมินเบื้องต้น สามารถพูดคุยสอบถามเพิ่มเติมได้ต่อเนื่อง</p>
-            
-            <div id="aiHistoryContainer" class="ai-chat-history">
-                <div class="chat-bubble chat-ai">สวัสดีครับ ผมคือผู้ช่วย AI ของ baby Gole คุณแม่/คุณพ่อมีอาการของลูกน้อยอะไรที่อยากให้ผมช่วยประเมินเบื้องต้นไหมครับ?</div>
+        <div class="chat-container">
+            <!-- Header -->
+            <header class="chat-header">
+                <div class="header-info">
+                    <div class="bot-avatar">
+                        <i class="fa-solid fa-baby"></i>
+                    </div>
+                    <div>
+                        <h1>Baby Go Health Assistant</h1>
+                        <p>Specialized care guide for children aged 0–6 years</p>
+                    </div>
+                </div>
+                <div class="header-badge">
+                    <span class="status-dot"></span> Online
+                </div>
+            </header>
+
+            <!-- Chat Messages Area -->
+            <div id="chat-messages" class="chat-messages">
+                <div class="message ai-message">
+                    <div class="message-avatar">
+                        <i class="fa-solid fa-baby"></i>
+                    </div>
+                    <div class="message-content">
+                        <p>Hello! I am your <strong>Baby Go Health Assistant</strong>. I'm here to provide educational guidance on health, nutrition, development, and care for children aged 0 to 6 years old.</p>
+                        <p>How can I help you and your little one today?</p>
+                    </div>
+                </div>
             </div>
 
-            <div style="display: flex; gap: 10px; margin-top: 20px;">
-                <textarea id="aiInput" rows="2" style="flex: 1; resize: none; margin: 0;" placeholder="พิมพ์อาการที่นี่... เช่น อายุ 5 เดือน มีไข้ 38 องศา"></textarea>
-                <button class="btn btn-secondary" onclick="analyzeAI()"><i class="fa-solid fa-paper-plane"></i> ส่ง</button>
+            <!-- Typing Indicator -->
+            <div id="typing-indicator" class="typing-indicator hidden">
+                <div class="message-avatar">
+                    <i class="fa-solid fa-baby"></i>
+                </div>
+                <div class="typing-bubble">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
-            <div style="margin-top: 15px; padding: 12px; background: #f8fafc; border-radius: 10px; color: var(--gray);">
-                <p style="margin: 0 0 8px; font-weight: bold;">ตัวอย่างคำถามที่ใช้ได้</p>
-                <ul style="margin: 0; padding-left: 20px; line-height: 1.7;">
-                    <li>อายุ 4 เดือน มีน้ำมูก และสะอึกหนัก ควรทำอย่างไร?</li>
-                    <li>ลูก 18 เดือน ปวดหูและร้องมากตอนกลางคืน</li>
-                    <li>ลูก 2 ขวบท้องเสีย 2 วันแล้ว</li>
-                    <li>ลูก 5 ปี ไอแห้งๆ ไม่ค่อยมีไข้</li>
-                </ul>
+
+            <!-- Input Area -->
+            <div class="chat-input-area">
+                <form id="chat-form">
+                    <textarea id="user-input" rows="1" placeholder="Ask about fever, rashes, sleep, nutrition, or symptoms (0-6 years)..." required></textarea>
+                    <button type="submit" id="send-button" aria-label="Send message">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+                <div class="disclaimer-note">
+                    <i class="fa-solid fa-triangle-exclamation"></i> Educational guide only. Not a medical diagnosis.
+                </div>
             </div>
-            <p style="font-size: 0.8rem; color: var(--warn); margin-top: 15px;">* หมายเหตุ: นี่เป็นการวิเคราะห์เบื้องต้น หากเด็กมีอาการรุนแรงควรพบแพทย์ทันที</p>
         </div>
     </section>
 
@@ -513,7 +543,7 @@
 
     <script>
         const defaultUsers = [
-            { name: "ผู้ดูแลระบบ", user: "admin", pass: "admin123", phone: "0888888888", email: "admin@babygole.com", isAdmin: true, profilePic: "" },
+            { name: "ผู้ดูแลระบบ", user: "admin", pass: "adminbabygole", phone: "0888888888", email: "admin@babygole.com", isAdmin: true, profilePic: "" },
             { name: "คุณแม่ สมปอง", user: "user", pass: "1234", phone: "0991234567", email: "sompong@email.com", isAdmin: false, profilePic: "" }
         ];
 
