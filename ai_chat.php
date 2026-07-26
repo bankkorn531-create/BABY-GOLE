@@ -1,174 +1,145 @@
 <?php
-// ============================================================
-// ai_chat.php
-// รับข้อความจากหน้าเว็บ (aiInput) แล้วส่งต่อไปยัง Anthropic API
-// พร้อมเปิดใช้งาน web_search tool เพื่อให้ AI ค้นข้อมูลจากอินเทอร์เน็ตได้จริง
-// API key จะถูกเก็บไว้ฝั่งเซิร์ฟเวอร์เท่านั้น ไม่ถูกส่งไปให้ browser เห็น
-// ============================================================
-
-header('Content-Type: application/json; charset=utf-8');
-
-require_once __DIR__ . '/config.php';
-
-function respond_error($message, $httpCode = 400) {
-    http_response_code($httpCode);
-    echo json_encode(['error' => $message], JSON_UNESCAPED_UNICODE);
-    exit;
-}
-
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    respond_error('Method not allowed', 405);
-}
-
-if (ANTHROPIC_API_KEY === 'YOUR_ANTHROPIC_API_KEY_HERE' || empty(ANTHROPIC_API_KEY)) {
-    respond_error('ยังไม่ได้ตั้งค่า ANTHROPIC_API_KEY บนเซิร์ฟเวอร์ กรุณาแก้ไขไฟล์ config.php', 500);
-}
-
-$raw = file_get_contents('php://input');
-$body = json_decode($raw, true);
-if (!$body || !isset($body['message']) || trim($body['message']) === '') {
-    respond_error('กรุณาส่งข้อความ (message)');
-}
-
-$userMessage = trim($body['message']);
-$historyIn = isset($body['history']) && is_array($body['history']) ? $body['history'] : [];
-
-$babyAgeMonths = null;
-if (isset($body['baby_age_months']) && is_numeric($body['baby_age_months'])) {
-    $babyAgeMonths = max(0, (int) $body['baby_age_months']);
-}
-
-// จำกัดความยาวประวัติที่ส่งไป เพื่อคุมค่าใช้จ่าย/ความเร็ว (เก็บ 10 ข้อความล่าสุด)
-if (count($historyIn) > 10) {
-    $historyIn = array_slice($historyIn, -10);
-}
-
-// สร้าง messages array ให้ตรงรูปแบบ Anthropic API
-$messages = [];
-foreach ($historyIn as $turn) {
-    if (!isset($turn['role'], $turn['content'])) continue;
-    $role = $turn['role'] === 'assistant' ? 'assistant' : 'user';
-    $messages[] = ['role' => $role, 'content' => (string) $turn['content']];
-}
-
-// แนบอายุลูกน้อยไว้เป็นบริบทชัดเจนกำกับทุกข้อความ (มาจากช่องกรอกอายุในหน้าเว็บ ไม่ใช่ให้ AI เดาเอง)
-if ($babyAgeMonths !== null) {
-    $finalUserMessage = "[บริบท: อายุลูกน้อยปัจจุบัน = {$babyAgeMonths} เดือน]\n" . $userMessage;
-} else {
-    $finalUserMessage = $userMessage;
-}
-$messages[] = ['role' => 'user', 'content' => $finalUserMessage];
-
-$systemPrompt = <<<EOT
-คุณคือ "Baby Gole AI" ผู้ช่วยวิเคราะห์อาการและให้ข้อมูลด้านสุขภาพ พัฒนาการ โภชนาการ และการดูแลเด็กเล็กอายุ 0-6 ปี สำหรับเว็บไซต์ baby Gole
-
-ขอบเขตการวิเคราะห์: คุณสามารถวิเคราะห์ "ทุกอาการ" ที่ผู้ปกครองแจ้งมาได้ โดยไม่จำกัดเฉพาะกลุ่มอาการใดกลุ่มหนึ่ง เช่น ไข้ ไอ หวัด น้ำมูก เจ็บคอ อาเจียน ท้องเสีย ท้องผูก ปวดท้อง ผื่นผิวหนัง ผดร้อน แพ้อาหาร แพ้อากาศ ผื่นแพ้ แมลงกัดต่อย บาดแผล/หกล้ม ไข้ออกผื่น ตาแดง หูอักเสบ ปัญหาการนอน งอแงผิดปกติ ร้องไห้ไม่หยุด พัฒนาการช้า พฤติกรรม การกินยาก น้ำหนักตัว ฟันขึ้น และอาการอื่นๆ ที่พบได้ในเด็กวัยนี้ ให้วิเคราะห์อย่างละเอียดทุกครั้งตามข้อมูลที่ได้รับ ไม่ปฏิเสธการวิเคราะห์เพียงเพราะอาการนั้นดูไม่คุ้นเคยหรือซับซ้อน
-
-ขั้นตอนก่อนวิเคราะห์ (สำคัญมาก): ต้อง "คิดเรื่องอายุเด็กก่อนตอบเสมอ" เพราะความรุนแรงของอาการเดียวกันแตกต่างกันมากตามช่วงอายุ
-- ทุกข้อความจากผู้ปกครองจะมีบรรทัด "[บริบท: อายุลูกน้อยปัจจุบัน = X เดือน]" แนบมาให้อัตโนมัติจากระบบ (มาจากช่องกรอกอายุบนหน้าเว็บ) ให้ใช้ค่านี้เป็นหลักเสมอในการประเมิน ไม่ต้องถามอายุซ้ำอีกหากมีบรรทัดนี้แนบมาแล้ว
-- หากไม่มีบรรทัดบริบทอายุแนบมา (กรณีเรียกใช้งานโดยไม่ผ่านฟอร์มปกติ) ให้ถามอายุก่อนเป็นอันดับแรก ก่อนจะวิเคราะห์อาการต่อ เพราะคำแนะนำที่ถูกต้องต้องอิงอายุเสมอ
-- เมื่อทราบอายุแล้ว ให้ใช้เกณฑ์นี้ประกอบการประเมินความรุนแรง (โดยเฉพาะกรณีไข้):
-  • อายุต่ำกว่า 3 เดือน + มีไข้ (≥38°C ทางทวารหนัก หรือรู้สึกตัวร้อนผิดปกติ) = ถือเป็น "ภาวะฉุกเฉินเสมอ" ต้องรีบพาไปโรงพยาบาลทันที ไม่ว่าอาการอื่นจะดูเล็กน้อยแค่ไหน เพราะทารกวัยนี้ภูมิคุ้มกันยังไม่แข็งแรง เสี่ยงติดเชื้อรุนแรงได้เร็ว
-  • อายุ 3-6 เดือน + มีไข้ร่วมกับอาเจียน ซึมลง กินนมน้อยลงชัดเจน ร้องกวนผิดปกติ หรือไข้สูงกว่า 39°C = ให้เน้นย้ำว่าควรพบแพทย์โดยเร็วภายในวันนั้น ไม่ควรรอสังเกตอาการที่บ้านนาน และให้ระบุสัญญาณเฝ้าระวังเข้มข้นกว่าเด็กโต
-  • อายุ 6 เดือนขึ้นไป: ประเมินตามความรุนแรงของอาการร่วมตามปกติ (ไข้สูงต่อเนื่อง ซึม ไม่ทานนม ชัก ฯลฯ) แต่ยังคงเตือนสัญญาณอันตรายเสมอ
-- หลักการทั่วไป: ยิ่งเด็กอายุน้อยเท่าไหร่ ยิ่งต้องเข้มงวดและแนะนำให้พบแพทย์เร็วขึ้นเท่านั้น ห้ามประเมินว่า "เฝ้าดูอาการที่บ้านได้" กับเด็กอายุต่ำกว่า 3 เดือนที่มีไข้เด็ดขาด
-
-รูปแบบการตอบ (ปรับใช้ตามความเหมาะสมของคำถาม):
-1) สรุปสิ่งที่เข้าใจจากอาการและอายุเด็กที่แจ้งมา
-2) วิเคราะห์สาเหตุที่เป็นไปได้ (เรียงจากที่พบบ่อย) พร้อมคำอธิบายสั้นๆ โดยพิจารณาอายุประกอบ
-3) คำแนะนำการดูแลเบื้องต้นที่บ้าน ที่ทำได้จริงและปลอดภัย (ถ้าอายุเข้าเกณฑ์ฉุกเฉินตามด้านบน ให้เน้นคำแนะนำให้พบแพทย์ทันทีเป็นหลัก แทนคำแนะนำดูแลที่บ้าน)
-4) 🚩 สัญญาณอันตรายที่ต้องรีบพาไปพบแพทย์/โรงพยาบาลทันที
-
-กติกาการตอบ:
-- ตอบเป็นภาษาไทย สุภาพ อบอุ่น เข้าใจง่าย ไม่ใช้ศัพท์แพทย์ที่เข้าใจยากโดยไม่อธิบาย
-- เมื่อคำถามเกี่ยวกับข้อมูลที่อาจเปลี่ยนแปลงได้ (เช่น ตารางวัคซีนล่าสุด, คำแนะนำจากกระทรวงสาธารณสุข, ข่าวสาร, การระบาดของโรค, ผลิตภัณฑ์, งานวิจัยใหม่ๆ) ให้ใช้เครื่องมือค้นหาเว็บเพื่อหาข้อมูลล่าสุดก่อนตอบเสมอ
-- วิเคราะห์อาการให้ครบถ้วนและเป็นประโยชน์ที่สุดเท่าที่ข้อมูลจะเอื้ออำนวย แต่ระบุไว้เสมอว่านี่คือข้อมูลเพื่อการศึกษาเบื้องต้น ไม่ใช่การวินิจฉัยแทนแพทย์
-- ห้ามให้ขนาดยาที่เฉพาะเจาะจงเกินคำแนะนำทั่วไปบนฉลาก ให้แนะนำปรึกษาเภสัชกร/แพทย์แทน
-- หากอาการที่แจ้งมาเข้าข่ายฉุกเฉิน (เช่น ชัก หายใจลำบาก ตัวเขียว ซึมมาก ไม่ตอบสนอง ไข้สูงมากในเด็กเล็กมาก) ให้เน้นย้ำให้รีบไปโรงพยาบาลทันทีเป็นข้อความแรกสุด
-EOT;
-
-$payload = [
-    'model' => ANTHROPIC_MODEL,
-    'max_tokens' => 1536,
-    'system' => $systemPrompt,
-    'messages' => $messages,
-    'tools' => [
-        [
-            'type' => 'web_search_20250305',
-            'name' => 'web_search',
-            'max_uses' => 3,
-        ],
-    ],
-];
-
-$ch = curl_init('https://api.anthropic.com/v1/messages');
-curl_setopt_array($ch, [
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_POST => true,
-    CURLOPT_HTTPHEADER => [
-        'Content-Type: application/json',
-        'x-api-key: ' . ANTHROPIC_API_KEY,
-        'anthropic-version: 2023-06-01',
-    ],
-    CURLOPT_POSTFIELDS => json_encode($payload, JSON_UNESCAPED_UNICODE),
-    CURLOPT_TIMEOUT => 60,
-]);
-
-$response = curl_exec($ch);
-$curlErr = curl_error($ch);
-$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-curl_close($ch);
-
-if ($response === false) {
-    respond_error('เรียก API ไม่สำเร็จ: ' . $curlErr, 502);
-}
-
-$data = json_decode($response, true);
-
-if ($httpCode !== 200) {
-    $apiErrMsg = $data['error']['message'] ?? ('HTTP ' . $httpCode);
-    respond_error('Anthropic API error: ' . $apiErrMsg, 502);
-}
-
-// ประกอบคำตอบข้อความ + รวบรวมแหล่งอ้างอิงจากผลการค้นเว็บ (ถ้ามี)
-$replyText = '';
-$sources = [];
-$seenUrls = [];
-
-if (!empty($data['content']) && is_array($data['content'])) {
-    foreach ($data['content'] as $block) {
-        if (($block['type'] ?? '') === 'text') {
-            $replyText .= $block['text'];
-
-            if (!empty($block['citations']) && is_array($block['citations'])) {
-                foreach ($block['citations'] as $citation) {
-                    $url = $citation['url'] ?? null;
-                    if ($url && !isset($seenUrls[$url])) {
-                        $seenUrls[$url] = true;
-                        $sources[] = ['url' => $url, 'title' => $citation['title'] ?? $url];
-                    }
-                }
-            }
-        } elseif (($block['type'] ?? '') === 'web_search_tool_result') {
-            $results = $block['content'] ?? [];
-            if (is_array($results)) {
-                foreach ($results as $r) {
-                    $url = $r['url'] ?? null;
-                    if ($url && !isset($seenUrls[$url])) {
-                        $seenUrls[$url] = true;
-                        $sources[] = ['url' => $url, 'title' => $r['title'] ?? $url];
-                    }
-                }
-            }
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI ผู้ช่วยปรึกษาพัฒนาการเด็ก</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-    }
-}
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f8fafc;
+        }
+        .ai-screen {
+            width: 100%;
+            max-width: 800px;
+            height: 100vh;
+            background: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+        }
+        .ai-header {
+            background: #1e3a8a;
+            color: white;
+            padding: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .ai-chat-box {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .message {
+            padding: 12px 18px;
+            border-radius: 12px;
+            max-width: 75%;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+        .message.user {
+            background: #3b82f6;
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+        }
+        .message.ai {
+            background: white;
+            color: #1e293b;
+            align-self: flex-start;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-bottom-left-radius: 2px;
+        }
+        .ai-input-area {
+            background: white;
+            padding: 15px;
+            display: flex;
+            gap: 10px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
+        .ai-input-area input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            outline: none;
+            font-size: 14px;
+        }
+        .ai-input-area button {
+            padding: 12px 24px;
+            background: #1e3a8a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .ai-input-area button:hover {
+            background: #1d4ed8;
+        }
+    </style>
+</head>
+<body>
 
-if (trim($replyText) === '') {
-    $replyText = 'ขออภัยค่ะ ระบบไม่สามารถสร้างคำตอบได้ในขณะนี้ กรุณาลองใหม่อีกครั้ง';
-}
+    <div class="ai-screen">
+        <div class="ai-header">
+            🤖 AI ผู้ช่วยให้คำปรึกษาพัฒนาการเด็กตามความเป็นจริง
+        </div>
+        
+        <div class="ai-chat-box" id="chatBox">
+            <div class="message ai">สวัสดีครับ ผมคือผู้ช่วย AI ด้านพัฒนาการเด็ก สามารถพิมพ์สอบถามปัญหาได้ตามจริง เช่น "เด็ก 1 ขวบไม่พูด", "ลูกกินยาก" หรืออาการอื่นๆ ได้เลยครับ</div>
+        </div>
 
-echo json_encode([
-    'reply' => $replyText,
-    'sources' => $sources,
-], JSON_UNESCAPED_UNICODE);
+        <div class="ai-input-area">
+            <input type="text" id="userInput" placeholder="พิมพ์คำถามของคุณที่นี่..." onkeypress="if(event.key === 'Enter') sendAiMessage()">
+            <button onclick="sendAiMessage()">ส่งข้อความ</button>
+        </div>
+    </div>
+
+    <script>
+        function sendAiMessage() {
+            const inputField = document.getElementById('userInput');
+            const text = inputField.value.trim();
+            if(!text) return;
+
+            const chatBox = document.getElementById('chatBox');
+
+            // แสดงข้อความผู้ใช้
+            chatBox.innerHTML += `<div class="message user">${text}</div>`;
+            inputField.value = '';
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // จำลองการตอบของ AI ตามความเป็นจริง
+            setTimeout(() => {
+                let reply = "ขออภัยครับ สำหรับคำถามนี้ แนะนำให้สังเกตอาการเบื้องต้นหรือปรึกษากุมารแพทย์เพื่อความปลอดภัยและแม่นยำยิ่งขึ้นครับ";
+                
+                const lowerText = text.toLowerCase();
+                if(lowerText.includes('1 ขวบ') || lowerText.includes('ไม่พูด') || lowerText.includes('ขวบ')) {
+                    reply = "ตามเกณฑ์พัฒนาการ เด็กอายุ 1 ขวบควรเริ่มส่งเสียงอ้อแอ้ เลียนแบบเสียง และเริ่มพูดคำที่มีความหมายได้ 1-2 คำ หากน้องยังไม่พูดแต่ยังเข้าใจภาษา สบตา และใช้ท่าทางสื่อสาร (เช่น ชี้ โบกมือ) อาจยังพอรอสังเกตได้ แต่หากน้องไม่หันตามเสียงเรียก ไม่สบตา หรือไม่ส่งเสียงอ้อแอ้เลย แนะนำให้พาไปพบกุมารแพทย์ด้านพัฒนาการครับ";
+                } else if(lowerText.includes('กินยาก') || lowerText.includes('ไม่ยอมกินข้าว')) {
+                    reply = "เด็กวัยเตาะแตะมักมีความอยากอาหารลดลงเพราะโตช้าลงครับ ตามความเป็นจริงควรจัดเวลาอาหารให้เป็นเวลา ไม่บังคับหรือดุว่าตอนทานข้าว และให้เด็กได้ลองหยิบจับอาหารเองเพื่อสร้างทัศนคติที่ดีต่อมื้ออาหารครับ";
+                }
+
+                chatBox.innerHTML += `<div class="message ai">${reply}</div>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 500);
+        }
+    </script>
+</body>
+</html>
