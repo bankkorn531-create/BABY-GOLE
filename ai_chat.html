@@ -3,179 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI ผู้ช่วยปรึกษาพัฒนาการเด็ก</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #f8fafc;
-        }
-        .ai-screen {
-            width: 100%;
-            max-width: 800px;
-            height: 100vh;
-            background: #f8fafc;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 0 20px rgba(0,0,0,0.05);
-        }
-        .ai-header {
-            background: #1e3a8a;
-            color: white;
-            padding: 20px;
-            font-size: 18px;
-            font-weight: bold;
+        /* รูปแบบการ์ด (Card Style) */
+        .ai-parenting-card {
+            font-family: 'Sarabun', 'Prompt', sans-serif; /* ใช้ฟอนต์ไทยที่อ่านง่าย */
+            max-width: 350px;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%); /* สีฟ้าพาสเทลอ่อนๆ */
+            border-radius: 20px;
+            padding: 24px;
             text-align: center;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+            border: 2px solid #e2e8f0;
+            margin: 20px auto;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .ai-chat-box {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+
+        /* เอฟเฟกต์ตอนนำเมาส์ไปชี้ */
+        .ai-parenting-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
         }
-        .message {
-            padding: 12px 18px;
-            border-radius: 12px;
-            max-width: 75%;
-            line-height: 1.5;
-            font-size: 14px;
-            white-space: pre-wrap;
+
+        .ai-icon {
+            font-size: 50px;
+            margin-bottom: 12px;
         }
-        .message.user {
-            background: #3b82f6;
-            color: white;
-            align-self: flex-end;
-            border-bottom-right-radius: 2px;
-        }
-        .message.ai {
-            background: white;
-            color: #1e293b;
-            align-self: flex-start;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            border-bottom-left-radius: 2px;
-        }
-        .message.ai.loading {
-            color: #94a3b8;
-            font-style: italic;
-        }
-        .message.ai.error {
-            color: #b91c1c;
-            background: #fef2f2;
-        }
-        .ai-input-area {
-            background: white;
-            padding: 15px;
-            display: flex;
-            gap: 10px;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
-        }
-        .ai-input-area input {
-            flex: 1;
-            padding: 12px 15px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            outline: none;
-            font-size: 14px;
-        }
-        .ai-input-area button {
-            padding: 12px 24px;
-            background: #1e3a8a;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
+
+        .ai-title {
+            color: #2d3748;
+            font-size: 1.25rem;
             font-weight: bold;
+            margin: 0 0 10px 0;
         }
-        .ai-input-area button:disabled {
-            background: #94a3b8;
-            cursor: not-allowed;
+
+        .ai-description {
+            color: #4a5568;
+            font-size: 0.95rem;
+            margin: 0 0 24px 0;
+            line-height: 1.6;
         }
-        .ai-input-area button:hover:not(:disabled) {
-            background: #1d4ed8;
+
+        /* รูปแบบปุ่มกด (Button) */
+        .ai-btn {
+            display: inline-block;
+            background-color: #4299e1; /* สีฟ้าสบายตา */
+            color: white;
+            text-decoration: none;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .ai-btn:hover {
+            background-color: #3182ce;
+        }
+
+        /* ข้อความแจ้งเตือนเล็กๆ ด้านล่าง */
+        .ai-disclaimer {
+            font-size: 0.75rem;
+            color: #a0aec0;
+            margin-top: 16px;
         }
     </style>
 </head>
 <body>
 
-    <div class="ai-screen">
-        <div class="ai-header">
-            🤖 AI ผู้ช่วยให้คำปรึกษาพัฒนาการเด็ก
-        </div>
-
-        <div class="ai-chat-box" id="chatBox">
-            <div class="message ai">สวัสดีครับ ผมคือผู้ช่วย AI ด้านพัฒนาการเด็ก สามารถพิมพ์สอบถามปัญหาได้ตามจริง เช่น "เด็ก 1 ขวบไม่พูด", "ลูกกินยาก" หรืออาการอื่นๆ ได้เลยครับ</div>
-        </div>
-
-        <div class="ai-input-area">
-            <input type="text" id="userInput" placeholder="พิมพ์คำถามของคุณที่นี่..." autocomplete="off">
-            <button type="button" id="sendBtn" onclick="sendAiMessage()">ส่งข้อความ</button>
-        </div>
+    <!-- เริ่มต้นส่วนของการ์ด AI -->
+    <div class="ai-parenting-card">
+        <div class="ai-icon">🍼🤖</div>
+        <h3 class="ai-title">ผู้ช่วย AI พ่อแม่มือใหม่</h3>
+        <p class="ai-description">สงสัยเรื่องการดูแลลูกน้อย? ไม่ว่าจะเป็นการนอน การให้นม หรือการร้องไห้ ปรึกษา AI ของเราได้เลย 24 ชม.</p>
+        
+        <!-- ลิงก์ที่เชื่อมไปยัง AI พร้อมคำถามเริ่มต้น (Prompt) ตรง parameter 'q=' -->
+        <a href="https://gemini.google.com/app?q=ฉันเป็นพ่อแม่มือใหม่+ขอคำแนะนำวิธีดูแลเด็กแรกเกิด+และตารางการนอนเบื้องต้นที่ควรรู้หน่อย"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="ai-btn">
+           ปรึกษา AI ทันที
+        </a>
+        
+        <div class="ai-disclaimer">*คำแนะนำจาก AI เป็นเพียงข้อมูลเบื้องต้น หากน้องมีอาการป่วยควรพบแพทย์</div>
     </div>
+    <!-- สิ้นสุดส่วนของการ์ด AI -->
 
-    <script>
-      const WORKER_URL = "https://babygoleai.bankkorn531.workers.dev/";
-        const chatBox = document.getElementById('chatBox');
-        const inputField = document.getElementById('userInput');
-        const sendBtn = document.getElementById('sendBtn');
-
-        inputField.addEventListener('keypress', function (event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                sendAiMessage();
-            }
-        });
-
-        function appendMessage(text, cls) {
-            const div = document.createElement('div');
-            div.className = `message ${cls}`;
-            div.textContent = text;
-            chatBox.appendChild(div);
-            chatBox.scrollTop = chatBox.scrollHeight;
-            return div;
-        }
-
-        async function sendAiMessage() {
-            const text = inputField.value.trim();
-            if (!text) return;
-
-            appendMessage(text, 'user');
-            inputField.value = '';
-            sendBtn.disabled = true;
-
-            const loadingEl = appendMessage('กำลังพิมพ์คำตอบ...', 'ai loading');
-
-            try {
-                const response = await fetch(WORKER_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: text }),
-                });
-
-                if (!response.ok) {
-                    const errData = await response.json().catch(() => ({}));
-                    throw new Error(errData.error || `เกิดข้อผิดพลาด (สถานะ ${response.status})`);
-                }
-
-                const data = await response.json();
-                loadingEl.remove();
-                appendMessage(data.reply || 'ขออภัยครับ ไม่ได้รับคำตอบจากระบบ', 'ai');
-            } catch (err) {
-                loadingEl.remove();
-                appendMessage('เกิดข้อผิดพลาด: ' + err.message, 'ai error');
-            } finally {
-                sendBtn.disabled = false;
-            }
-        }
-    </script>
 </body>
 </html>
