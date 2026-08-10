@@ -524,7 +524,105 @@
         let communityNotifications = [];
         let communityToastTimer = null;
 
+        const DB_NAME = 'babyGoleDB';
+        const DB_VERSION = 1;
+        const DATABASE_STORES = {
+            users: 'users',
+            tracker: 'tracker',
+            forum: 'forum',
+            notifications: 'notifications'
+        };
+
+        window.__dbCache = window.__dbCache || {};
+
+        const DatabaseService = {
+            dbPromise: null,
+
+            init() {
+                if (this.dbPromise) return this.dbPromise;
+
+                this.dbPromise = new Promise((resolve) => {
+                    if (!('indexedDB' in window)) {
+                        resolve(null);
+                        return;
+                    }
+
+                    const request = indexedDB.open(DB_NAME, DB_VERSION);
+                    request.onupgradeneeded = (event) => {
+                        const db = event.target.result;
+                        Object.values(DATABASE_STORES).forEach((storeName) => {
+                            if (!db.objectStoreNames.contains(storeName)) {
+                                db.createObjectStore(storeName, { keyPath: 'key' });
+                            }
+                        });
+                    };
+                    request.onsuccess = () => resolve(request.result);
+                    request.onerror = () => {
+                        console.warn('IndexedDB unavailable, falling back to localStorage');
+                        resolve(null);
+                    };
+                });
+
+                return this.dbPromise;
+            },
+
+            async read(storeName, fallback = null) {
+                const db = await this.init();
+                if (!db) {
+                    try {
+                        const stored = localStorage.getItem(`babygole_${storeName}`);
+                        return stored ? JSON.parse(stored) : fallback;
+                    } catch (e) {
+                        console.warn('Failed to read from storage', storeName, e);
+                        return fallback;
+                    }
+                }
+
+                return new Promise((resolve) => {
+                    const transaction = db.transaction(storeName, 'readonly');
+                    const store = transaction.objectStore(storeName);
+                    const request = store.get('data');
+                    request.onsuccess = () => resolve(request.result?.value ?? fallback);
+                    request.onerror = () => resolve(fallback);
+                });
+            },
+
+            async write(storeName, value) {
+                const db = await this.init();
+                if (!db) {
+                    localStorage.setItem(`babygole_${storeName}`, JSON.stringify(value));
+                    return value;
+                }
+
+                return new Promise((resolve) => {
+                    const transaction = db.transaction(storeName, 'readwrite');
+                    const store = transaction.objectStore(storeName);
+                    const request = store.put({ key: 'data', value });
+                    request.onsuccess = () => resolve(value);
+                    request.onerror = () => {
+                        localStorage.setItem(`babygole_${storeName}`, JSON.stringify(value));
+                        resolve(value);
+                    };
+                });
+            }
+        };
+
+        window.DatabaseService = DatabaseService;
+
+        function getDatabaseStoreName(key) {
+            const mapping = {
+                babygole_users: 'users',
+                babygole_tracker: 'tracker',
+                babygole_forum: 'forum',
+                babygole_community_notifications: 'notifications'
+            };
+            return mapping[key] || key;
+        }
+
         function loadFromDatabase(key, fallback) {
+            const cached = window.__dbCache[key];
+            if (cached !== undefined) return cached;
+
             try {
                 const stored = localStorage.getItem(key);
                 if (stored) return JSON.parse(stored);
@@ -535,8 +633,33 @@
         }
 
         function saveToDatabase(key, value) {
+            window.__dbCache[key] = value;
             localStorage.setItem(key, JSON.stringify(value));
+            DatabaseService.write(getDatabaseStoreName(key), value).catch(() => {});
             notifyDataChanged();
+            return value;
+        }
+
+        function bootstrapDatabase() {
+            const entries = [
+                ['babygole_users', users],
+                ['babygole_tracker', trackerRecords],
+                ['babygole_forum', forumPosts],
+                ['babygole_community_notifications', communityNotifications]
+            ];
+
+            entries.forEach(([key, fallback]) => {
+                const storeName = getDatabaseStoreName(key);
+                DatabaseService.read(storeName, fallback).then((value) => {
+                    if (value !== null && value !== undefined) {
+                        window.__dbCache[key] = value;
+                        if (key === 'babygole_users') users = value;
+                        if (key === 'babygole_tracker') trackerRecords = value;
+                        if (key === 'babygole_forum') forumPosts = value;
+                        if (key === 'babygole_community_notifications') communityNotifications = value;
+                    }
+                });
+            });
         }
 
         function notifyDataChanged() {
@@ -559,7 +682,7 @@
 
         function pushCommunityNotification(message) {
             communityNotifications.unshift({ id: Date.now(), text: message, createdAt: new Date().toLocaleString('th-TH') });
-            localStorage.setItem('babygole_community_notifications', JSON.stringify(communityNotifications));
+            saveToDatabase('babygole_community_notifications', communityNotifications);
             showCommunityToast(message);
             updateCommunityBadge();
             renderNotificationsPage();
@@ -600,7 +723,7 @@
 
         function clearCommunityNotifications() {
             communityNotifications = [];
-            localStorage.setItem('babygole_community_notifications', JSON.stringify(communityNotifications));
+            saveToDatabase('babygole_community_notifications', communityNotifications);
             updateCommunityBadge();
             renderNotificationsPage();
         }
@@ -1412,7 +1535,7 @@
                     const index = users.findIndex(u => u.user === currentUser.user);
                     if(index !== -1) {
                         users[index].profilePic = resultData;
-                        localStorage.setItem('babygole_users', JSON.stringify(users));
+                        saveToDatabase('babygole_users', users);
                     }
                 }
                 reader.readAsDataURL(file);
@@ -1421,6 +1544,7 @@
 
         window.onload = () => {
             initAdminSync();
+            bootstrapDatabase();
             populateAIQuestions();
             document.getElementById('trackDate').valueAsDate = new Date();
             renderTracker();
