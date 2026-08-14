@@ -1551,11 +1551,42 @@
             renderForum();
             loadCommunityNotifications();
             
+            function buildFoodThumbnail(label) {
+                const photoMap = {
+                    'ข้าว': 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80',
+                    'ไข่': 'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800&q=80',
+                    'นม': 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=800&q=80',
+                    'ผัก': 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80',
+                    'ผลไม้': 'https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=800&q=80',
+                    'ปลา': 'https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=800&q=80',
+                    'ไก่': 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80',
+                    'หมู': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80',
+                    'ชีส': 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=800&q=80',
+                    'ขนม': 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80',
+                    'เส้น': 'https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?auto=format&fit=crop&w=800&q=80',
+                    'สลัด': 'https://images.unsplash.com/photo-1546793665-c74683f339c1?auto=format&fit=crop&w=800&q=80',
+                    'ซุป': 'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80',
+                    'ของหวาน': 'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80',
+                    'ข้าวโอ๊ต': 'https://images.unsplash.com/photo-1517673400267-0251440c45dc?auto=format&fit=crop&w=800&q=80'
+                };
+
+                const found = Object.entries(photoMap).find(([key]) => label.includes(key));
+                return found ? found[1] : 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80';
+            }
+
             let foodHtml = "";
             foodsData.forEach(cat => {
                 foodHtml += `<div class="category-header">${cat.c}</div><div class="grid-3">`;
-                cat.items.forEach((item, idx) => {
-                    foodHtml += `<div class="card" style="padding:15px; border-left:4px solid var(--accent);"><h4 style="margin:0; color:var(--primary); font-size: 1.05rem;">🍽️ ${item}</h4></div>`;
+                cat.items.forEach((item) => {
+                    const thumb = buildFoodThumbnail(item);
+                    foodHtml += `
+                        <div class="card" style="padding:0; overflow:hidden; border-left:4px solid var(--accent);">
+                            <div style="padding:15px 15px 0;">
+                                <h4 style="margin:0; color:var(--primary); font-size:1.05rem;">🍽️ ${item}</h4>
+                            </div>
+                            <img src="${thumb}" alt="${item}" style="width:100%; height:150px; object-fit:cover; display:block; background:linear-gradient(135deg,#60a5fa,#8b5cf6); margin-top:12px;">
+                        </div>
+                    `;
                 });
                 foodHtml += `</div>`;
             });

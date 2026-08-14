@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>โภชนาการเด็ก - baby Gole</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .food-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .food-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .food-header h1 {
+            color: #667eea;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .age-filter {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Kanit', sans-serif;
+        }
+
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .food-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .food-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .food-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .food-info {
+            padding: 20px;
+        }
+
+        .food-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .food-age {
+            display: inline-block;
+            background: #f0f9ff;
+            color: #667eea;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+
+        .food-description {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .food-benefits {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="food-container">
+        <div class="food-header">
+            <h1><i class="fas fa-bowl-food"></i> 50+ เมนูโภชนาการลูกรัก</h1>
+            <p style="color: #999;">เมนูอาหารสำหรับเด็กตามอายุของลูกน้อย</p>
+        </div>
+
+        <div class="age-filter">
+            <button class="filter-btn active" onclick="filterFood('all')">ทั้งหมด</button>
+            <button class="filter-btn" onclick="filterFood('6m')">6 เดือน</button>
+            <button class="filter-btn" onclick="filterFood('8m')">8 เดือน</button>
+            <button class="filter-btn" onclick="filterFood('10m')">10 เดือน</button>
+            <button class="filter-btn" onclick="filterFood('1y')">1 ปี</button>
+            <button class="filter-btn" onclick="filterFood('2y')">2 ปี+</button>
+        </div>
+
+        <div class="food-grid" id="foodGrid">
+            <!-- Food cards will be generated here -->
+        </div>
+    </div>
+
+    <script>
+        const foods = [
+            {
+                name: 'โจ๊กข้าวหมู',
+                age: '6m',
+                image: 'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80',
+                desc: 'อาหารเหลวช่วยให้เด็กเรียนรู้การกินข้าว',
+                benefits: 'สารอาหารครบเครื่อง เหมาะสำหรับเริ่มต้น'
+            },
+            {
+                name: 'ข้าวแพท้ชีส',
+                age: '8m',
+                image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=800&q=80',
+                desc: 'ข้าวนุ่มๆ ผสมชีสแห้ง',
+                benefits: 'แคลเซียมสูง สำหรับพัฒนากระดูก'
+            },
+            {
+                name: 'ไข่ต้มยางไข่ปลา',
+                age: '10m',
+                image: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800&q=80',
+                desc: 'โปรตีนสูง ง่ายต่อการย่อย',
+                benefits: 'โปรตีนคุณภาพสูง'
+            },
+            {
+                name: 'หมูบดผัก',
+                age: '8m',
+                image: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80',
+                desc: 'เนื้อหมูบดหนึ่งผักต่างๆ',
+                benefits: 'สารธาตุสำคัญเพื่อพัฒนาการ'
+            },
+            {
+                name: 'ก้อยชุมพร',
+                age: '10m',
+                image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80',
+                desc: 'อาหารเด็กป้อนบ้าน',
+                benefits: 'ช่วยให้เด็กกัดเคี้ยว'
+            },
+            {
+                name: 'พุดดิ้งขาวไข่',
+                age: '1y',
+                image: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80',
+                desc: 'ของหวานเด็กอ่อน ไม่มีน้ำตาลสูง',
+                benefits: 'ของหวานตามหลักอาหารเด็ก'
+            }
+        ];
+
+        function filterFood(age) {
+            const btns = document.querySelectorAll('.filter-btn');
+            btns.forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const filtered = age === 'all' ? foods : foods.filter(f => f.age === age);
+            
+            document.getElementById('foodGrid').innerHTML = filtered.map(f => `
+                <div class="food-card">
+                    <img class="food-image" src="${f.image}" alt="${f.name}" />
+                    <div class="food-info">
+                        <div class="food-name">${f.name}</div>
+                        <span class="food-age">อายุ ${f.age === '6m' ? '6 เดือน' : 
+                            f.age === '8m' ? '8 เดือน' : 
+                            f.age === '10m' ? '10 เดือน' : 
+                            f.age === '1y' ? '1 ปี' : '2 ปีขึ้นไป'}</span>
+                        <p class="food-description">${f.desc}</p>
+                        <div class="food-benefits"><strong>✓ ประโยชน์:</strong> ${f.benefits}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Initialize
+        filterFood('all');
+    </script>
+</body>
+</html>
