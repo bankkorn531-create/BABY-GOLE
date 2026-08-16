@@ -900,110 +900,110 @@
         // --- ข้อมูลโภชนาการ (50+ เมนู) ---
         const foodsData = [
             { c: "อาหารสำหรับวัย 6 เดือน (บดละเอียด)", items: [
-                "ข้าวบดตำลึงตับหมู",
-                "ซุปฟักทองนมแม่",
-                "อะโวคาโดบดกล้วย",
-                "ข้าวบดแครอทไข่แดง",
-                "มันเทศบดแอปเปิ้ล",
-                "ข้าวโอ๊ตบดผสมนมแม่",
-                "ซุปผักกาดขาวเต้าหู้หลอด",
-                "ปวยเล้งบดไก่สับละเอียด",
-                "ข้าวบดมะละกอสุก",
-                "บล็อกโคลี่บดปลาทับทิม",
-                "ข้าวตุ๋นตำลึงหมูสับบด",
-                "ฟักเขียวบดไข่แดง"
+                { name: "ข้าวบดตำลึงตับหมู", image: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80" },
+                { name: "ซุปฟักทองนมแม่", image: "https://images.unsplash.com/photo-1518843875459-f738682238a6?auto=format&fit=crop&w=800&q=80" },
+                { name: "อะโวคาโดบดกล้วย", image: "https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=800&q=80" },
+                { name: "ข้าวบดแครอทไข่แดง", image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80" },
+                { name: "มันเทศบดแอปเปิ้ล", image: "https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=800&q=80" },
+                { name: "ข้าวโอ๊ตบดผสมนมแม่", image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80" },
+                { name: "ซุปผักกาดขาวเต้าหู้หลอด", image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80" },
+                { name: "ปวยเล้งบดไก่สับละเอียด", image: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80" },
+                { name: "ข้าวบดมะละกอสุก", image: "https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=800&q=80" },
+                { name: "บล็อกโคลี่บดปลาทับทิม", image: "https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=800&q=80" },
+                { name: "ข้าวตุ๋นตำลึงหมูสับบด", image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80" },
+                { name: "ฟักเขียวบดไข่แดง", image: "https://images.unsplash.com/photo-1518843875459-f738682238a6?auto=format&fit=crop&w=800&q=80" }
             ] },
             { c: "อาหารสำหรับวัย 7-8 เดือน (บดหยาบ/เนื้อสัตว์สับ)", items: [
-                "ข้าวตุ๋นแครอทไก่สับ",
-                "โจ๊กข้าวกล้องตับหมู",
-                "ซุปมักกะโรนีหมูสับ",
-                "ข้าวต้มปลาแซลมอน",
-                "มันฝรั่งบดผสมไข่คน",
-                "ข้าวบดบร็อคโคลี่กุ้งสับ",
-                "ซุปไก่มันฝรั่งมะเขือเทศ",
-                "ฟักทองผัดไข่บดหยาบ",
-                "ข้าวตุ๋นดอกกะหล่ำปลาแพนกาเซียส",
-                "แกงจืดตำลึงเต้าหู้หมูสับ(ไม่ปรุงรส)",
-                "ข้าวผัดเนยจืดไข่แดง",
-                "ข้าวตุ๋นเห็ดหอมไก่ฉีก",
-                "ซุปหัวหอมไข่ตุ๋น",
-                "พาสต้าจิ๋วซอสมะเขือเทศ"
+                { name: "ข้าวตุ๋นแครอทไก่สับ", image: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80" },
+                { name: "โจ๊กข้าวกล้องตับหมู", image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80" },
+                { name: "ซุปมักกะโรนีหมูสับ", image: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80" },
+                { name: "ข้าวต้มปลาแซลมอน", image: "https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=800&q=80" },
+                { name: "มันฝรั่งบดผสมไข่คน", image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=800&q=80" },
+                { name: "ข้าวบดบร็อคโคลี่กุ้งสับ", image: "https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=800&q=80" },
+                { name: "ซุปไก่มันฝรั่งมะเขือเทศ", image: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80" },
+                { name: "ฟักทองผัดไข่บดหยาบ", image: "https://images.unsplash.com/photo-1518843875459-f738682238a6?auto=format&fit=crop&w=800&q=80" },
+                { name: "ข้าวตุ๋นดอกกะหล่ำปลาแพนกาเซียส", image: "https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=800&q=80" },
+                { name: "แกงจืดตำลึงเต้าหู้หมูสับ(ไม่ปรุงรส)", image: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80" },
+                { name: "ข้าวผัดเนยจืดไข่แดง", image: "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800&q=80" },
+                { name: "ข้าวตุ๋นเห็ดหอมไก่ฉีก", image: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80" },
+                { name: "ซุปหัวหอมไข่ตุ๋น", image: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80" },
+                { name: "พาสต้าจิ๋วซอสมะเขือเทศ", image: "https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?auto=format&fit=crop&w=800&q=80" }
             ] },
             { c: "อาหารสำหรับวัย 9-12 เดือน (หั่นเต๋า/Finger Food)", items: [
-                "ข้าวผัดสามสีไข่เจียวหั่นเต๋า",
-                "ข้าวปั้นทูน่า",
-                "แพนเค้กกล้วยหอมข้าวโอ๊ต",
-                "มินิเบอร์เกอร์หมูสับผักซ่อน",
-                "ฟักทองอบแท่ง",
-                "ข้าวต้มปลาทูแกะก้าง",
-                "ไข่ม้วนผักรวม",
-                "อุด้งไก่น้ำใส",
-                "ข้าวหมูตุ๋นแครอทนิ่ม",
-                "แซนวิชโรลไส้ไข่ต้มบด",
-                "ข้าวกล้องคลุกผักกุ้ง",
-                "ข้าวต้มปลาทูผสมผัก"
+                { name: "ข้าวผัดสามสีไข่เจียวหั่นเต๋า", image: "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800&q=80" },
+                { name: "ข้าวปั้นทูน่า", image: "https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=800&q=80" },
+                { name: "แพนเค้กกล้วยหอมข้าวโอ๊ต", image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80" },
+                { name: "มินิเบอร์เกอร์หมูสับผักซ่อน", image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80" },
+                { name: "ฟักทองอบแท่ง", image: "https://images.unsplash.com/photo-1518843875459-f738682238a6?auto=format&fit=crop&w=800&q=80" },
+                { name: "ข้าวต้มปลาทูแกะก้าง", image: "https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=800&q=80" },
+                { name: "ไข่ม้วนผักรวม", image: "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800&q=80" },
+                { name: "อุด้งไก่น้ำใส", image: "https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?auto=format&fit=crop&w=800&q=80" },
+                { name: "ข้าวหมูตุ๋นแครอทนิ่ม", image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80" },
+                { name: "แซนวิชโรลไส้ไข่ต้มบด", image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80" },
+                { name: "ข้าวกล้องคลุกผักกุ้ง", image: "https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=800&q=80" },
+                { name: "ข้าวต้มปลาทูผสมผัก", image: "https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=800&q=80" }
             ] },
             { c: "อาหารสำหรับวัย 1 ปีขึ้นไป (ปรุงรสอ่อน/ทานร่วมครอบครัว)", items: [
-                "ข้าวผัดกุ้งไข่",
-                "สปาเก็ตตี้คาโบนาร่าเด็ก",
-                "ต้มจืดกระดูกหมูอ่อนเห็ดหอม",
-                "ไก่อบซอสส้ม",
-                "ปลากะพงนึ่งซีอิ๊ว",
-                "หมูปั้นทอดกระเทียม(นิ่ม)",
-                "ข้าวไก่เทอริยากิ",
-                "แกงเลียงกุ้งสดผักรวม(ไม่เผ็ด)",
-                "มักกะโรนีอบชีสใส่บร็อคโคลี่",
-                "บัวลอยฟักทองน้ำกะทิอ่อน",
-                "แกงส้มชะอมไข่ปลากะพง",
-                "ข้าวต้มไก่ใส่ฟักทอง"
+                { name: "ข้าวผัดกุ้งไข่", image: "https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=800&q=80" },
+                { name: "สปาเก็ตตี้คาโบนาร่าเด็ก", image: "https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?auto=format&fit=crop&w=800&q=80" },
+                { name: "ต้มจืดกระดูกหมูอ่อนเห็ดหอม", image: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80" },
+                { name: "ไก่อบซอสส้ม", image: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80" },
+                { name: "ปลากะพงนึ่งซีอิ๊ว", image: "https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=800&q=80" },
+                { name: "หมูปั้นทอดกระเทียม(นิ่ม)", image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80" },
+                { name: "ข้าวไก่เทอริยากิ", image: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80" },
+                { name: "แกงเลียงกุ้งสดผักรวม(ไม่เผ็ด)", image: "https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=800&q=80" },
+                { name: "มักกะโรนีอบชีสใส่บร็อคโคลี่", image: "https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?auto=format&fit=crop&w=800&q=80" },
+                { name: "บัวลอยฟักทองน้ำกะทิอ่อน", image: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=800&q=80" },
+                { name: "แกงส้มชะอมไข่ปลากะพง", image: "https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=800&q=80" },
+                { name: "ข้าวต้มไก่ใส่ฟักทอง", image: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80" }
             ] },
             { c: "อาหารสำหรับวัย 2-3 ปี (ทานเองได้มากขึ้น)", items: [
-                "ข้าวผัดผักรวมเนื้อไก่",
-                "สลัดฟักทองนิ่ม",
-                "แซนวิชไข่ต้ม",
-                "สปาเก็ตตี้ซอสมะเขือเทศเด็ก",
-                "ต้มจืดเต้าหู้หมูสับ",
-                "แผ่นไข่เจียวหั่นเส้น",
-                "แกงจืดผักกาดขาวไก่",
-                "ข้าวต้มเปื่อยหมูสับ",
-                "ขนมปังอบเนยถั่ว",
-                "สลัดผลไม้บดนม"
+                { name: "ข้าวผัดผักรวมเนื้อไก่", image: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80" },
+                { name: "สลัดฟักทองนิ่ม", image: "https://images.unsplash.com/photo-1518843875459-f738682238a6?auto=format&fit=crop&w=800&q=80" },
+                { name: "แซนวิชไข่ต้ม", image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80" },
+                { name: "สปาเก็ตตี้ซอสมะเขือเทศเด็ก", image: "https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?auto=format&fit=crop&w=800&q=80" },
+                { name: "ต้มจืดเต้าหู้หมูสับ", image: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80" },
+                { name: "แผ่นไข่เจียวหั่นเส้น", image: "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800&q=80" },
+                { name: "แกงจืดผักกาดขาวไก่", image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80" },
+                { name: "ข้าวต้มเปื่อยหมูสับ", image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80" },
+                { name: "ขนมปังอบเนยถั่ว", image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80" },
+                { name: "สลัดผลไม้บดนม", image: "https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=800&q=80" }
             ] },
             { c: "อาหารสำหรับวัย 3-4 ปี (ฝึกทานเองกับครอบครัว)", items: [
-                "ข้าวผัดแฮมผักรวม",
-                "สปาเก็ตตี้ซอสมะเขือเทศกับเนื้อบด",
-                "ลูกชิ้นทอดนิ่ม",
-                "แกงจืดวุ้นเส้นหมูสับ",
-                "ข้าวต้มเห็ดหอมไก่",
-                "ซุปบล็อกโคลี่ครีม",
-                "ขนมปังปิ้งกับเนยถั่ว",
-                "ไข่คนผักโขม",
-                "สลัดผักต้มแครอท",
-                "เส้นก๋วยเตี๋ยวผักต้ม"
+                { name: "ข้าวผัดแฮมผักรวม", image: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80" },
+                { name: "สปาเก็ตตี้ซอสมะเขือเทศกับเนื้อบด", image: "https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?auto=format&fit=crop&w=800&q=80" },
+                { name: "ลูกชิ้นทอดนิ่ม", image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80" },
+                { name: "แกงจืดวุ้นเส้นหมูสับ", image: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80" },
+                { name: "ข้าวต้มเห็ดหอมไก่", image: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80" },
+                { name: "ซุปบล็อกโคลี่ครีม", image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80" },
+                { name: "ขนมปังปิ้งกับเนยถั่ว", image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80" },
+                { name: "ไข่คนผักโขม", image: "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800&q=80" },
+                { name: "สลัดผักต้มแครอท", image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80" },
+                { name: "เส้นก๋วยเตี๋ยวผักต้ม", image: "https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?auto=format&fit=crop&w=800&q=80" }
             ] },
             { c: "อาหารสำหรับวัย 4-5 ปี (ร่วมทานครอบครัว)", items: [
-                "ข้าวผัดปลากระพง",
-                "ผัดบล็อกโคลี่ไก่",
-                "สปาเก็ตตี้คาโบนาร่าไก่",
-                "แกงจืดผักกาดขาว",
-                "ปลานึ่งมะนาวไม่เผ็ด",
-                "สลัดวุ้นเส้นผักสด",
-                "ไข่ตุ๋นผักรวม",
-                "ข้าวโพดต้มเนย",
-                "ขนมปังโฮลวีทใส่ชีส",
-                "ข้าวกล้องผัดไข่"
+                { name: "ข้าวผัดปลากระพง", image: "https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=800&q=80" },
+                { name: "ผัดบล็อกโคลี่ไก่", image: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80" },
+                { name: "สปาเก็ตตี้คาโบนาร่าไก่", image: "https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?auto=format&fit=crop&w=800&q=80" },
+                { name: "แกงจืดผักกาดขาว", image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80" },
+                { name: "ปลานึ่งมะนาวไม่เผ็ด", image: "https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=800&q=80" },
+                { name: "สลัดวุ้นเส้นผักสด", image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80" },
+                { name: "ไข่ตุ๋นผักรวม", image: "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800&q=80" },
+                { name: "ข้าวโพดต้มเนย", image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=800&q=80" },
+                { name: "ขนมปังโฮลวีทใส่ชีส", image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80" },
+                { name: "ข้าวกล้องผัดไข่", image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80" }
             ] },
             { c: "เมนูว่างสุขภาพสำหรับเด็ก", items: [
-                "ขนมปังข้าวไรย์เนยถั่ว",
-                "โยเกิร์ตผลไม้บด",
-                "ลูกเกดและธัญพืชอ่อน",
-                "เต้าหู้ทอดนิ่ม",
-                "แครอทต้มผสมฮัมมุส",
-                "ข้าวโอ๊ตปั่นกับกล้วย",
-                "แตงกวาหั่นแท่งคู่ชีส",
-                "แตงโมหั่นเต๋า",
-                "มะม่วงสุกบดกับข้าวเหนียวจืด",
-                "สมูทตี้ผลไม้และผักโขม"
+                { name: "ขนมปังข้าวไรย์เนยถั่ว", image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80" },
+                { name: "โยเกิร์ตผลไม้บด", image: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=800&q=80" },
+                { name: "ลูกเกดและธัญพืชอ่อน", image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80" },
+                { name: "เต้าหู้ทอดนิ่ม", image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80" },
+                { name: "แครอทต้มผสมฮัมมุส", image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80" },
+                { name: "ข้าวโอ๊ตปั่นกับกล้วย", image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80" },
+                { name: "แตงกวาหั่นแท่งคู่ชีส", image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80" },
+                { name: "แตงโมหั่นเต๋า", image: "https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=800&q=80" },
+                { name: "มะม่วงสุกบดกับข้าวเหนียวจืด", image: "https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=800&q=80" },
+                { name: "สมูทตี้ผลไม้และผักโขม", image: "https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=800&q=80" }
             ] }
         ];
 
@@ -1649,8 +1649,10 @@
             renderForum();
             loadCommunityNotifications();
             
-            function buildFoodThumbnail(label) {
-                const normalized = label.trim();
+            function buildFoodThumbnail(item) {
+                if (typeof item === 'object' && item && item.image) return item.image;
+                const label = String(item || '').trim();
+                const normalized = label;
                 const photoMap = [
                     { keywords: ['ข้าวต้มไก่', 'ไก่', 'ไก่อบ', 'ข้าวไก่'], url: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80' },
                     { keywords: ['ปลาทู', 'ปลา', 'ปลากะพง', 'ปลากะพงนึ่ง', 'ปลาแซลมอน'], url: 'https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=800&q=80' },
@@ -1676,13 +1678,16 @@
             foodsData.forEach(cat => {
                 foodHtml += `<div class="category-header">${cat.c}</div><div class="grid-3">`;
                 cat.items.forEach((item) => {
+                    const name = typeof item === 'string' ? item : (item && item.name) || 'เมนูอาหาร';
                     const thumb = buildFoodThumbnail(item);
                     foodHtml += `
                         <div class="card" style="padding:0; overflow:hidden; border-left:4px solid var(--accent);">
                             <div style="padding:15px 15px 0;">
-                                <h4 style="margin:0; color:var(--primary); font-size:1.05rem;">🍽️ ${item}</h4>
+                                <h4 style="margin:0; color:var(--primary); font-size:1.05rem;">🍽️ ${name}</h4>
                             </div>
-                            <img src="${thumb}" alt="${item}" style="width:100%; height:150px; object-fit:cover; display:block; background:linear-gradient(135deg,#60a5fa,#8b5cf6); margin-top:12px;">
+                            <a href="${thumb}" target="_blank" rel="noopener noreferrer" aria-label="ดูรูปภาพ ${name}">
+                                <img src="${thumb}" alt="${name}" style="width:100%; height:150px; object-fit:cover; display:block; background:linear-gradient(135deg,#60a5fa,#8b5cf6); margin-top:12px;">
+                            </a>
                         </div>
                     `;
                 });
