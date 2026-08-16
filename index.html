@@ -1,3 +1,5 @@
+<
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -75,7 +77,7 @@
         .toast-notice.success { background: var(--success); }
 
         /* Custom BGs */
-        .landing-bg { background: linear-gradient(135deg, rgba(224,242,254,0.95), rgba(186,230,253,0.95)), url('assets/landing-bg.svg') center/cover no-repeat; min-height: 100vh; display: flex; justify-content: center; align-items: center; }
+        .landing-bg { background: linear-gradient(135deg, rgba(224,242,254,0.95), rgba(186,230,253,0.95)), url('baby-gole-app/frontend/assets/landing.svg') center/cover no-repeat; min-height: 100vh; display: flex; justify-content: center; align-items: center; }
         .auth-container { min-height: 100vh; display: flex; justify-content: center; align-items: center; background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); padding: 20px; }
         .auth-card { background: var(--white); padding: 40px; border-radius: 25px; width: 100%; max-width: 450px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
         .banner-content { background: rgba(255, 255, 255, 0.95); padding: 40px; border-radius: 25px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); max-width: 600px; width: 100%; text-align: center; }
@@ -92,11 +94,6 @@
         .profile-pic-overlay { position: absolute; bottom: 0; right: 0; background: var(--primary); color: white; border-radius: 50%; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; font-size: 1rem; border: 2px solid white; }
 
         .category-header { font-size: 1.2rem; color: var(--primary); margin-top: 25px; border-bottom: 2px solid var(--soft-blue); padding-bottom: 5px; }
-        .food-card { padding: 18px !important; border-left: 4px solid var(--accent); overflow: hidden; }
-        .food-card-content { padding: 0; }
-        .food-card-content h4 { margin: 0; color: var(--primary); font-size: 1.05rem; line-height: 1.5; }
-        .food-detail { margin: 12px 0 0; color: var(--gray); font-size: 0.92rem; line-height: 1.7; }
-        .food-detail strong { color: var(--primary); font-weight: 600; }
         
         .ai-chat-history { max-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
         .chat-bubble { padding: 12px 15px; border-radius: 15px; max-width: 80%; line-height: 1.5; font-size: 0.95rem; }
@@ -130,8 +127,8 @@
             <div style="position:absolute; inset:0; background:linear-gradient(135deg, rgba(255,255,255,0.9), rgba(240,249,255,0.8)); z-index:0;"></div>
             <div style="position:relative; z-index:1;">
                 <h1 style="color: var(--primary); margin-top: 0; font-size: 2.2rem;">ยินดีต้อนรับสู่ baby Gole</h1>
-                <p style="color: var(--gray); font-size: 1.1rem;">ศูนย์ดูแลเด็กเล็กครบวงจรเพื่อลูกรักของคุณ</p>
-                <div class="page-visual float-slow" style="max-width: 320px; margin: 18px auto 22px;"><img src="assets/landing-bg.svg" alt="welcome illustration"></div>
+                <p style="color: var(--gray); font-size: 1.1rem;">เว็บไซต์ดูแลเด็กเล็กครบวงจรเพื่อลูกรักของคุณ</p>
+                
                 <button class="btn btn-primary" onclick="showPage('loginPage')">เข้าสู่ระบบ / สมัครสมาชิก</button>
             </div>
         </div>
@@ -139,7 +136,7 @@
 
     <section id="loginPage" class="auth-container hidden">
         <div class="auth-card page-animation">
-            <div class="page-visual float-slow"><img src="assets/login.svg" alt="illustration login"></div>
+            
             <h2 id="loginTitle" style="color: var(--primary);">เข้าสู่ระบบสมาชิก</h2>
             <div id="adminBadge" class="hidden" style="background:#fee2e2; color:#ef4444; padding:5px; border-radius:8px; margin-bottom:15px; font-weight:bold;">โหมดผู้ดูแลระบบ (Admin)</div>
             <input type="text" id="loginUser" placeholder="Username หรือ Email">
@@ -164,7 +161,7 @@
 
     <section id="registerPage" class="auth-container hidden">
         <div class="auth-card page-animation">
-            <div class="page-visual pulse-soft"><img src="assets/register.svg" alt="illustration register"></div>
+            <div class="page-visual pulse-soft"><img src="baby-gole-app/frontend/assets/register.svg" alt="illustration register"></div>
             <h2 style="color: var(--primary);">สมัครสมาชิก</h2>
             <input type="text" id="regName" placeholder="ชื่อ-นามสกุล">
             <input type="text" id="regPhone" placeholder="เบอร์โทรศัพท์">
@@ -180,7 +177,7 @@
 
     <section id="forgotPage" class="auth-container hidden">
         <div class="auth-card page-animation">
-            <div class="page-visual wobble"><img src="assets/forgot.svg" alt="illustration forgot password"></div>
+            <div class="page-visual wobble"><img src="baby-gole-app/frontend/assets/forgot.svg" alt="illustration forgot password"></div>
             <h2 style="color: var(--primary);">ลืมรหัสผ่าน</h2>
             <input type="text" id="forgotUser" placeholder="Username หรือ Email ของคุณ">
             <button class="btn btn-primary" style="width: 100%;" onclick="forgotPassword()">ค้นหารหัสผ่าน</button>
@@ -346,28 +343,30 @@
     </section>
 
     <section id="aiPage" class="hidden" style="padding: 40px 10%;">
-        <div class="card page-animation" style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column;">
-            <h2 style="color: var(--primary);"><i class="fa-solid fa-robot"></i> ผู้ช่วย AI วิเคราะห์อาการเด็ก</h2>
-            <p style="color: var(--gray);">พิมพ์อาการและอายุของลูกน้อยให้ AI ช่วยประเมินเบื้องต้น สามารถพูดคุยสอบถามเพิ่มเติมได้ต่อเนื่อง</p>
-            
-            <div id="aiHistoryContainer" class="ai-chat-history">
-                <div class="chat-bubble chat-ai">สวัสดีครับ ผมคือผู้ช่วย AI ของ baby Gole คุณแม่/คุณพ่อมีอาการของลูกน้อยอะไรที่อยากให้ผมช่วยประเมินเบื้องต้นไหมครับ?</div>
+        <div class="card page-animation">
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom: 10px; flex-wrap:wrap;">
+                <div style="width:55px;height:55px;border-radius:50%;background:var(--soft-blue);display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:var(--primary); flex-shrink:0;">
+                    <i class="fa-solid fa-baby"></i>
+                </div>
+                <div>
+                    <h2 style="margin:0; color:var(--primary);">Baby Go Health Assistant</h2>
+                    <p style="margin:2px 0 0; color:var(--gray); font-size:0.9rem;">คู่มือดูแลสุขภาพเด็กเล็ก 0-6 ปี &mdash; เลือกคำถามที่สนใจด้านล่าง</p>
+                </div>
             </div>
 
-            <div style="display: flex; gap: 10px; margin-top: 20px;">
-                <textarea id="aiInput" rows="2" style="flex: 1; resize: none; margin: 0;" placeholder="พิมพ์อาการที่นี่... เช่น อายุ 5 เดือน มีไข้ 38 องศา"></textarea>
-                <button class="btn btn-secondary" onclick="analyzeAI()"><i class="fa-solid fa-paper-plane"></i> ส่ง</button>
+            <div style="margin-top:15px;">
+                <input type="text" id="aiSearchBox" placeholder="🔍 พิมพ์คำค้นหาคำถาม เช่น ไข้, ท้องเสีย, วัคซีน, นอน..." oninput="filterAIQuestions()">
+                <select id="aiQuestionSelect" size="7" style="cursor:pointer; font-size:0.92rem;"></select>
+                <button type="button" class="btn btn-primary" style="width:100%; margin-top:10px;" onclick="askSelectedQuestion()"><i class="fa-solid fa-paper-plane"></i> ถามคำถามนี้</button>
             </div>
-            <div style="margin-top: 15px; padding: 12px; background: #f8fafc; border-radius: 10px; color: var(--gray);">
-                <p style="margin: 0 0 8px; font-weight: bold;">ตัวอย่างคำถามที่ใช้ได้</p>
-                <ul style="margin: 0; padding-left: 20px; line-height: 1.7;">
-                    <li>อายุ 4 เดือน มีน้ำมูก และสะอึกหนัก ควรทำอย่างไร?</li>
-                    <li>ลูก 18 เดือน ปวดหูและร้องมากตอนกลางคืน</li>
-                    <li>ลูก 2 ขวบท้องเสีย 2 วันแล้ว</li>
-                    <li>ลูก 5 ปี ไอแห้งๆ ไม่ค่อยมีไข้</li>
-                </ul>
+
+            <div id="aiHistoryContainer" class="ai-chat-history">
+                <div class="chat-bubble chat-ai">สวัสดีค่ะ ดิฉันคือ Baby Go Health Assistant ผู้ช่วยให้ความรู้เรื่องสุขภาพ พัฒนาการ และการดูแลเด็กเล็ก 0-6 ปี เลือกคำถามที่สนใจจากรายการด้านบน แล้วกด "ถามคำถามนี้" ได้เลยค่ะ</div>
             </div>
-            <p style="font-size: 0.8rem; color: var(--warn); margin-top: 15px;">* หมายเหตุ: นี่เป็นการวิเคราะห์เบื้องต้น หากเด็กมีอาการรุนแรงควรพบแพทย์ทันที</p>
+
+            <div style="margin-top:15px; font-size:0.85rem; color:var(--gray); text-align:center;">
+                <i class="fa-solid fa-triangle-exclamation"></i> ข้อมูลนี้เป็นคำแนะนำเบื้องต้นเพื่อการศึกษาเท่านั้น ไม่ใช่การวินิจฉัยทางการแพทย์ หากอาการรุนแรงหรือไม่แน่ใจควรพบแพทย์
+            </div>
         </div>
     </section>
 
@@ -525,7 +524,105 @@
         let communityNotifications = [];
         let communityToastTimer = null;
 
+        const DB_NAME = 'babyGoleDB';
+        const DB_VERSION = 1;
+        const DATABASE_STORES = {
+            users: 'users',
+            tracker: 'tracker',
+            forum: 'forum',
+            notifications: 'notifications'
+        };
+
+        window.__dbCache = window.__dbCache || {};
+
+        const DatabaseService = {
+            dbPromise: null,
+
+            init() {
+                if (this.dbPromise) return this.dbPromise;
+
+                this.dbPromise = new Promise((resolve) => {
+                    if (!('indexedDB' in window)) {
+                        resolve(null);
+                        return;
+                    }
+
+                    const request = indexedDB.open(DB_NAME, DB_VERSION);
+                    request.onupgradeneeded = (event) => {
+                        const db = event.target.result;
+                        Object.values(DATABASE_STORES).forEach((storeName) => {
+                            if (!db.objectStoreNames.contains(storeName)) {
+                                db.createObjectStore(storeName, { keyPath: 'key' });
+                            }
+                        });
+                    };
+                    request.onsuccess = () => resolve(request.result);
+                    request.onerror = () => {
+                        console.warn('IndexedDB unavailable, falling back to localStorage');
+                        resolve(null);
+                    };
+                });
+
+                return this.dbPromise;
+            },
+
+            async read(storeName, fallback = null) {
+                const db = await this.init();
+                if (!db) {
+                    try {
+                        const stored = localStorage.getItem(`babygole_${storeName}`);
+                        return stored ? JSON.parse(stored) : fallback;
+                    } catch (e) {
+                        console.warn('Failed to read from storage', storeName, e);
+                        return fallback;
+                    }
+                }
+
+                return new Promise((resolve) => {
+                    const transaction = db.transaction(storeName, 'readonly');
+                    const store = transaction.objectStore(storeName);
+                    const request = store.get('data');
+                    request.onsuccess = () => resolve(request.result?.value ?? fallback);
+                    request.onerror = () => resolve(fallback);
+                });
+            },
+
+            async write(storeName, value) {
+                const db = await this.init();
+                if (!db) {
+                    localStorage.setItem(`babygole_${storeName}`, JSON.stringify(value));
+                    return value;
+                }
+
+                return new Promise((resolve) => {
+                    const transaction = db.transaction(storeName, 'readwrite');
+                    const store = transaction.objectStore(storeName);
+                    const request = store.put({ key: 'data', value });
+                    request.onsuccess = () => resolve(value);
+                    request.onerror = () => {
+                        localStorage.setItem(`babygole_${storeName}`, JSON.stringify(value));
+                        resolve(value);
+                    };
+                });
+            }
+        };
+
+        window.DatabaseService = DatabaseService;
+
+        function getDatabaseStoreName(key) {
+            const mapping = {
+                babygole_users: 'users',
+                babygole_tracker: 'tracker',
+                babygole_forum: 'forum',
+                babygole_community_notifications: 'notifications'
+            };
+            return mapping[key] || key;
+        }
+
         function loadFromDatabase(key, fallback) {
+            const cached = window.__dbCache[key];
+            if (cached !== undefined) return cached;
+
             try {
                 const stored = localStorage.getItem(key);
                 if (stored) return JSON.parse(stored);
@@ -536,8 +633,33 @@
         }
 
         function saveToDatabase(key, value) {
+            window.__dbCache[key] = value;
             localStorage.setItem(key, JSON.stringify(value));
+            DatabaseService.write(getDatabaseStoreName(key), value).catch(() => {});
             notifyDataChanged();
+            return value;
+        }
+
+        function bootstrapDatabase() {
+            const entries = [
+                ['babygole_users', users],
+                ['babygole_tracker', trackerRecords],
+                ['babygole_forum', forumPosts],
+                ['babygole_community_notifications', communityNotifications]
+            ];
+
+            entries.forEach(([key, fallback]) => {
+                const storeName = getDatabaseStoreName(key);
+                DatabaseService.read(storeName, fallback).then((value) => {
+                    if (value !== null && value !== undefined) {
+                        window.__dbCache[key] = value;
+                        if (key === 'babygole_users') users = value;
+                        if (key === 'babygole_tracker') trackerRecords = value;
+                        if (key === 'babygole_forum') forumPosts = value;
+                        if (key === 'babygole_community_notifications') communityNotifications = value;
+                    }
+                });
+            });
         }
 
         function notifyDataChanged() {
@@ -560,7 +682,7 @@
 
         function pushCommunityNotification(message) {
             communityNotifications.unshift({ id: Date.now(), text: message, createdAt: new Date().toLocaleString('th-TH') });
-            localStorage.setItem('babygole_community_notifications', JSON.stringify(communityNotifications));
+            saveToDatabase('babygole_community_notifications', communityNotifications);
             showCommunityToast(message);
             updateCommunityBadge();
             renderNotificationsPage();
@@ -601,7 +723,7 @@
 
         function clearCommunityNotifications() {
             communityNotifications = [];
-            localStorage.setItem('babygole_community_notifications', JSON.stringify(communityNotifications));
+            saveToDatabase('babygole_community_notifications', communityNotifications);
             updateCommunityBadge();
             renderNotificationsPage();
         }
@@ -775,147 +897,115 @@
             }
         };
 
-        // --- ข้อมูลโภชนาการ (50 เมนู) ---
+        // --- ข้อมูลโภชนาการ (50+ เมนู) ---
         const foodsData = [
-            { c: "อาหารสำหรับวัย 6 เดือน (บดละเอียด)", items: [ "ข้าวบดตำลึงตับหมู", "ซุปฟักทองนมแม่", "อะโวคาโดบดกล้วย", "ข้าวบดแครอทไข่แดง", "มันเทศบดแอปเปิ้ล", "ข้าวโอ๊ตบดผสมนมแม่", "ซุปผักกาดขาวเต้าหู้หลอด", "ปวยเล้งบดไก่สับละเอียด", "ข้าวบดมะละกอสุก", "บล็อกโคลี่บดปลาทับทิม", "ข้าวตุ๋นตำลึงหมูสับบด", "ฟักเขียวบดไข่แดง" ] },
-            { c: "อาหารสำหรับวัย 7-8 เดือน (บดหยาบ/เนื้อสัตว์สับ)", items: [ "ข้าวตุ๋นแครอทไก่สับ", "โจ๊กข้าวกล้องตับหมู", "ซุปมักกะโรนีหมูสับ", "ข้าวต้มปลาแซลมอน", "มันฝรั่งบดผสมไข่คน", "ข้าวบดบร็อคโคลี่กุ้งสับ", "ซุปไก่มันฝรั่งมะเขือเทศ", "ฟักทองผัดไข่บดหยาบ", "ข้าวตุ๋นดอกกะหล่ำปลาแพนกาเซียส", "แกงจืดตำลึงเต้าหู้หมูสับ(ไม่ปรุงรส)", "ข้าวผัดเนยจืดไข่แดง", "ข้าวตุ๋นเห็ดหอมไก่ฉีก", "ซุปหัวหอมไข่ตุ๋น", "พาสต้าจิ๋วซอสมะเขือเทศ" ] },
-            { c: "อาหารสำหรับวัย 9-12 เดือน (หั่นเต๋า/Finger Food)", items: [ "ข้าวผัดสามสีไข่เจียวหั่นเต๋า", "ข้าวปั้นทูน่า", "แพนเค้กกล้วยหอมข้าวโอ๊ต", "มินิเบอร์เกอร์หมูสับผักซ่อน", "ฟักทองอบแท่ง", "ข้าวต้มปลาทูแกะก้าง", "ไข่ม้วนผักรวม", "อุด้งไก่น้ำใส", "ข้าวหมูตุ๋นแครอทนิ่ม", "แซนวิชโรลไส้ไข่ต้มบด", "ข้าวกล้องคลุกผักกุ้ง", "ข้าวต้มปลาทูผสมผัก" ] },
-            { c: "อาหารสำหรับวัย 1 ปีขึ้นไป (ปรุงรสอ่อน/ทานร่วมครอบครัว)", items: [ "ข้าวผัดกุ้งไข่", "สปาเก็ตตี้คาโบนาร่าเด็ก", "ต้มจืดกระดูกหมูอ่อนเห็ดหอม", "ไก่อบซอสส้ม", "ปลากะพงนึ่งซีอิ๊ว", "หมูปั้นทอดกระเทียม(นิ่ม)", "ข้าวไก่เทอริยากิ", "แกงเลียงกุ้งสดผักรวม(ไม่เผ็ด)", "มักกะโรนีอบชีสใส่บร็อคโคลี่", "บัวลอยฟักทองน้ำกะทิอ่อน", "แกงส้มชะอมไข่ปลากะพง", "ข้าวต้มไก่ใส่ฟักทอง" ] },
-            { c: "อาหารสำหรับวัย 2-3 ปี (ทานเองได้มากขึ้น)", items: [ "ข้าวผัดผักรวมเนื้อไก่", "สลัดฟักทองนิ่ม", "แซนวิชไข่ต้ม", "สปาเก็ตตี้ซอสมะเขือเทศเด็ก", "ต้มจืดเต้าหู้หมูสับ", "แผ่นไข่เจียวหั่นเส้น", "แกงจืดผักกาดขาวไก่", "ข้าวต้มเปื่อยหมูสับ", "ขนมปังอบเนยถั่ว", "สลัดผลไม้บดนม" ] },
-            { c: "อาหารสำหรับวัย 3-4 ปี (ฝึกทานเองกับครอบครัว)", items: [ "ข้าวผัดแฮมผักรวม", "สปาเก็ตตี้ซอสมะเขือเทศกับเนื้อบด", "ลูกชิ้นทอดนิ่ม", "แกงจืดวุ้นเส้นหมูสับ", "ข้าวต้มเห็ดหอมไก่", "ซุปบล็อกโคลี่ครีม", "ขนมปังปิ้งกับเนยถั่ว", "ไข่คนผักโขม", "สลัดผักต้มแครอท", "เส้นก๋วยเตี๋ยวผักต้ม" ] },
-            { c: "อาหารสำหรับวัย 4-5 ปี (ร่วมทานครอบครัว)", items: [ "ข้าวผัดปลากระพง", "ผัดบล็อกโคลี่ไก่", "สปาเก็ตตี้คาโบนาร่าไก่", "แกงจืดผักกาดขาว", "ปลานึ่งมะนาวไม่เผ็ด", "สลัดวุ้นเส้นผักสด", "ไข่ตุ๋นผักรวม", "ข้าวโพดต้มเนย", "ขนมปังโฮลวีทใส่ชีส", "ข้าวกล้องผัดไข่" ] },
-            { c: "เมนูว่างสุขภาพสำหรับเด็ก", items: [ "ขนมปังข้าวไรย์เนยถั่ว", "โยเกิร์ตผลไม้บด", "ลูกเกดและธัญพืชอ่อน", "เต้าหู้ทอดนิ่ม", "แครอทต้มผสมฮัมมุส", "ข้าวโอ๊ตปั่นกับกล้วย", "แตงกวาหั่นแท่งคู่ชีส", "แตงโมหั่นเต๋า", "มะม่วงสุกบดกับข้าวเหนียวจืด", "สมูทตี้ผลไม้และผักโขม" ] }
+            { c: "อาหารสำหรับวัย 6 เดือน (บดละเอียด)", items: [
+                "ข้าวบดตำลึงตับหมู",
+                "ซุปฟักทองนมแม่",
+                "อะโวคาโดบดกล้วย",
+                "ข้าวบดแครอทไข่แดง",
+                "มันเทศบดแอปเปิ้ล",
+                "ข้าวโอ๊ตบดผสมนมแม่",
+                "ซุปผักกาดขาวเต้าหู้หลอด",
+                "ปวยเล้งบดไก่สับละเอียด",
+                "ข้าวบดมะละกอสุก",
+                "บล็อกโคลี่บดปลาทับทิม",
+                "ข้าวตุ๋นตำลึงหมูสับบด",
+                "ฟักเขียวบดไข่แดง"
+            ] },
+            { c: "อาหารสำหรับวัย 7-8 เดือน (บดหยาบ/เนื้อสัตว์สับ)", items: [
+                "ข้าวตุ๋นแครอทไก่สับ",
+                "โจ๊กข้าวกล้องตับหมู",
+                "ซุปมักกะโรนีหมูสับ",
+                "ข้าวต้มปลาแซลมอน",
+                "มันฝรั่งบดผสมไข่คน",
+                "ข้าวบดบร็อคโคลี่กุ้งสับ",
+                "ซุปไก่มันฝรั่งมะเขือเทศ",
+                "ฟักทองผัดไข่บดหยาบ",
+                "ข้าวตุ๋นดอกกะหล่ำปลาแพนกาเซียส",
+                "แกงจืดตำลึงเต้าหู้หมูสับ(ไม่ปรุงรส)",
+                "ข้าวผัดเนยจืดไข่แดง",
+                "ข้าวตุ๋นเห็ดหอมไก่ฉีก",
+                "ซุปหัวหอมไข่ตุ๋น",
+                "พาสต้าจิ๋วซอสมะเขือเทศ"
+            ] },
+            { c: "อาหารสำหรับวัย 9-12 เดือน (หั่นเต๋า/Finger Food)", items: [
+                "ข้าวผัดสามสีไข่เจียวหั่นเต๋า",
+                "ข้าวปั้นทูน่า",
+                "แพนเค้กกล้วยหอมข้าวโอ๊ต",
+                "มินิเบอร์เกอร์หมูสับผักซ่อน",
+                "ฟักทองอบแท่ง",
+                "ข้าวต้มปลาทูแกะก้าง",
+                "ไข่ม้วนผักรวม",
+                "อุด้งไก่น้ำใส",
+                "ข้าวหมูตุ๋นแครอทนิ่ม",
+                "แซนวิชโรลไส้ไข่ต้มบด",
+                "ข้าวกล้องคลุกผักกุ้ง",
+                "ข้าวต้มปลาทูผสมผัก"
+            ] },
+            { c: "อาหารสำหรับวัย 1 ปีขึ้นไป (ปรุงรสอ่อน/ทานร่วมครอบครัว)", items: [
+                "ข้าวผัดกุ้งไข่",
+                "สปาเก็ตตี้คาโบนาร่าเด็ก",
+                "ต้มจืดกระดูกหมูอ่อนเห็ดหอม",
+                "ไก่อบซอสส้ม",
+                "ปลากะพงนึ่งซีอิ๊ว",
+                "หมูปั้นทอดกระเทียม(นิ่ม)",
+                "ข้าวไก่เทอริยากิ",
+                "แกงเลียงกุ้งสดผักรวม(ไม่เผ็ด)",
+                "มักกะโรนีอบชีสใส่บร็อคโคลี่",
+                "บัวลอยฟักทองน้ำกะทิอ่อน",
+                "แกงส้มชะอมไข่ปลากะพง",
+                "ข้าวต้มไก่ใส่ฟักทอง"
+            ] },
+            { c: "อาหารสำหรับวัย 2-3 ปี (ทานเองได้มากขึ้น)", items: [
+                "ข้าวผัดผักรวมเนื้อไก่",
+                "สลัดฟักทองนิ่ม",
+                "แซนวิชไข่ต้ม",
+                "สปาเก็ตตี้ซอสมะเขือเทศเด็ก",
+                "ต้มจืดเต้าหู้หมูสับ",
+                "แผ่นไข่เจียวหั่นเส้น",
+                "แกงจืดผักกาดขาวไก่",
+                "ข้าวต้มเปื่อยหมูสับ",
+                "ขนมปังอบเนยถั่ว",
+                "สลัดผลไม้บดนม"
+            ] },
+            { c: "อาหารสำหรับวัย 3-4 ปี (ฝึกทานเองกับครอบครัว)", items: [
+                "ข้าวผัดแฮมผักรวม",
+                "สปาเก็ตตี้ซอสมะเขือเทศกับเนื้อบด",
+                "ลูกชิ้นทอดนิ่ม",
+                "แกงจืดวุ้นเส้นหมูสับ",
+                "ข้าวต้มเห็ดหอมไก่",
+                "ซุปบล็อกโคลี่ครีม",
+                "ขนมปังปิ้งกับเนยถั่ว",
+                "ไข่คนผักโขม",
+                "สลัดผักต้มแครอท",
+                "เส้นก๋วยเตี๋ยวผักต้ม"
+            ] },
+            { c: "อาหารสำหรับวัย 4-5 ปี (ร่วมทานครอบครัว)", items: [
+                "ข้าวผัดปลากระพง",
+                "ผัดบล็อกโคลี่ไก่",
+                "สปาเก็ตตี้คาโบนาร่าไก่",
+                "แกงจืดผักกาดขาว",
+                "ปลานึ่งมะนาวไม่เผ็ด",
+                "สลัดวุ้นเส้นผักสด",
+                "ไข่ตุ๋นผักรวม",
+                "ข้าวโพดต้มเนย",
+                "ขนมปังโฮลวีทใส่ชีส",
+                "ข้าวกล้องผัดไข่"
+            ] },
+            { c: "เมนูว่างสุขภาพสำหรับเด็ก", items: [
+                "ขนมปังข้าวไรย์เนยถั่ว",
+                "โยเกิร์ตผลไม้บด",
+                "ลูกเกดและธัญพืชอ่อน",
+                "เต้าหู้ทอดนิ่ม",
+                "แครอทต้มผสมฮัมมุส",
+                "ข้าวโอ๊ตปั่นกับกล้วย",
+                "แตงกวาหั่นแท่งคู่ชีส",
+                "แตงโมหั่นเต๋า",
+                "มะม่วงสุกบดกับข้าวเหนียวจืด",
+                "สมูทตี้ผลไม้และผักโขม"
+            ] }
         ];
-
-        function getFoodImageKey(menuName) {
-            return String(menuName)
-                .normalize('NFC')
-                .toLowerCase()
-                .replace(/\([^)]*\)/g, '')
-                .replace(/[^a-z0-9\u0E00-\u0E7F]+/g, '-')
-                .replace(/^-+|-+$/g, '');
-        }
-
-        function escapeHtml(value) {
-            return String(value)
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#39;');
-        }
-
-        function includesAny(value, keywords) {
-            return keywords.some(keyword => value.includes(keyword));
-        }
-
-        function getFoodAgeHint(categoryName) {
-            if(categoryName.includes('6 เดือน')) return 'บดหรือปั่นให้ละเอียด เหมาะกับวัยเริ่มอาหารเสริม';
-            if(categoryName.includes('7-8 เดือน')) return 'ทำให้เนื้อนุ่ม บดหยาบหรือสับละเอียดเพื่อฝึกเคี้ยว';
-            if(categoryName.includes('9-12 เดือน')) return 'หั่นเต๋าหรือทำเป็นชิ้นเล็กนุ่ม เพื่อฝึกหยิบและเคี้ยว';
-            if(categoryName.includes('1 ปี')) return 'ปรุงรสอ่อนและหั่นชิ้นเล็กให้เคี้ยวง่าย';
-            if(categoryName.includes('2-3 ปี')) return 'ทำให้นุ่ม รสอ่อน และให้เด็กฝึกตักทานเอง';
-            if(categoryName.includes('3-4 ปี')) return 'หั่นพอดีคำและรสไม่จัด เพื่อทานร่วมกับครอบครัว';
-            if(categoryName.includes('4-5 ปี')) return 'ปรับรสให้อ่อนลงและเน้นผัก โปรตีน และแป้งให้ครบมื้อ';
-            return 'เลือกวัตถุดิบสด สะอาด และหั่นให้เหมาะกับวัยเด็ก';
-        }
-
-        function getFoodBenefits(menuName) {
-            const benefits = [];
-
-            if(includesAny(menuName, ['ข้าว', 'โจ๊ก', 'ข้าวโอ๊ต', 'พาสต้า', 'สปาเก็ตตี้', 'อุด้ง', 'ก๋วยเตี๋ยว', 'มักกะโรนี', 'ขนมปัง'])) {
-                benefits.push('ให้พลังงานจากคาร์โบไฮเดรต');
-            }
-            if(includesAny(menuName, ['ไก่', 'หมู', 'ปลา', 'กุ้ง', 'ตับ', 'ไข่', 'เต้าหู้', 'ทูน่า', 'แฮม', 'เนื้อบด'])) {
-                benefits.push('เสริมโปรตีนสำหรับการเจริญเติบโต');
-            }
-            if(includesAny(menuName, ['แซลมอน', 'ปลาทู', 'ปลาทับทิม', 'ปลากะพง', 'ปลากระพง', 'ปลา'])) {
-                benefits.push('มีไขมันดีช่วยบำรุงสมอง');
-            }
-            if(includesAny(menuName, ['ผัก', 'ตำลึง', 'แครอท', 'ฟักทอง', 'บล็อกโคลี่', 'บร็อคโคลี่', 'ปวยเล้ง', 'ผักกาดขาว', 'ฟักเขียว', 'ดอกกะหล่ำ', 'เห็ด', 'มะเขือเทศ', 'หัวหอม', 'ผักโขม', 'แตงกวา'])) {
-                benefits.push('เพิ่มวิตามิน แร่ธาตุ และใยอาหาร');
-            }
-            if(includesAny(menuName, ['กล้วย', 'แอปเปิ้ล', 'มะละกอ', 'แตงโม', 'มะม่วง', 'ผลไม้', 'ส้ม', 'อะโวคาโด'])) {
-                benefits.push('ได้วิตามินจากผลไม้และช่วยให้ทานง่ายขึ้น');
-            }
-            if(includesAny(menuName, ['นม', 'โยเกิร์ต', 'ชีส'])) {
-                benefits.push('มีแคลเซียมช่วยเสริมกระดูกและฟัน');
-            }
-            if(includesAny(menuName, ['อะโวคาโด', 'เนยถั่ว', 'ธัญพืช', 'ข้าวไรย์', 'ข้าวกล้อง'])) {
-                benefits.push('เพิ่มไขมันดีและใยอาหารที่อยู่ท้อง');
-            }
-
-            if(benefits.length === 0) {
-                benefits.push('ช่วยให้เด็กได้รับสารอาหารหลากหลายและฝึกทานอาหารใหม่ ๆ');
-            }
-
-            return benefits.slice(0, 3).join(', ');
-        }
-
-        function getFoodMethod(menuName, categoryName) {
-            const ageHint = getFoodAgeHint(categoryName);
-
-            if(includesAny(menuName, ['ซุป', 'ต้มจืด', 'แกงจืด', 'แกงเลียง', 'ข้าวต้ม', 'โจ๊ก', 'ข้าวตุ๋น', 'อุด้ง', 'ก๋วยเตี๋ยว'])) {
-                return `ต้มข้าว เส้น หรือผักกับโปรตีนให้สุกนุ่ม เติมน้ำซุปพอเหมาะ แล้ว${ageHint}`;
-            }
-            if(includesAny(menuName, ['ข้าวผัด', 'ผัด', 'ไข่คน', 'คาโบนาร่า', 'สปาเก็ตตี้'])) {
-                return `ผัดวัตถุดิบด้วยไฟอ่อน ใช้น้ำมันเล็กน้อย ปรุงรสอ่อน จากนั้น${ageHint}`;
-            }
-            if(includesAny(menuName, ['บด'])) {
-                return `นึ่งหรือต้มวัตถุดิบให้สุกนิ่ม เติมนมหรือน้ำซุปเล็กน้อย แล้ว${ageHint}`;
-            }
-            if(includesAny(menuName, ['อบ', 'ปิ้ง', 'แซนวิช', 'โรล'])) {
-                return `เตรียมวัตถุดิบให้สุกและนุ่ม อบหรือปิ้งเบา ๆ ไม่ให้แข็ง แล้ว${ageHint}`;
-            }
-            if(includesAny(menuName, ['ไข่ตุ๋น'])) {
-                return `ตีไข่กับน้ำซุปหรือนม กรองให้เนียน ใส่ผักสุก แล้วนึ่งจนเซ็ตตัว จากนั้น${ageHint}`;
-            }
-            if(includesAny(menuName, ['แพนเค้ก'])) {
-                return `ผสมวัตถุดิบให้เข้ากัน ทอดบนกระทะไฟอ่อนจนสุกนุ่ม แล้ว${ageHint}`;
-            }
-            if(includesAny(menuName, ['ปั้น', 'เบอร์เกอร์', 'ลูกชิ้น'])) {
-                return `สับโปรตีนและผักให้ละเอียด ปั้นเป็นชิ้นเล็ก ทำให้สุกทั่วถึง แล้ว${ageHint}`;
-            }
-            if(includesAny(menuName, ['สลัด', 'โยเกิร์ต', 'สมูทตี้'])) {
-                return `ล้างและหั่นผลไม้หรือผักให้สะอาด คลุกกับโยเกิร์ตหรือนม ปรับเนื้อสัมผัสให้เหมาะกับวัย`;
-            }
-
-            return `ทำวัตถุดิบให้สุกทั่วถึง ลดรสเค็ม หวาน และมัน แล้ว${ageHint}`;
-        }
-
-        function getFoodDetails(menuName, categoryName) {
-            return {
-                benefits: getFoodBenefits(menuName),
-                method: getFoodMethod(menuName, categoryName)
-            };
-        }
-
-        function renderFoodMenus() {
-            const container = document.getElementById('foodContainer');
-            if(!container) return;
-
-            let foodHtml = "";
-            foodsData.forEach(cat => {
-                foodHtml += `<div class="category-header">${escapeHtml(cat.c)}</div><div class="grid-3">`;
-                cat.items.forEach(item => {
-                    const foodKey = getFoodImageKey(item);
-                    const detail = getFoodDetails(item, cat.c);
-                    const safeItem = escapeHtml(item);
-                    foodHtml += `
-                        <div class="card food-card" data-food-key="${escapeHtml(foodKey)}">
-                            <div class="food-card-content">
-                                <h4>🍽️ ${safeItem}</h4>
-                                <p class="food-detail"><strong>ประโยชน์:</strong> ${escapeHtml(detail.benefits)}</p>
-                                <p class="food-detail"><strong>วิธีทำ:</strong> ${escapeHtml(detail.method)}</p>
-                            </div>
-                        </div>
-                    `;
-                });
-                foodHtml += `</div>`;
-            });
-
-            container.innerHTML = foodHtml;
-        }
 
         // --- ข้อมูลความรู้ ---
         const knowledgeData = [
@@ -1321,22 +1411,156 @@
             tbody.innerHTML = trackerRecords.map(r => `<tr><td>${r.d}</td><td>${r.a}</td><td>${r.w}</td><td>${r.h}</td></tr>`).join('');
         }
 
-        function analyzeAI() {
-            const inputEl = document.getElementById('aiInput');
-            const input = inputEl.value.trim();
+        const aiQABank = [
+            {cat:"ไข้และอุณหภูมิร่างกาย", q:"เด็กมีไข้ 37 องศา ควรทำอย่างไร", a:"ควรเช็ดตัวลดไข้และให้ใส่เสื้อผ้าที่ระบายอากาศได้ดี ไม่ควรอยู่ในที่ที่อากาศถ่ายเทไม่สะดวก และสังเกตอาการอย่างใกล้ชิด"},
+            {cat:"ไข้และอุณหภูมิร่างกาย", q:"ไข้เท่าไหร่ถึงเรียกว่าไข้สูง", a:"โดยทั่วไปอุณหภูมิตั้งแต่ 38 องศาเซลเซียสขึ้นไปถือว่ามีไข้ และหากสูงเกิน 39 องศา ถือว่าไข้สูง ควรเฝ้าระวังอาการชักจากไข้โดยเฉพาะในเด็กเล็ก"},
+            {cat:"ไข้และอุณหภูมิร่างกาย", q:"เช็ดตัวลดไข้ควรใช้น้ำแบบไหน", a:"ควรใช้น้ำอุณหภูมิห้องหรือน้ำอุ่นเล็กน้อย ไม่ควรใช้น้ำเย็นจัดหรือแอลกอฮอล์ เช็ดตามซอกคอ รักแร้ ขาหนีบ เพื่อช่วยระบายความร้อน"},
+            {cat:"ไข้และอุณหภูมิร่างกาย", q:"ให้ยาลดไข้เด็กควรใช้ตัวไหน", a:"ยาพาราเซตามอลชนิดน้ำสำหรับเด็กเป็นตัวเลือกพื้นฐานที่นิยมใช้ ควรให้ตามน้ำหนักตัวและปรึกษาเภสัชกรหรือแพทย์ก่อนใช้เสมอ"},
+            {cat:"ไข้และอุณหภูมิร่างกาย", q:"ไข้กี่วันควรไปพบแพทย์", a:"หากมีไข้ติดต่อกันเกิน 2-3 วันโดยไม่ดีขึ้น หรือมีอาการอื่นร่วม เช่น ซึม ไม่ดื่มนม ควรพาไปพบแพทย์"},
+            {cat:"ไข้และอุณหภูมิร่างกาย", q:"ลูกไข้ขึ้นตอนกลางคืนควรทำอย่างไร", a:"ควรเช็ดตัวลดไข้ ให้ดื่มน้ำหรือนมเพิ่ม และสังเกตอาการใกล้ชิด หากไข้สูงมากหรือซึมผิดปกติควรรีบพาไปโรงพยาบาล"},
+            {cat:"ไข้และอุณหภูมิร่างกาย", q:"ไข้สูงจนชักต้องทำอย่างไร", a:"จัดให้เด็กนอนตะแคง ป้องกันการสำลัก ห้ามนำวัตถุใดๆ ใส่ปาก และรีบนำส่งโรงพยาบาลทันที"},
+            {cat:"ไข้และอุณหภูมิร่างกาย", q:"เด็กทารกอายุต่ำกว่า 3 เดือนมีไข้อันตรายไหม", a:"ถือเป็นภาวะที่ต้องระวังมาก ควรพาไปพบแพทย์ทันทีแม้ไข้จะไม่สูงมากก็ตาม"},
+            {cat:"ไข้และอุณหภูมิร่างกาย", q:"ไข้ออกผื่นคืออะไร", a:"มักพบในเด็กเล็ก มีไข้สูง 2-3 วันแล้วไข้ลดพร้อมมีผื่นแดงขึ้นตามตัว ส่วนใหญ่หายเองได้ แต่ควรสังเกตอาการร่วมอื่น"},
+            {cat:"ไข้และอุณหภูมิร่างกาย", q:"วัดไข้ทางไหนแม่นที่สุดสำหรับเด็กเล็ก", a:"การวัดทางรักแร้หรือหน้าผากด้วยเครื่องวัดอินฟราเรดสะดวกและปลอดภัย ส่วนการวัดทางทวารหนักแม่นยำที่สุดแต่ควรทำโดยผู้ชำนาญ"},
+
+            {cat:"ไอ หวัด และระบบทางเดินหายใจ", q:"ลูกไอมีเสมหะควรทำอย่างไร", a:"ควรให้ดื่มน้ำอุ่นมากขึ้น ใช้ลูกยางแดงดูดน้ำมูกหากมีน้ำมูก และจัดท่านอนศีรษะสูงเล็กน้อยเพื่อช่วยให้หายใจสะดวก"},
+            {cat:"ไอ หวัด และระบบทางเดินหายใจ", q:"น้ำมูกไหลใสควรพาไปหาหมอไหม", a:"หากเป็นเพียงน้ำมูกใสไม่มีไข้ อาการไม่รุนแรง สามารถดูแลที่บ้านได้ก่อน แต่หากมีไข้ร่วมหรืออาการนานเกิน 1 สัปดาห์ควรพบแพทย์"},
+            {cat:"ไอ หวัด และระบบทางเดินหายใจ", q:"ไอแบบไหนอันตราย", a:"หากไอจนหายใจหอบเหนื่อย มีเสียงหวีดหรือปากเขียว ควรรีบพาไปโรงพยาบาลทันที"},
+            {cat:"ไอ หวัด และระบบทางเดินหายใจ", q:"หายใจมีเสียงวี้ดคืออะไร", a:"อาจเป็นสัญญาณของหลอดลมตีบหรือหอบหืด ควรพาไปพบแพทย์เพื่อตรวจวินิจฉัย"},
+            {cat:"ไอ หวัด และระบบทางเดินหายใจ", q:"เด็กเป็นหวัดกินยาลดน้ำมูกได้ไหม", a:"ควรปรึกษาแพทย์หรือเภสัชกรก่อนใช้ยา เนื่องจากยาบางชนิดไม่เหมาะกับเด็กเล็ก"},
+            {cat:"ไอ หวัด และระบบทางเดินหายใจ", q:"วิธีบรรเทาอาการคัดจมูกในทารก", a:"ใช้น้ำเกลือหยอดจมูกแล้วดูดน้ำมูกออกด้วยลูกยางแดง ช่วยให้หายใจโล่งขึ้น"},
+            {cat:"ไอ หวัด และระบบทางเดินหายใจ", q:"ไอมานานกี่วันถือว่าผิดปกติ", a:"หากไอต่อเนื่องเกิน 2 สัปดาห์โดยไม่ดีขึ้น ควรพาไปพบแพทย์เพื่อตรวจหาสาเหตุ"},
+            {cat:"ไอ หวัด และระบบทางเดินหายใจ", q:"เด็กเป็นหวัดควรอาบน้ำไหม", a:"สามารถอาบน้ำอุ่นได้ตามปกติ แต่ควรเช็ดตัวให้แห้งและอยู่ในที่ไม่มีลมโกรกหลังอาบน้ำ"},
+            {cat:"ไอ หวัด และระบบทางเดินหายใจ", q:"ไข้หวัดกับไข้หวัดใหญ่ต่างกันอย่างไร", a:"ไข้หวัดใหญ่มักมีไข้สูงเฉียบพลัน ปวดเมื่อยตัวมาก อ่อนเพลียมากกว่าไข้หวัดธรรมดาที่อาการมักไม่รุนแรงเท่า"},
+            {cat:"ไอ หวัด และระบบทางเดินหายใจ", q:"ป้องกันลูกเป็นหวัดบ่อยได้อย่างไร", a:"ล้างมือบ่อยๆ หลีกเลี่ยงที่แออัด พักผ่อนเพียงพอ และรับประทานอาหารที่มีประโยชน์เสริมภูมิคุ้มกัน"},
+
+            {cat:"ผื่นผิวหนังและการแพ้", q:"ลูกมีผื่นแดงตามตัวควรทำอย่างไร", a:"สังเกตลักษณะผื่นว่าคันหรือไม่ มีไข้ร่วมหรือไม่ หากผื่นลามเร็วหรือมีไข้สูงร่วมด้วยควรพบแพทย์"},
+            {cat:"ผื่นผิวหนังและการแพ้", q:"ผดร้อนคืออะไร ดูแลอย่างไร", a:"เกิดจากต่อมเหงื่ออุดตันในอากาศร้อน ควรให้เด็กสวมเสื้อผ้าบางระบายอากาศและอยู่ในที่เย็นสบาย"},
+            {cat:"ผื่นผิวหนังและการแพ้", q:"ผื่นผ้าอ้อมป้องกันอย่างไร", a:"เปลี่ยนผ้าอ้อมบ่อยๆ ทำความสะอาดและเช็ดให้แห้งทุกครั้ง ทาครีมป้องกันผื่นผ้าอ้อมเป็นประจำ"},
+            {cat:"ผื่นผิวหนังและการแพ้", q:"ลูกแพ้อาหารมีอาการอย่างไร", a:"อาจมีผื่นลมพิษ อาเจียน ท้องเสีย หรือในรายรุนแรงอาจหายใจลำบาก ควรพบแพทย์ทันทีหากมีอาการรุนแรง"},
+            {cat:"ผื่นผิวหนังและการแพ้", q:"ลมพิษในเด็กเกิดจากอะไร", a:"อาจเกิดจากการแพ้อาหาร ยา แมลงกัดต่อย หรือการติดเชื้อไวรัส ควรสังเกตสาเหตุกระตุ้นและหลีกเลี่ยง"},
+            {cat:"ผื่นผิวหนังและการแพ้", q:"ผิวแห้งลอกในทารกดูแลอย่างไร", a:"ทามอยส์เจอไรเซอร์สำหรับเด็กหลังอาบน้ำ หลีกเลี่ยงสบู่ที่มีฤทธิ์รุนแรง"},
+            {cat:"ผื่นผิวหนังและการแพ้", q:"ยุงกัดบวมมากผิดปกติไหม", a:"เด็กเล็กอาจมีปฏิกิริยาบวมแดงมากกว่าผู้ใหญ่ได้ตามปกติ แต่หากบวมมากผิดปกติหรือมีไข้ควรพบแพทย์"},
+            {cat:"ผื่นผิวหนังและการแพ้", q:"เชื้อราในช่องปากทารกคืออะไร", a:"มีลักษณะเป็นฝ้าขาวในปากที่เช็ดไม่ออก เกิดจากเชื้อราแคนดิดา ควรพาไปพบแพทย์เพื่อรับยา"},
+            {cat:"ผื่นผิวหนังและการแพ้", q:"ผื่นแพ้สัมผัสสังเกตอย่างไร", a:"มักเกิดตรงบริเวณที่สัมผัสสารก่อภูมิแพ้ เช่น เสื้อผ้า สบู่ ควรหยุดใช้สิ่งที่สงสัยและสังเกตอาการ"},
+            {cat:"ผื่นผิวหนังและการแพ้", q:"ควรอาบน้ำเด็กเป็นผื่นด้วยน้ำอุ่นหรือน้ำเย็น", a:"ควรใช้น้ำอุณหภูมิพอเหมาะไม่ร้อนจัด เพื่อไม่ให้ผิวระคายเคืองเพิ่มขึ้น"},
+
+            {cat:"ระบบทางเดินอาหาร", q:"ลูกท้องเสียควรทำอย่างไร", a:"ให้ดื่มน้ำเกลือแร่สำหรับเด็กเพื่อป้องกันภาวะขาดน้ำ และสังเกตอาการหากถ่ายบ่อยมากหรือมีไข้ร่วมควรพบแพทย์"},
+            {cat:"ระบบทางเดินอาหาร", q:"อาเจียนบ่อยในเด็กอันตรายไหม", a:"หากอาเจียนต่อเนื่องจนดื่มนมไม่ได้ หรือมีสัญญาณขาดน้ำ เช่น ปากแห้ง ปัสสาวะน้อย ควรพาไปพบแพทย์"},
+            {cat:"ระบบทางเดินอาหาร", q:"ท้องผูกในเด็กแก้ไขอย่างไร", a:"เพิ่มใยอาหารและน้ำ ให้ผลไม้ที่มีกากใย และส่งเสริมให้เคลื่อนไหวร่างกายมากขึ้น"},
+            {cat:"ระบบทางเดินอาหาร", q:"อาการขาดน้ำในเด็กสังเกตอย่างไร", a:"ปากแห้ง ร้องไห้ไม่มีน้ำตา ปัสสาวะน้อยลง ผิวหนังตึงน้อยลง หากพบอาการเหล่านี้ควรพบแพทย์"},
+            {cat:"ระบบทางเดินอาหาร", q:"ลูกไม่ยอมกินอาหารควรทำอย่างไร", a:"ลองปรับรูปแบบและรสชาติอาหาร ให้เวลาในการกิน ไม่บังคับ และสังเกตน้ำหนักตัวว่าลดลงผิดปกติหรือไม่"},
+            {cat:"ระบบทางเดินอาหาร", q:"ท้องอืดในทารกดูแลอย่างไร", a:"ลูบท้องเบาๆ ตามเข็มนาฬิกา จับเรอหลังดูดนม และปั่นจักรยานขาช่วยระบายลม"},
+            {cat:"ระบบทางเดินอาหาร", q:"ถ่ายเป็นมูกเลือดต้องทำอย่างไร", a:"ควรพาไปพบแพทย์ทันทีเนื่องจากอาจเป็นสัญญาณของการติดเชื้อในระบบทางเดินอาหาร"},
+            {cat:"ระบบทางเดินอาหาร", q:"เด็กแพ้แลคโตสมีอาการอย่างไร", a:"มักมีอาการท้องเสีย ท้องอืด ปวดท้องหลังดื่มนมที่มีแลคโตส ควรปรึกษาแพทย์เพื่อปรับสูตรนม"},
+            {cat:"ระบบทางเดินอาหาร", q:"ลูกกินยาก น้ำหนักไม่ขึ้นควรทำอย่างไร", a:"ควรปรึกษากุมารแพทย์เพื่อประเมินพัฒนาการและหาสาเหตุที่แท้จริง"},
+            {cat:"ระบบทางเดินอาหาร", q:"ท้องเสียกินยาปฏิชีวนะได้เลยไหม", a:"ไม่ควรซื้อยาปฏิชีวนะให้เด็กกินเองโดยไม่ปรึกษาแพทย์ เนื่องจากท้องเสียส่วนใหญ่เกิดจากไวรัส"},
+
+            {cat:"การให้นมและโภชนาการ", q:"ควรให้นมแม่อย่างเดียวถึงอายุเท่าไหร่", a:"องค์การอนามัยโลกแนะนำให้นมแม่อย่างเดียวถึงอายุ 6 เดือน แล้วจึงเริ่มอาหารเสริมควบคู่กับนมแม่ต่อไป"},
+            {cat:"การให้นมและโภชนาการ", q:"เริ่มอาหารเสริมทารกได้ตอนไหน", a:"โดยทั่วไปเริ่มได้เมื่ออายุประมาณ 6 เดือน โดยเริ่มจากอาหารเนื้อละเอียดทีละน้อย"},
+            {cat:"การให้นมและโภชนาการ", q:"ลูกดูดนมแม่ไม่พอสังเกตอย่างไร", a:"สังเกตจากน้ำหนักตัวที่ขึ้นน้อย ปัสสาวะน้อยกว่า 6 ครั้งต่อวัน หรือดูดนมแล้วยังงอแงหิว"},
+            {cat:"การให้นมและโภชนาการ", q:"นมผงกับนมแม่ต่างกันอย่างไร", a:"นมแม่มีภูมิคุ้มกันและสารอาหารที่เหมาะสมที่สุดตามธรรมชาติ ส่วนนมผงเป็นทางเลือกทดแทนเมื่อไม่สามารถให้นมแม่ได้"},
+            {cat:"การให้นมและโภชนาการ", q:"เด็กควรกินผักผลไม้วันละเท่าไหร่", a:"ควรได้รับผักผลไม้หลากสีทุกวันในปริมาณที่เหมาะสมตามวัย เพื่อให้ได้วิตามินและใยอาหารเพียงพอ"},
+            {cat:"การให้นมและโภชนาการ", q:"ลูกไม่ชอบกินผักทำอย่างไร", a:"ลองปรับรูปแบบการปรุง เช่น หั่นชิ้นเล็ก ผสมในเมนูโปรด และเป็นตัวอย่างที่ดีในการกินผักให้ลูกเห็น"},
+            {cat:"การให้นมและโภชนาการ", q:"ให้ลูกกินขนมหวานได้ไหม", a:"สามารถให้ได้ในปริมาณจำกัดและไม่บ่อยครั้ง ควรเน้นอาหารหลักที่มีประโยชน์เป็นหลัก"},
+            {cat:"การให้นมและโภชนาการ", q:"เด็กควรดื่มน้ำวันละเท่าไหร่", a:"ปริมาณน้ำที่เหมาะสมขึ้นกับอายุและน้ำหนักตัว โดยทั่วไปเด็กเล็กควรได้รับน้ำเสริมนอกเหนือจากนมตามคำแนะนำของกุมารแพทย์"},
+            {cat:"การให้นมและโภชนาการ", q:"ทารกท้องผูกจากนมผงทำอย่างไร", a:"ปรึกษาแพทย์เพื่อพิจารณาปรับสูตรนม และเพิ่มการนวดท้องเบาๆ ให้ลูก"},
+            {cat:"การให้นมและโภชนาการ", q:"ให้ลูกกินไข่ได้ตั้งแต่อายุเท่าไหร่", a:"สามารถเริ่มให้ไข่สุกทั้งฟองได้ตั้งแต่เริ่มอาหารเสริมประมาณ 6 เดือน โดยสังเกตอาการแพ้"},
+
+            {cat:"การนอนหลับ", q:"ทารกควรนอนวันละกี่ชั่วโมง", a:"ทารกแรกเกิดมักนอนประมาณ 14-17 ชั่วโมงต่อวัน โดยจะค่อยๆ ลดลงตามอายุที่มากขึ้น"},
+            {cat:"การนอนหลับ", q:"ลูกนอนไม่หลับกลางคืนทำอย่างไร", a:"จัดตารางเวลานอนให้สม่ำเสมอ ลดสิ่งกระตุ้นก่อนนอน และสร้างบรรยากาศห้องนอนที่เงียบสงบ"},
+            {cat:"การนอนหลับ", q:"ท่านอนที่ปลอดภัยสำหรับทารกคือแบบไหน", a:"ควรให้ทารกนอนหงายบนที่นอนแข็งไม่นุ่มยวบ ไม่มีหมอนหรือของนุ่มในเปลเพื่อลดความเสี่ยงภาวะเสียชีวิตเฉียบพลันในทารก"},
+            {cat:"การนอนหลับ", q:"ลูกตื่นกลางดึกบ่อยผิดปกติไหม", a:"ในเด็กเล็กถือเป็นเรื่องปกติได้ในบางช่วงวัย แต่หากรบกวนการเจริญเติบโตควรปรึกษาแพทย์"},
+            {cat:"การนอนหลับ", q:"ควรฝึกลูกนอนแยกเปลตั้งแต่อายุเท่าไหร่", a:"สามารถเริ่มฝึกได้ตามความพร้อมของครอบครัว โดยยังคงดูแลใกล้ชิดในช่วงแรก"},
+            {cat:"การนอนหลับ", q:"ลูกนอนกรนผิดปกติไหม", a:"หากมีอาการกรนเสียงดังร่วมกับหยุดหายใจขณะหลับควรปรึกษาแพทย์เพื่อตรวจเพิ่มเติม"},
+            {cat:"การนอนหลับ", q:"งีบกลางวันควรกี่ครั้ง", a:"ขึ้นอยู่กับอายุ เด็กเล็กมักงีบหลายครั้งต่อวันและจะค่อยๆ ลดจำนวนครั้งลงเมื่อโตขึ้น"},
+            {cat:"การนอนหลับ", q:"ลูกฝันร้ายตื่นกลางดึกทำอย่างไร", a:"ปลอบโยนให้ความอบอุ่น พูดคุยเบาๆ และสร้างความรู้สึกปลอดภัยก่อนพาเข้านอนต่อ"},
+            {cat:"การนอนหลับ", q:"อุณหภูมิห้องนอนที่เหมาะสมคือเท่าไหร่", a:"ควรเป็นห้องที่เย็นสบายไม่ร้อนหรือเย็นจนเกินไป และมีอากาศถ่ายเทดี"},
+            {cat:"การนอนหลับ", q:"ลูกติดขวดนมก่อนนอนแก้ไขอย่างไร", a:"ค่อยๆ ปรับเปลี่ยนกิจวัตรก่อนนอน เช่น อ่านนิทานแทน เพื่อลดการพึ่งขวดนมในการนอนหลับ"},
+
+            {cat:"พัฒนาการเด็ก", q:"ลูกอายุกี่เดือนควรเริ่มคว่ำได้", a:"โดยทั่วไปเด็กเริ่มพลิกคว่ำได้ประมาณอายุ 4-6 เดือน แต่ละคนอาจแตกต่างกันได้"},
+            {cat:"พัฒนาการเด็ก", q:"เด็กควรเริ่มเดินได้เมื่ออายุเท่าไหร่", a:"ส่วนใหญ่เริ่มเดินได้เองประมาณอายุ 12-15 เดือน หากเกิน 18 เดือนยังไม่เดินควรปรึกษาแพทย์"},
+            {cat:"พัฒนาการเด็ก", q:"ลูกพูดคำแรกช้าผิดปกติไหม", a:"เด็กแต่ละคนมีพัฒนาการด้านภาษาต่างกัน หากอายุ 18 เดือนยังไม่พูดคำที่มีความหมายควรปรึกษาแพทย์"},
+            {cat:"พัฒนาการเด็ก", q:"พัฒนาการด้านสังคมของเด็กวัยขวบครึ่งเป็นอย่างไร", a:"เริ่มเลียนแบบพฤติกรรมผู้ใหญ่ เล่นสมมติง่ายๆ และแสดงความสนใจต่อเด็กคนอื่น"},
+            {cat:"พัฒนาการเด็ก", q:"ลูกยังไม่พูดเป็นคำตอนอายุ 2 ขวบควรทำอย่างไร", a:"ควรปรึกษากุมารแพทย์หรือนักแก้ไขการพูดเพื่อประเมินพัฒนาการอย่างละเอียด"},
+            {cat:"พัฒนาการเด็ก", q:"เด็กเริ่มจับดินสอขีดเขียนได้เมื่อไหร่", a:"ส่วนใหญ่เริ่มขีดเขี่ยได้ตั้งแต่อายุประมาณ 12-18 เดือน และพัฒนาไปเรื่อยๆ ตามวัย"},
+            {cat:"พัฒนาการเด็ก", q:"วิธีส่งเสริมพัฒนาการสมองเด็กเล็ก", a:"อ่านนิทาน พูดคุยโต้ตอบบ่อยๆ เล่นของเล่นเสริมพัฒนาการ และให้เวลาเล่นอิสระ"},
+            {cat:"พัฒนาการเด็ก", q:"ลูกไม่สบตาเวลาเรียกชื่อควรกังวลไหม", a:"หากพบร่วมกับพัฒนาการด้านอื่นล่าช้าควรปรึกษาแพทย์เพื่อประเมินเพิ่มเติม"},
+            {cat:"พัฒนาการเด็ก", q:"เด็กควรควบคุมการขับถ่ายได้ตอนอายุเท่าไหร่", a:"ส่วนใหญ่เริ่มฝึกและควบคุมได้ประมาณอายุ 2-3 ปี ขึ้นกับความพร้อมของแต่ละคน"},
+            {cat:"พัฒนาการเด็ก", q:"ลูกก้าวร้าวกัดตีเพื่อนควรทำอย่างไร", a:"สอนด้วยท่าทีสงบ อธิบายเหตุผล และเป็นตัวอย่างพฤติกรรมที่เหมาะสมให้ลูกเห็น"},
+
+            {cat:"วัคซีนและภูมิคุ้มกัน", q:"วัคซีนพื้นฐานเด็กแรกเกิดมีอะไรบ้าง", a:"ประกอบด้วยวัคซีนป้องกันวัณโรค ตับอักเสบบี และวัคซีนอื่นๆ ตามตารางที่กระทรวงสาธารณสุขกำหนด ควรปรึกษากุมารแพทย์"},
+            {cat:"วัคซีนและภูมิคุ้มกัน", q:"ฉีดวัคซีนแล้วมีไข้ควรทำอย่างไร", a:"เป็นอาการที่พบได้ปกติหลังฉีดวัคซีน ให้เช็ดตัวลดไข้และสังเกตอาการ หากไข้สูงมากควรพบแพทย์"},
+            {cat:"วัคซีนและภูมิคุ้มกัน", q:"ลืมฉีดวัคซีนตามนัดทำอย่างไร", a:"ควรติดต่อสถานพยาบาลเพื่อนัดฉีดวัคซีนที่เหลือให้เร็วที่สุดตามคำแนะนำแพทย์"},
+            {cat:"วัคซีนและภูมิคุ้มกัน", q:"วัคซีนไข้หวัดใหญ่ควรฉีดให้เด็กไหม", a:"แนะนำสำหรับเด็กตั้งแต่อายุ 6 เดือนขึ้นไป โดยเฉพาะในช่วงที่มีการระบาด ควรปรึกษาแพทย์"},
+            {cat:"วัคซีนและภูมิคุ้มกัน", q:"บริเวณที่ฉีดวัคซีนบวมแดงปกติไหม", a:"เป็นปฏิกิริยาปกติที่พบได้บ่อย มักหายได้เองภายในไม่กี่วัน หากบวมมากผิดปกติควรพบแพทย์"},
+            {cat:"วัคซีนและภูมิคุ้มกัน", q:"เด็กป่วยเป็นหวัดฉีดวัคซีนได้ไหม", a:"หากมีอาการไม่รุนแรงส่วนใหญ่ยังฉีดได้ตามนัด แต่ควรแจ้งอาการให้แพทย์ประเมินก่อนฉีดเสมอ"},
+            {cat:"วัคซีนและภูมิคุ้มกัน", q:"วัคซีนป้องกันโรคหัดเยอรมันฉีดตอนไหน", a:"มักฉีดรวมในวัคซีน MMR เมื่ออายุประมาณ 9-12 เดือน และฉีดกระตุ้นอีกครั้งตามตารางวัคซีน"},
+            {cat:"วัคซีนและภูมิคุ้มกัน", q:"วัคซีนโรต้าไวรัสสำคัญอย่างไร", a:"ช่วยป้องกันโรคท้องเสียรุนแรงจากเชื้อโรต้าไวรัสในเด็กเล็ก ควรได้รับตามช่วงอายุที่กำหนด"},
+            {cat:"วัคซีนและภูมิคุ้มกัน", q:"เด็กแพ้ไข่ฉีดวัคซีนไข้หวัดใหญ่ได้ไหม", a:"ควรแจ้งประวัติแพ้ให้แพทย์ทราบก่อนฉีดทุกครั้งเพื่อประเมินความปลอดภัย"},
+            {cat:"วัคซีนและภูมิคุ้มกัน", q:"หลังฉีดวัคซีนควรสังเกตอาการนานแค่ไหน", a:"ควรรออยู่ในสถานพยาบาลอย่างน้อย 30 นาทีเพื่อสังเกตอาการแพ้รุนแรง"},
+
+            {cat:"อุบัติเหตุและความปลอดภัย", q:"ลูกหกล้มหัวกระแทกควรทำอย่างไร", a:"สังเกตอาการซึม อาเจียน หรือหมดสติ หากมีอาการเหล่านี้ควรพาไปโรงพยาบาลทันที"},
+            {cat:"อุบัติเหตุและความปลอดภัย", q:"ลูกกลืนสิ่งแปลกปลอมทำอย่างไร", a:"หากหายใจปกติไม่สำลัก ควรพาไปพบแพทย์เพื่อตรวจ แต่หากสำลักหายใจไม่ออกต้องปฐมพยาบาลทันที"},
+            {cat:"อุบัติเหตุและความปลอดภัย", q:"ป้องกันเด็กตกจากที่สูงอย่างไร", a:"ติดตั้งเหล็กกั้นบันไดและหน้าต่าง ไม่ปล่อยให้เด็กอยู่ใกล้ขอบเตียงหรือระเบียงโดยไม่มีผู้ดูแล"},
+            {cat:"อุบัติเหตุและความปลอดภัย", q:"ลูกโดนน้ำร้อนลวกทำอย่างไร", a:"รีบราดน้ำสะอาดอุณหภูมิห้องบริเวณที่ถูกลวกทันที ไม่ควรทาสิ่งใดๆ และรีบพาไปพบแพทย์"},
+            {cat:"อุบัติเหตุและความปลอดภัย", q:"ป้องกันเด็กจมน้ำอย่างไร", a:"ไม่ปล่อยให้เด็กอยู่ใกล้แหล่งน้ำตามลำพัง แม้ในอ่างอาบน้ำก็ควรมีผู้ใหญ่ดูแลตลอดเวลา"},
+            {cat:"อุบัติเหตุและความปลอดภัย", q:"ลูกโดนแมลงกัดต่อยควรทำอย่างไร", a:"ทำความสะอาดแผล ประคบเย็น และสังเกตอาการแพ้รุนแรง หากบวมมากหรือหายใจลำบากควรพบแพทย์ทันที"},
+            {cat:"อุบัติเหตุและความปลอดภัย", q:"ของเล่นชิ้นเล็กอันตรายกับเด็กอย่างไร", a:"อาจทำให้เด็กเล็กสำลักหรือกลืนได้ ควรเลือกของเล่นให้เหมาะสมกับช่วงวัย"},
+            {cat:"อุบัติเหตุและความปลอดภัย", q:"เด็กติดในรถอันตรายอย่างไร", a:"ห้ามปล่อยเด็กไว้ในรถตามลำพังแม้ช่วงเวลาสั้นๆ เนื่องจากอุณหภูมิในรถสูงขึ้นอย่างรวดเร็วและเป็นอันตรายถึงชีวิต"},
+            {cat:"อุบัติเหตุและความปลอดภัย", q:"ป้องกันไฟดูดในเด็กอย่างไร", a:"ปิดฝาครอบปลั๊กไฟและเก็บสายไฟให้พ้นมือเด็ก ไม่ปล่อยให้เด็กเล่นใกล้อุปกรณ์ไฟฟ้า"},
+            {cat:"อุบัติเหตุและความปลอดภัย", q:"เด็กสำลักอาหารต้องทำอย่างไร", a:"หากไอได้ให้กระตุ้นให้ไอต่อ แต่หากสำลักจนหายใจไม่ออกต้องรีบปฐมพยาบาลและนำส่งโรงพยาบาลทันที"},
+
+            {cat:"สุขอนามัยและการดูแลทั่วไป", q:"ควรตัดเล็บลูกบ่อยแค่ไหน", a:"ควรตัดเล็บสัปดาห์ละ 1-2 ครั้งเพื่อป้องกันการข่วนหน้าและสะสมสิ่งสกปรก"},
+            {cat:"สุขอนามัยและการดูแลทั่วไป", q:"แปรงฟันให้ลูกควรเริ่มตอนไหน", a:"ควรเริ่มทำความสะอาดช่องปากตั้งแต่ฟันซี่แรกขึ้น โดยใช้แปรงสีฟันขนนุ่มและยาสีฟันสำหรับเด็ก"},
+            {cat:"สุขอนามัยและการดูแลทั่วไป", q:"อาบน้ำทารกวันละกี่ครั้ง", a:"โดยทั่วไปวันละ 1 ครั้งก็เพียงพอ ไม่จำเป็นต้องอาบบ่อยเกินไปเพื่อรักษาความชุ่มชื้นของผิว"},
+            {cat:"สุขอนามัยและการดูแลทั่วไป", q:"สะดือทารกยังไม่หลุดดูแลอย่างไร", a:"ทำความสะอาดด้วยแอลกอฮอล์ตามคำแนะนำแพทย์ และเก็บให้แห้งอยู่เสมอจนกว่าจะหลุดเอง"},
+            {cat:"สุขอนามัยและการดูแลทั่วไป", q:"ล้างมือเด็กสำคัญอย่างไร", a:"ช่วยลดการแพร่กระจายเชื้อโรค ควรฝึกให้ล้างมือก่อนกินอาหารและหลังเข้าห้องน้ำเป็นประจำ"},
+            {cat:"สุขอนามัยและการดูแลทั่วไป", q:"เด็กควรตัดผมครั้งแรกตอนไหน", a:"ไม่มีอายุที่กำหนดตายตัว ขึ้นอยู่กับความสะดวกของครอบครัวและความยาวของเส้นผม"},
+            {cat:"สุขอนามัยและการดูแลทั่วไป", q:"ทำความสะอาดหูเด็กอย่างไรให้ปลอดภัย", a:"เช็ดทำความสะอาดเฉพาะใบหูด้านนอกเท่านั้น ไม่ควรแคะเข้าไปในรูหูเพราะอาจทำอันตรายต่อแก้วหู"},
+            {cat:"สุขอนามัยและการดูแลทั่วไป", q:"เด็กควรตรวจสุขภาพประจำปีไหม", a:"ควรพาไปตรวจสุขภาพและติดตามพัฒนาการตามนัดของกุมารแพทย์อย่างสม่ำเสมอ"},
+            {cat:"สุขอนามัยและการดูแลทั่วไป", q:"อากาศร้อนดูแลเด็กอย่างไรให้ปลอดภัย", a:"ให้ดื่มน้ำเพียงพอ สวมเสื้อผ้าโปร่งสบาย และหลีกเลี่ยงการอยู่กลางแดดจัดเป็นเวลานาน"},
+            {cat:"สุขอนามัยและการดูแลทั่วไป", q:"อากาศเย็นดูแลเด็กอย่างไรให้ไม่ป่วย", a:"สวมเสื้อผ้าให้อบอุ่นเพียงพอ โดยเฉพาะมือ เท้า และศีรษะ และหลีกเลี่ยงลมโกรกโดยตรง"}
+        ];
+
+        function populateAIQuestions(filterTerm) {
+            const select = document.getElementById('aiQuestionSelect');
+            if(!select) return;
+            const term = (filterTerm || '').trim().toLowerCase();
+            const groups = {};
+            aiQABank.forEach((item, idx) => {
+                if(term && item.q.toLowerCase().indexOf(term) === -1 && item.cat.toLowerCase().indexOf(term) === -1) return;
+                if(!groups[item.cat]) groups[item.cat] = [];
+                groups[item.cat].push({ idx: idx, q: item.q });
+            });
+            let html = '';
+            Object.keys(groups).forEach(cat => {
+                html += `<optgroup label="${cat}">`;
+                groups[cat].forEach(g => {
+                    html += `<option value="${g.idx}">${g.q}</option>`;
+                });
+                html += `</optgroup>`;
+            });
+            select.innerHTML = html || '<option disabled>ไม่พบคำถามที่ตรงกับคำค้นหา</option>';
+        }
+
+        function filterAIQuestions() {
+            const term = document.getElementById('aiSearchBox').value;
+            populateAIQuestions(term);
+        }
+
+        function askSelectedQuestion() {
+            const select = document.getElementById('aiQuestionSelect');
             const history = document.getElementById('aiHistoryContainer');
-            if(!input) return;
-
-            history.innerHTML += `<div class="chat-bubble chat-user">${input}</div>`;
-            inputEl.value = '';
+            if(!select || !select.value) return alert('กรุณาเลือกคำถามจากรายการก่อนค่ะ');
+            const item = aiQABank[parseInt(select.value, 10)];
+            if(!item) return;
+            history.innerHTML += `<div class="chat-bubble chat-user">${item.q}</div>`;
             history.scrollTop = history.scrollHeight;
-
             setTimeout(() => {
-       
-                let aiResp = "ระบบประเมินอาการเบื้องต้น: จากข้อมูลที่คุณแม่/คุณพ่อแจ้งมา แนะนำให้เฝ้าสังเกตอาการอย่างใกล้ชิด เช็ดตัวลดไข้ หรือหากน้องมีอาการซึม ไม่ทานนม ท้องเสียร่วมด้วย ควรพาไปพบแพทย์เพื่อตรวจละเอียดครับ";
-                history.innerHTML += `<div class="chat-bubble chat-ai">${aiResp}</div>`;
+                history.innerHTML += `<div class="chat-bubble chat-ai">${item.a}</div>`;
                 history.scrollTop = history.scrollHeight;
-            }, 800);
+            }, 500);
         }
 
         function createPost() {
@@ -1409,7 +1633,7 @@
                     const index = users.findIndex(u => u.user === currentUser.user);
                     if(index !== -1) {
                         users[index].profilePic = resultData;
-                        localStorage.setItem('babygole_users', JSON.stringify(users));
+                        saveToDatabase('babygole_users', users);
                     }
                 }
                 reader.readAsDataURL(file);
@@ -1418,11 +1642,53 @@
 
         window.onload = () => {
             initAdminSync();
+            bootstrapDatabase();
+            populateAIQuestions();
             document.getElementById('trackDate').valueAsDate = new Date();
             renderTracker();
             renderForum();
             loadCommunityNotifications();
-            renderFoodMenus();
+            
+            function buildFoodThumbnail(label) {
+                const normalized = label.trim();
+                const photoMap = [
+                    { keywords: ['ข้าวต้มไก่', 'ไก่', 'ไก่อบ', 'ข้าวไก่'], url: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80' },
+                    { keywords: ['ปลาทู', 'ปลา', 'ปลากะพง', 'ปลากะพงนึ่ง', 'ปลาแซลมอน'], url: 'https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=800&q=80' },
+                    { keywords: ['หมู', 'หมูปั้น', 'หมูสับ', 'กระดูกหมู', 'หมูตุ๋น'], url: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80' },
+                    { keywords: ['กุ้ง', 'กุ้งสด'], url: 'https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=800&q=80' },
+                    { keywords: ['ไข่', 'ไข่ม้วน', 'ไข่แดง', 'ไข่คน', 'ไข่เจียว'], url: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800&q=80' },
+                    { keywords: ['ฟักทอง', 'ฟักทองอบ', 'ฟักทองผัด'], url: 'https://images.unsplash.com/photo-1518843875459-f738682238a6?auto=format&fit=crop&w=800&q=80' },
+                    { keywords: ['ผัก', 'บร็อคโคลี่', 'ผักกาด', 'กะหล่ำ', 'แครอท', 'มะเขือเทศ', 'เห็ดหอม', 'เห็ด'], url: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80' },
+                    { keywords: ['ข้าว', 'ข้าวผัด', 'ข้าวปั้น', 'ข้าวต้ม', 'ข้าวกล้อง', 'ข้าวโอ๊ต'], url: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80' },
+                    { keywords: ['อุด้ง', 'มักกะโรนี', 'พาสต้า', 'สปาเก็ตตี้', 'เส้น'], url: 'https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?auto=format&fit=crop&w=800&q=80' },
+                    { keywords: ['นม', 'ชีส', 'พุดดิ้ง', 'บัวลอย', 'ของหวาน'], url: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=800&q=80' },
+                    { keywords: ['แอปเปิ้ล', 'มะละกอ', 'ผลไม้', 'แตงโม', 'มะม่วง', 'สลัด'], url: 'https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=800&q=80' },
+                    { keywords: ['ซุป', 'แกงจืด', 'ต้มจืด'], url: 'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80' },
+                    { keywords: ['มันฝรั่ง', 'มันเทศ'], url: 'https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=800&q=80' },
+                    { keywords: ['แพนเค้ก', 'ขนม', 'แซนวิช'], url: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80' }
+                ];
+
+                const match = photoMap.find(group => group.keywords.some(keyword => normalized.includes(keyword)));
+                return match ? match.url : 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80';
+            }
+
+            let foodHtml = "";
+            foodsData.forEach(cat => {
+                foodHtml += `<div class="category-header">${cat.c}</div><div class="grid-3">`;
+                cat.items.forEach((item) => {
+                    const thumb = buildFoodThumbnail(item);
+                    foodHtml += `
+                        <div class="card" style="padding:0; overflow:hidden; border-left:4px solid var(--accent);">
+                            <div style="padding:15px 15px 0;">
+                                <h4 style="margin:0; color:var(--primary); font-size:1.05rem;">🍽️ ${item}</h4>
+                            </div>
+                            <img src="${thumb}" alt="${item}" style="width:100%; height:150px; object-fit:cover; display:block; background:linear-gradient(135deg,#60a5fa,#8b5cf6); margin-top:12px;">
+                        </div>
+                    `;
+                });
+                foodHtml += `</div>`;
+            });
+            document.getElementById('foodContainer').innerHTML = foodHtml;
 
             let knowHtml = "";
             knowledgeData.forEach(cat => {
