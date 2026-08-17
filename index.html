@@ -1,4 +1,4 @@
-<
+
 
 <!DOCTYPE html>
 <html lang="th">
@@ -65,6 +65,81 @@
         .custom-table { width: 100%; border-collapse: collapse; margin-top: 15px; text-align: left; }
         .custom-table th { background-color: var(--soft-blue); color: var(--primary); padding: 12px; border-bottom: 2px solid var(--secondary); }
         .custom-table td { padding: 12px; border-bottom: 1px solid #e2e8f0; }
+
+        .knowledge-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin: 18px auto 26px;
+            max-width: 1100px;
+        }
+        .knowledge-search {
+            flex: 1 1 320px;
+            min-width: 220px;
+            max-width: 480px;
+            position: relative;
+        }
+        .knowledge-search input {
+            width: 100%;
+            padding: 14px 18px 14px 46px;
+            border-radius: 999px;
+            border: 2px solid #dfeafc;
+            background: rgba(255,255,255,0.8);
+            box-shadow: 0 8px 22px rgba(15,23,42,0.04);
+            font-size: 0.98rem;
+        }
+        .knowledge-search i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+        }
+        .knowledge-summary {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .knowledge-pill {
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, rgba(56,189,248,0.15), rgba(59,130,246,0.12));
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .knowledge-card {
+            background: linear-gradient(180deg, #ffffff 0%, #f9fbff 100%);
+            border-radius: 20px;
+            padding: 22px 20px 18px;
+            box-shadow: 0 12px 28px rgba(15,23,42,0.06);
+            border: 1px solid rgba(148,163,184,0.18);
+            height: 100%;
+        }
+        .knowledge-card h3 {
+            margin: 0 0 14px;
+            color: var(--primary);
+            font-size: 1.2rem;
+            border-bottom: 2px solid var(--soft-blue);
+            padding-bottom: 8px;
+        }
+        .knowledge-card ul {
+            margin: 0;
+            padding-left: 18px;
+            color: var(--gray);
+            line-height: 1.85;
+            font-size: 0.96rem;
+        }
+        .knowledge-card li {
+            margin-bottom: 6px;
+        }
+        .knowledge-card li::marker {
+            color: var(--secondary);
+            font-weight: bold;
+        }
         .admin-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin: 20px 0; }
         .admin-stat-card { background: linear-gradient(135deg, #eff6ff 0%, #f8fafc 100%); border: 1px solid #dbeafe; border-radius: 18px; padding: 16px; }
         .admin-stat-card .stat-label { color: var(--gray); font-size: 0.95rem; }
@@ -165,7 +240,7 @@
 
     <section id="registerPage" class="auth-container hidden">
         <div class="auth-card page-animation">
-            <div class="page-visual pulse-soft"><img src="baby-gole-app/frontend/assets/register.svg" alt="illustration register"></div>
+            <div class="page-visual pulse-soft"> </div>
             <h2 style="color: var(--primary);">สมัครสมาชิก</h2>
             <input type="text" id="regName" placeholder="ชื่อ-นามสกุล">
             <input type="text" id="regPhone" placeholder="เบอร์โทรศัพท์">
@@ -209,7 +284,7 @@
                 </div>
             </div>
             <div style="margin-top: 20px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
-                <button class="btn btn-primary" onclick="goToDevFromHome()">ดูพัฒนาการลูกน้อย</button>
+                <button class="btn btn-primary" onclick="showPage('devPage')">ดูพัฒนาการลูกน้อย</button>
                 <button class="btn btn-secondary" onclick="showPage('knowledgePage')">อ่านความรู้ 50+ ข้อ</button>
             </div>
         </div>
@@ -336,6 +411,16 @@
         <div style="text-align: center; margin-bottom: 20px;">
             <h2 style="color: var(--primary); margin-bottom: 5px;" class="page-animation"><i class="fa-solid fa-book"></i> คลังความรู้สำหรับคุณพ่อคุณแม่มือใหม่</h2>
             <p style="color: var(--gray);" class="page-animation">รวบรวมเกร็ดความรู้ที่จำเป็นตั้งแต่แรกเกิด เพื่อให้คุณแม่ดูแลลูกน้อยได้อย่างมั่นใจ</p>
+        </div>
+        <div class="knowledge-toolbar page-animation">
+            <div class="knowledge-search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input id="knowledgeSearchBox" type="text" placeholder="ค้นหาความรู้ที่ต้องการ..." oninput="renderKnowledgePage(this.value)">
+            </div>
+            <div class="knowledge-summary">
+                <span class="knowledge-pill">รวมข้อมูล 12 หมวด</span>
+                <span class="knowledge-pill">อัปเดตล่าสุด</span>
+            </div>
         </div>
         <div id="knowledgeContainer" class="page-animation"></div>
     </section>
@@ -1686,15 +1771,45 @@
                 });
                 foodHtml += `</div>`;
             });
-            document.getElementById('foodContainer').innerHTML = foodHtml;
+            const foodContainer = document.getElementById('foodContainer');
+            if (foodContainer) {
+                foodContainer.innerHTML = foodHtml;
+            }
 
-            let knowHtml = "";
-            knowledgeData.forEach(cat => {
-                knowHtml += `<div class="card" style="border-top: 4px solid var(--secondary);"><h3 style="color:var(--primary); border-bottom: 2px solid var(--soft-blue); padding-bottom: 5px; margin-top: 0;">📌 ${cat.cat}</h3><ul style="line-height: 1.8; color: var(--gray); padding-left: 20px; font-size: 0.95rem;">`;
-                cat.items.forEach(item => { knowHtml += `<li style="margin-bottom: 8px;">${item}</li>`; });
-                knowHtml += `</ul></div>`;
-            });
-            document.getElementById('knowledgeContainer').innerHTML = `<div class="grid-2">${knowHtml}</div>`;
+            function renderKnowledgePage(filterText = '') {
+                const container = document.getElementById('knowledgeContainer');
+                if (!container) return;
+
+                const term = (filterText || '').trim().toLowerCase();
+                const filtered = knowledgeData.filter(cat => {
+                    if (!term) return true;
+                    const catText = `${cat.cat} ${cat.items.join(' ')}`.toLowerCase();
+                    return catText.includes(term);
+                });
+
+                if (filtered.length === 0) {
+                    container.innerHTML = `
+                        <div class="card" style="max-width: 620px; margin: 0 auto; text-align: center; border-top: 4px solid var(--secondary);">
+                            <h3 style="color: var(--primary); margin-bottom: 10px;">ไม่พบข้อมูลที่ตรงกับคำค้นหา</h3>
+                            <p style="color: var(--gray); margin: 0;">ลองค้นหาด้วยคำอื่น เช่น นมแม่, ไข้, นอนหลับ, วัคซีน</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const knowHtml = filtered.map(cat => `
+                    <div class="knowledge-card">
+                        <h3>📌 ${cat.cat}</h3>
+                        <ul>
+                            ${cat.items.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                    </div>
+                `).join('');
+
+                container.innerHTML = `<div class="grid-2">${knowHtml}</div>`;
+            }
+
+            renderKnowledgePage();
             
             const remUser = localStorage.getItem('babygole_rem_user');
             const remPass = localStorage.getItem('babygole_rem_pass');
