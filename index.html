@@ -148,6 +148,26 @@
         .admin-panel h3 { margin-top: 0; color: var(--primary); }
         .notification-badge { display: inline-flex; align-items: center; gap: 6px; background: #fee2e2; color: var(--warn); padding: 8px 12px; border-radius: 999px; font-size: 0.9rem; font-weight: 600; margin-left: 10px; }
         .notification-card { border: 1px solid #dbeafe; background: linear-gradient(135deg, #f8fbff 0%, #fefefe 100%); border-radius: 16px; padding: 14px; margin-bottom: 12px; }
+
+        /* Notification bell dropdown (navbar) */
+        .notif-bell-wrap { position: relative; }
+        .notif-bell-btn { position: relative; width: 42px; height: 42px; border-radius: 50%; border: 1.5px solid #e2e8f0; background: var(--soft-blue); color: var(--primary); cursor: pointer; font-size: 1.05rem; display: flex; align-items: center; justify-content: center; }
+        .notif-bell-btn:hover { background: #d6ecfb; }
+        .notif-bell-count { position: absolute; top: -4px; right: -4px; background: var(--warn); color: #fff; font-size: 0.68rem; font-weight: 700; min-width: 18px; height: 18px; border-radius: 999px; display: flex; align-items: center; justify-content: center; padding: 0 4px; box-shadow: 0 0 0 2px #fff; animation: pulseSoft 1.8s ease-in-out infinite; }
+        .notif-dropdown { position: absolute; top: 52px; right: 0; width: 320px; max-width: 88vw; background: #fff; border-radius: 16px; box-shadow: 0 18px 40px rgba(15,23,42,0.18); border: 1px solid #e2e8f0; z-index: 2000; overflow: hidden; animation: fadeIn 0.2s ease-out; }
+        .notif-dropdown-head { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid #eef2f7; font-size: 0.95rem; }
+        .notif-dropdown-head a { color: var(--secondary); font-size: 0.82rem; text-decoration: none; cursor: pointer; }
+        .notif-dropdown-list { max-height: 320px; overflow-y: auto; }
+        .notif-dropdown-item { padding: 12px 16px; border-bottom: 1px solid #f1f5f9; font-size: 0.88rem; line-height: 1.5; }
+        .notif-dropdown-item small { color: var(--gray); display: block; margin-top: 4px; font-size: 0.75rem; }
+        .notif-dropdown-foot { text-align: center; padding: 10px; }
+        .notif-dropdown-foot a { color: var(--primary); font-weight: 600; font-size: 0.85rem; text-decoration: none; cursor: pointer; }
+
+        /* Navbar user chip */
+        .nav-user-chip { display: flex; align-items: center; gap: 8px; padding: 5px 12px 5px 5px; border-radius: 999px; background: #f8fafc; border: 1.5px solid #e2e8f0; cursor: pointer; }
+        .nav-user-chip:hover { background: var(--soft-blue); border-color: var(--secondary); }
+        .nav-user-chip img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; display: block; }
+        .nav-user-chip span { font-size: 0.88rem; font-weight: 600; color: var(--primary); max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .toast-notice { position: fixed; right: 20px; bottom: 20px; background: var(--primary); color: white; padding: 14px 16px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 5000; max-width: 320px; line-height: 1.5; }
         .toast-notice.success { background: var(--success); }
 
@@ -174,12 +194,16 @@
         .chat-bubble { padding: 12px 15px; border-radius: 15px; max-width: 80%; line-height: 1.5; font-size: 0.95rem; }
         .chat-user { background: var(--soft-blue); color: var(--primary); align-self: flex-end; border-bottom-right-radius: 2px; }
         .chat-ai { background: #f1f5f9; color: #333; align-self: flex-start; border-bottom-left-radius: 2px; border-left: 4px solid var(--secondary); }
+
+        /* babygo professional UI */
+        .section-hero{background:linear-gradient(135deg,#fff,#eff8ff,#e0f2fe);border:1px solid #dbeafe;border-radius:28px;padding:28px;box-shadow:0 18px 45px rgba(15,23,42,.08);margin-bottom:22px}
+        .forum-categories{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:18px 0}.forum-category{border:1px solid #dbeafe;background:linear-gradient(145deg,#fff,#f8fbff);border-radius:20px;padding:18px;cursor:pointer;box-shadow:0 8px 20px rgba(15,23,42,.05);text-align:left}.forum-category:hover{transform:translateY(-4px);box-shadow:0 15px 30px rgba(37,99,235,.12)}.forum-detail{display:none}.forum-detail.active{display:block;animation:fadeIn .3s ease}.post-card-pro{border:1px solid #e2e8f0;border-radius:20px;background:#fff;padding:20px;margin-bottom:14px;box-shadow:0 10px 25px rgba(15,23,42,.05)}.reply-item{background:#f8fafc;border-radius:14px;padding:12px 14px;margin-top:9px;border-left:3px solid #38bdf8}.status-pending,.status-approved,.status-rejected{display:inline-flex;padding:5px 9px;border-radius:999px;font-size:.78rem;font-weight:700}.status-pending{color:#b45309;background:#fef3c7}.status-approved{color:#166534;background:#dcfce7}.status-rejected{color:#991b1b;background:#fee2e2}.admin-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}.admin-tab{border:1px solid #dbeafe;background:#fff;padding:10px 15px;border-radius:12px;cursor:pointer}.admin-tab.active{background:#1a4b82;color:#fff}.admin-section{display:none}.admin-section.active{display:block}.admin-panel-sub{color:var(--gray);font-size:.9rem;margin:-8px 0 16px}.notification-card.unread{border-left:4px solid #38bdf8}.chip{display:inline-flex;padding:7px 12px;border-radius:999px;background:#eff6ff;color:#1d4ed8;font-size:.84rem;font-weight:600}@media(max-width:700px){.nav-links{overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start}.nav-links a{white-space:nowrap}}
     </style>
 </head>
 <body>
 
     <nav class="navbar hidden" id="mainNav">
-        <div class="logo" onclick="showPage('homePage')">baby <span>Gole</span></div>
+        <div class="logo" onclick="showPage('homePage')">baby <span>go</span></div>
         <div class="nav-links">
             <a onclick="showPage('homePage')" id="link-home"><i class="fa-solid fa-house"></i> หน้าแรก</a>
             <a onclick="showPage('devPage')" id="link-dev"><i class="fa-solid fa-child-reaching"></i> พัฒนาการ</a>
@@ -188,12 +212,31 @@
             <a onclick="showPage('knowledgePage')" id="link-knowledge"><i class="fa-solid fa-book"></i> ความรู้</a>
             <a onclick="showPage('aiPage')" id="link-ai"><i class="fa-solid fa-robot"></i> AI วิเคราะห์</a>
             <a onclick="showPage('communityPage')" id="link-community"><i class="fa-solid fa-comments"></i> ชุมชน</a>
-            <a onclick="showPage('notificationsPage')" id="link-notifications"><i class="fa-solid fa-bell"></i> แจ้งเตือน</a>
             <a onclick="showPage('aboutPage')" id="link-about"><i class="fa-solid fa-circle-info"></i> เกี่ยวกับ</a>
             <a onclick="showPage('profilePage')" id="link-profile"><i class="fa-solid fa-user"></i> โปรไฟล์</a>
             <a onclick="showPage('adminPage')" id="link-admin" class="hidden" style="color:var(--warn); font-weight:bold;"><i class="fa-solid fa-shield-halved"></i> Admin</a>
         </div>
-        <button class="btn btn-outline" style="padding: 5px 15px;" onclick="logout()">ออกจากระบบ</button>
+        <div style="display:flex; align-items:center; gap:10px;">
+            <div class="nav-user-chip hidden" id="navUserChip" onclick="showPage('profilePage')" title="โปรไฟล์ของฉัน">
+                <img id="navUserAvatar" src="https://via.placeholder.com/32/1a4b82/ffffff?text=U" alt="avatar">
+                <span id="navUserName">ผู้ใช้</span>
+            </div>
+            <div class="notif-bell-wrap hidden" id="notifBellWrap">
+                <button class="notif-bell-btn" id="notifBellBtn" onclick="toggleNotifDropdown(event)" title="แจ้งเตือน">
+                    <i class="fa-solid fa-bell"></i>
+                    <span class="notif-bell-count hidden" id="notifBellCount">0</span>
+                </button>
+                <div class="notif-dropdown hidden" id="notifDropdown">
+                    <div class="notif-dropdown-head">
+                        <b>การแจ้งเตือน</b>
+                        <a href="#" onclick="clearCommunityNotifications();return false;">ลบทั้งหมด</a>
+                    </div>
+                    <div class="notif-dropdown-list" id="notifDropdownList"></div>
+                    <div class="notif-dropdown-foot"><a href="#" onclick="showPage('notificationsPage');return false;">ดูทั้งหมด →</a></div>
+                </div>
+            </div>
+            <button class="btn btn-outline" style="padding: 5px 15px;" onclick="logout()">ออกจากระบบ</button>
+        </div>
     </nav>
 
     <section id="landingPage" class="landing-bg page-animation">
@@ -205,7 +248,7 @@
         
         <!-- ส่วนของข้อความและปุ่ม -->
         <div style="position:relative; z-index:1;">
-            <h1 style="color: var(--primary); margin-top: 0; font-size: 2.2rem;">ยินดีต้อนรับสู่ baby Gole</h1>
+            <h1 style="color: var(--primary); margin-top: 0; font-size: 2.2rem;">ยินดีต้อนรับสู่ babygo</h1>
             <p style="color: var(--gray); font-size: 1.1rem;">เว็บไซต์ดูแลเด็กเล็กครบวงจรเพื่อลูกรักของคุณ</p>
             
             <button class="btn btn-primary" onclick="showPage('loginPage')">เข้าสู่ระบบ / สมัครสมาชิก</button>
@@ -268,7 +311,7 @@
 
     <section id="homePage" class="hidden" style="padding: 40px 10%;">
         <div class="card page-animation" style="text-align: center; max-width: 760px; margin: 0 auto; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);">
-            <h2 style="color: var(--primary);">baby Gole ช่วยคุณพ่อคุณแม่ดูแลลูกน้อยได้ง่ายขึ้น</h2>
+            <h2 style="color: var(--primary);">babygo ช่วยคุณพ่อคุณแม่ดูแลลูกน้อยได้ง่ายขึ้น</h2>
             <p style="color: var(--gray); font-size: 1rem; line-height: 1.8; max-width: 680px; margin: 0 auto;">
                 ระบบครบวงจรสำหรับครอบครัวยุคใหม่ ทั้งข้อมูลพัฒนาการ, วัคซีน, โภชนาการ, สมุดพกการเจริญเติบโต, คลังความรู้ และ AI ประเมินอาการเบื้องต้น.
                 เหมาะทั้งลูกวัยทารกจนถึงเด็กโต ให้คุณพ่อคุณแม่มั่นใจทุกช่วงวัย.
@@ -290,7 +333,7 @@
         </div>
 
         <div class="card page-animation" style="max-width: 1000px; margin: 20px auto;">
-            <h3 style="color: var(--accent);"><i class="fa-solid fa-star"></i> ฟีเจอร์เด่นของ baby Gole</h3>
+            <h3 style="color: var(--accent);"><i class="fa-solid fa-star"></i> ฟีเจอร์เด่นของ babygo</h3>
             <div class="grid-3" style="gap: 18px; margin-top: 20px;">
                 <div class="card" style="background: #f8fafc; padding: 20px; border-radius: 18px;">
                     <h4 style="margin-top: 0; color: var(--primary);">พัฒนาการตามวัย</h4>
@@ -378,7 +421,13 @@
                     </tbody>
                 </table>
             </div>
-            <p style="font-size: 0.85rem; color: var(--warn); margin-top: 15px;">* หมายเหตุ: ข้อมูลวัคซีนควรปรึกษากุมารแพทย์ทุกครั้ง เนื่องจากตารางอาจมีการเปลี่ยนแปลงตามสภาวะสุขภาพของเด็ก</p>
+            <div class="card" style="margin-top:20px;background:#f8fbff;border:1px dashed #93c5fd;">
+                <h3 style="color:var(--primary);margin-top:0">📝 บันทึกประวัติการฉีดวัคซีน</h3>
+                <div class="grid-2"><div><label>วัคซีน</label><select id="vaccineLogName"></select></div><div><label>วันที่ฉีดจริง</label><input type="date" id="vaccineLogDate"></div></div>
+                <input id="vaccineLogNote" placeholder="หมายเหตุ เช่น เข็มที่ 1 / สถานพยาบาล">
+                <button class="btn btn-primary" onclick="saveVaccineRecord()">บันทึกลงสมุดพก</button>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--warn); margin-top: 15px;">* หมายเหตุ: ตารางนี้เป็นข้อมูลช่วยติดตามเบื้องต้น ควรยึดใบนัดและคำแนะนำจากสถานพยาบาลเป็นหลัก</p>
         </div>
     </section>
 
@@ -453,21 +502,7 @@
         </div>
     </section>
 
-    <section id="communityPage" class="hidden" style="padding: 40px 10%;">
-        <div class="card page-animation">
-            <div class="page-visual rise"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 180'%3E%3Crect width='240' height='180' rx='24' fill='%23fefce8'/%3E%3Crect x='48' y='48' width='118' height='70' rx='16' fill='%23ffffff' stroke='%231a4b82' stroke-width='6'/%3E%3Crect x='74' y='64' width='70' height='14' rx='7' fill='%2338bdf8'/%3E%3Crect x='74' y='86' width='46' height='12' rx='6' fill='%23f59e0b'/%3E%3Crect x='102' y='92' width='98' height='44' rx='14' fill='%23ffffff' stroke='%231a4b82' stroke-width='6'/%3E%3C/svg%3E" alt="community illustration"></div>
-            <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
-                <h2 style="color: var(--primary); margin: 0;"><i class="fa-solid fa-comments"></i> ชุมชนถาม-ตอบ (Baby Gole Forum)</h2>
-                <div id="communityAlertBadge" class="notification-badge hidden">🔔 มีการแจ้งเตือนใหม่</div>
-            </div>
-            <div style="background: var(--bg); padding: 20px; border-radius: 15px; margin-bottom: 25px;">
-                <input type="text" id="postTitle" placeholder="หัวข้อคำถาม / เรื่องที่อยากแชร์...">
-                <textarea id="postDetail" rows="2" placeholder="รายละเอียดเพิ่มเติม..."></textarea>
-                <button class="btn btn-primary" onclick="createPost()">ตั้งกระทู้ใหม่</button>
-            </div>
-            <div id="forumContainer"></div>
-        </div>
-    </section>
+    <section id="communityPage" class="hidden" style="padding:40px 7%;"><div style="max-width:1200px;margin:auto"><div class="section-hero"><span class="chip">💬 babygo Community</span><h2 style="color:var(--primary);margin:10px 0">ชุมชนถาม-ตอบสำหรับผู้ปกครอง</h2><p style="color:var(--gray)">เลือกหัวข้อ → เลือกกระทู้ → อ่านคำตอบและร่วมสนทนา</p></div><div class="card"><div class="forum-categories" id="forumCategories"></div><div id="forumDetail" class="forum-detail"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><div><h3 id="forumCategoryTitle" style="color:var(--primary);margin:0"></h3><p id="forumCategoryDesc" style="color:var(--gray)"></p></div><button class="btn btn-outline btn-sm" onclick="closeForumCategory()">← กลับหัวข้อ</button></div><div id="forumContainer"></div><div class="card" style="background:#f8fbff;border:1px dashed #93c5fd"><h4 style="color:var(--primary)">ตั้งกระทู้ใหม่</h4><input id="postTitle" placeholder="หัวข้อคำถาม / เรื่องที่อยากแชร์..."><textarea id="postDetail" rows="3" placeholder="รายละเอียดเพิ่มเติม..."></textarea><button class="btn btn-primary" onclick="createPost()">ส่งกระทู้เพื่อรออนุมัติ</button></div></div></div></div></section>
 
     <section id="notificationsPage" class="hidden" style="padding: 40px 10%;">
         <div class="card page-animation">
@@ -482,10 +517,10 @@
     <section id="aboutPage" class="hidden" style="padding: 40px 10%;">
         <div class="card page-animation" style="max-width: 600px; margin: 0 auto; text-align: center;">
             <div class="page-visual drift"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 180'%3E%3Crect width='240' height='180' rx='24' fill='%23fef2f2'/%3E%3Ccircle cx='120' cy='86' r='44' fill='%231a4b82'/%3E%3Cpath d='M92 90c8-24 48-24 56 0' stroke='%23ffffff' stroke-width='8' stroke-linecap='round'/%3E%3Cpath d='M88 64c2-20 22-32 32-32 10 0 30 9 32 32' stroke='%23f59e0b' stroke-width='8' stroke-linecap='round'/%3E%3C/svg%3E" alt="about illustration"></div>
-            <div class="logo" style="font-size: 2.5rem; margin-bottom: 15px;">baby <span>Gole</span></div>
+            <div class="logo" style="font-size: 2.5rem; margin-bottom: 15px;">baby <span>go</span></div>
             <h3 style="color: var(--primary); margin-top: 0;">เกี่ยวกับเว็บไซต์ของเรา</h3>
             <p style="color: var(--gray); line-height: 1.6; text-align: justify;">
-                <b>baby Gole</b> ถูกสร้างขึ้นเพื่อเป็น "ศูนย์รวมคู่มือการดูแลลูกรัก" แบบครบวงจรสำหรับคุณพ่อคุณแม่ยุคใหม่ เว็บไซต์ของเราแนะนำและให้ข้อมูลเกี่ยวกับ:
+                <b>babygo</b> ถูกสร้างขึ้นเพื่อเป็น "ศูนย์รวมคู่มือการดูแลลูกรัก" แบบครบวงจรสำหรับคุณพ่อคุณแม่ยุคใหม่ เว็บไซต์ของเราแนะนำและให้ข้อมูลเกี่ยวกับ:
                 <br><br>
                 ✨ <b>เกณฑ์พัฒนาการ:</b> อัปเดตข้อมูลพัฒนาการด้านร่างกาย สติปัญญา และอารมณ์ ในทุกช่วงวัย<br>
                 ✨ <b>โภชนาการและสุขภาพ:</b> แหล่งรวม 50 เมนูอาหารลูกน้อย และตารางการรับวัคซีนที่ถูกต้อง<br>
@@ -498,7 +533,7 @@
                 <p><i class="fa-brands fa-line" style="color:#00c300; width:30px;"></i> <b>Line Official:</b> @babygole</p>
                 <p><i class="fa-solid fa-phone" style="color:var(--primary); width:30px;"></i> <b>เบอร์โทร:</b> 089-123-4567</p>
                 <p><i class="fa-solid fa-envelope" style="color:var(--accent); width:30px;"></i> <b>อีเมล:</b> contact@babygole.com</p>
-                <p><i class="fa-solid fa-location-dot" style="color:var(--warn); width:30px;"></i> <b>ที่อยู่:</b> ศูนย์ baby Gole กรุงเทพฯ</p>
+                <p><i class="fa-solid fa-location-dot" style="color:var(--warn); width:30px;"></i> <b>ที่อยู่:</b> ศูนย์ babygo กรุงเทพฯ</p>
             </div>
         </div>
     </section>
@@ -519,6 +554,7 @@
                 <p><b><i class="fa-solid fa-envelope"></i> อีเมลหลัก:</b> <span id="profEmailDisplay">-</span></p>
                 <p><b><i class="fa-solid fa-envelope-open-text"></i> อีเมลสำรอง:</b> <span id="profAltEmailsDisplay">-</span></p>
             </div>
+            <div style="background:#f8fbff;padding:14px;border-radius:14px;text-align:left;margin-bottom:15px"><label><b>วันเกิดของเด็ก</b></label><input type="date" id="childBirthDate"><button class="btn btn-secondary btn-sm" onclick="saveChildProfile()">บันทึกและตรวจวัคซีน</button></div>
             <div style="display:flex; gap:10px; margin-bottom: 15px;">
                 <input type="email" id="profileAltEmailInput" placeholder="เพิ่มอีเมลสำรองสำหรับเข้าสู่ระบบ" style="margin:0;">
                 <button class="btn btn-secondary btn-sm" onclick="addAlternateEmail()">เพิ่ม</button>
@@ -577,27 +613,77 @@
                 <button class="btn btn-primary" onclick="addUserByAdmin()">บันทึกผู้ใช้ใหม่</button>
             </div>
 
-            <div class="admin-panel">
-                <h3>👥 จัดการผู้ใช้</h3>
-                <div style="overflow-x: auto;">
-                    <table class="custom-table">
-                        <thead><tr><th>รูป</th><th>ชื่อ-สกุล</th><th>Username</th><th>รหัสผ่าน</th><th>เบอร์โทร</th><th>Email</th><th>สถานะ</th><th>จัดการ</th></tr></thead>
-                        <tbody id="adminUserTableBody"></tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="admin-panel">
-                <h3>📝 จัดการกระทู้ในชุมชน</h3>
-                <div id="adminForumList"></div>
-            </div>
+            <div class="admin-tabs"><button class="admin-tab active" onclick="switchAdminTab('users',this)">👥 ผู้ใช้</button><button class="admin-tab" onclick="switchAdminTab('community',this)">🛡️ ชุมชน / อนุมัติ</button><button class="admin-tab" onclick="switchAdminTab('tracker',this)">📒 สมุดพก</button><button class="admin-tab" onclick="switchAdminTab('vaccine',this)">💉 วัคซีน</button><button class="admin-tab" onclick="switchAdminTab('notifications',this)">🔔 แจ้งเตือน</button></div><div id="adminTab-users" class="admin-section active"><div class="admin-panel"><h3>👥 จัดการผู้ใช้</h3><p class="admin-panel-sub">แก้ไขข้อมูลสมาชิก ตั้ง/ถอดสิทธิ์ Admin หรือลบบัญชีผู้ใช้ในระบบ</p><div style="overflow:auto"><table class="custom-table"><thead><tr><th>รูป</th><th>ชื่อ</th><th>Username</th><th>รหัสผ่าน</th><th>เบอร์</th><th>Email</th><th>สถานะ</th><th>จัดการ</th></tr></thead><tbody id="adminUserTableBody"></tbody></table></div></div></div><div id="adminTab-community" class="admin-section"><div class="admin-panel"><h3>🛡️ อนุมัติกระทู้ / จัดการชุมชน</h3><p class="admin-panel-sub">โพสต์ใหม่จากผู้ใช้ทุกคนจะขึ้นสถานะ "รออนุมัติ" ที่นี่ก่อนแสดงบนหน้าชุมชนจริง</p><div id="adminForumList"></div></div></div><div id="adminTab-tracker" class="admin-section"><div class="admin-panel"><h3>📒 สมุดพกทั้งหมด</h3><p class="admin-panel-sub">ดูและแก้ไขบันทึกน้ำหนัก/ส่วนสูง/วัคซีนของสมาชิกทุกคนในระบบ</p><div id="adminTrackerList"></div></div></div><div id="adminTab-vaccine" class="admin-section"><div class="admin-panel"><h3>💉 ตารางวัคซีน (แก้ไขได้)</h3><p class="admin-panel-sub">กำหนดช่วงอายุและรายชื่อวัคซีนที่ระบบจะใช้แจ้งเตือนผู้ใช้ทุกคนโดยอัตโนมัติ</p><div class="grid-2" style="align-items:end"><div><label>อายุ (เดือน)</label><input type="number" id="adminVacMonths" placeholder="เช่น 2"></div><div><label>ช่วงวัย (label)</label><input type="text" id="adminVacLabel" placeholder="เช่น 2 เดือน"></div></div><input type="text" id="adminVacName" placeholder="รายชื่อวัคซีนเข็มนี้ เช่น DTP-HB-Hib1, OPV1"><button class="btn btn-primary btn-sm" onclick="adminAddVaccine()">➕ เพิ่มรายการวัคซีน</button><div id="adminVaccineList" style="margin-top:14px"></div></div></div><div id="adminTab-notifications" class="admin-section"><div class="admin-panel"><div style="display:flex;justify-content:space-between;align-items:center"><h3>🔔 แจ้งเตือน Admin</h3><button class="btn btn-outline btn-sm" onclick="clearAdminNotifications()">ลบทั้งหมด</button></div><p class="admin-panel-sub">แจ้งเตือนเมื่อมีโพสต์รออนุมัติหรือมีความเคลื่อนไหวสำคัญในระบบ</p><div id="adminNotificationList"></div></div></div>
         </div>
     </section>
 
-    <script>
+    <!-- Firebase / babygo Cloud Database -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
+        import { getAnalytics, isSupported as analyticsSupported } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-analytics.js";
+        import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAkCxqSC7tdb8LqblFYhHNZ3T2gTlEiOOg",
+            authDomain: "babygo-359f0.firebaseapp.com",
+            projectId: "babygo-359f0",
+            storageBucket: "babygo-359f0.firebasestorage.app",
+            messagingSenderId: "73540120528",
+            appId: "1:73540120528:web:4c50379c4be8211f9013d5",
+            measurementId: "G-VRVC3WT9EX"
+        };
+
+        try {
+            const app = initializeApp(firebaseConfig);
+            try { if (await analyticsSupported()) getAnalytics(app); } catch (e) {}
+            const auth = getAuth(app);
+            const db = getFirestore(app);
+
+            window.FirebaseDatabaseService = {
+                ready: true, auth, db, currentUser: null,
+                async read(storeName, fallback = null) {
+                    try {
+                        const snap = await getDoc(doc(db, "babygole", storeName));
+                        return snap.exists() ? snap.data().value : fallback;
+                    } catch (e) {
+                        console.error("Firebase read:", storeName, e);
+                        return fallback;
+                    }
+                },
+                async write(storeName, value) {
+                    try {
+                        await setDoc(doc(db, "babygole", storeName),
+                            { value, updatedAt: new Date().toISOString() }, { merge: true });
+                    } catch (e) {
+                        console.error("Firebase write:", storeName, e);
+                    }
+                    return value;
+                },
+                login(email, password) { return signInWithEmailAndPassword(auth, email, password); },
+                register(email, password) { return createUserWithEmailAndPassword(auth, email, password); },
+                logout() { return signOut(auth); }
+            };
+
+            onAuthStateChanged(auth, user => {
+                window.FirebaseDatabaseService.currentUser = user || null;
+                window.dispatchEvent(new CustomEvent("babygo-firebase-auth", {detail:user || null}));
+            });
+        } catch (error) {
+            console.error("babygo Firebase initialization failed:", error);
+            window.FirebaseDatabaseService = {
+                ready:false, currentUser:null, error:error,
+                async read(k, fallback=null){return fallback;},
+                async write(k, value){return value;}
+            };
+        }
+    </script>
+
+<script>
+        function daysAgoISO(days){ const d=new Date(); d.setDate(d.getDate()-days); return d.toISOString().slice(0,10); }
         const defaultUsers = [
             { name: "ผู้ดูแลระบบ", user: "admin", pass: "adminbabygole", phone: "0888888888", email: "admin@babygole.com", isAdmin: true, profilePic: "" },
-            { name: "คุณแม่ สมปอง", user: "user", pass: "1234", phone: "0991234567", email: "sompong@email.com", isAdmin: false, profilePic: "" }
+            { name: "คุณแม่ สมปอง", user: "user", pass: "1234", phone: "0991234567", email: "sompong@email.com", isAdmin: false, profilePic: "", childBirthDate: daysAgoISO(190) }
         ];
 
         let users = [];
@@ -605,7 +691,11 @@
         let forumPosts = [];
         let adminSyncChannel = null;
         let communityNotifications = [];
+        let adminNotifications = [];
         let communityToastTimer = null;
+        let selectedForumCategory = null;
+        const forumCategories={general:{name:'พูดคุยทั่วไป',icon:'💬',desc:'ประสบการณ์การเลี้ยงลูก'},health:{name:'สุขภาพและอาการ',icon:'🩺',desc:'สุขภาพและการดูแลเบื้องต้น'},vaccine:{name:'วัคซีน',icon:'💉',desc:'วัคซีนและการนัดหมาย'},food:{name:'อาหารและโภชนาการ',icon:'🥣',desc:'อาหารตามวัยและพฤติกรรมการกิน'},development:{name:'พัฒนาการ',icon:'🧠',desc:'พัฒนาการและการเรียนรู้'},sleep:{name:'การนอน',icon:'🌙',desc:'ตารางนอนและปัญหาการนอน'}};
+        const vaccineSchedule=[{months:0,name:'BCG, HB1',label:'แรกเกิด'},{months:2,name:'DTP-HB-Hib1, OPV1, Rota1, IPV1',label:'2 เดือน'},{months:4,name:'DTP-HB-Hib2, OPV2, IPV2, Rota2',label:'4 เดือน'},{months:6,name:'DTP-HB-Hib3, OPV3, Rota3, Flu',label:'6 เดือน'},{months:9,name:'MMR1, LAJE1',label:'9-12 เดือน'},{months:12,name:'DTP4, OPV4, MMR2, LAJE2, Varicella, HAV',label:'1 ปี'},{months:18,name:'PCV, MMR2, Varicella',label:'18-24 เดือน'},{months:36,name:'MMR2, DTP5, OPV5',label:'3-4 ปี'}];
 
         const DB_NAME = 'babyGoleDB';
         const DB_VERSION = 1;
@@ -697,7 +787,7 @@
                 babygole_users: 'users',
                 babygole_tracker: 'tracker',
                 babygole_forum: 'forum',
-                babygole_community_notifications: 'notifications'
+                babygole_community_notifications: 'notifications', babygole_admin_notifications:'admin_notifications', babygole_user_notifications:'user_notifications', babygole_vaccine_alerts:'vaccine_alerts'
             };
             return mapping[key] || key;
         }
@@ -718,31 +808,73 @@
         function saveToDatabase(key, value) {
             window.__dbCache[key] = value;
             localStorage.setItem(key, JSON.stringify(value));
-            DatabaseService.write(getDatabaseStoreName(key), value).catch(() => {});
+            const storeName = getDatabaseStoreName(key);
+
+            // Local IndexedDB/localStorage cache
+            DatabaseService.write(storeName, value).catch(() => {});
+
+            // Cloud database: Firebase Firestore
+            if (window.FirebaseDatabaseService?.ready) {
+                window.FirebaseDatabaseService.write(storeName, value).catch((error) => {
+                    console.error("Firebase sync failed:", error);
+                });
+            }
+
             notifyDataChanged();
             return value;
         }
 
-        function bootstrapDatabase() {
+        async function bootstrapDatabase() {
             const entries = [
                 ['babygole_users', users],
                 ['babygole_tracker', trackerRecords],
                 ['babygole_forum', forumPosts],
-                ['babygole_community_notifications', communityNotifications]
+                ['babygole_community_notifications', communityNotifications],
+                ['babygole_admin_notifications', adminNotifications],
+                ['babygole_user_notifications', {}],
+                ['babygole_vaccine_alerts', {}]
             ];
 
-            entries.forEach(([key, fallback]) => {
+            // โหลดฐานข้อมูลเดิมก่อน เพื่อให้ระบบยังทำงานแบบ Offline ได้
+            await Promise.all(entries.map(async ([key, fallback]) => {
                 const storeName = getDatabaseStoreName(key);
-                DatabaseService.read(storeName, fallback).then((value) => {
-                    if (value !== null && value !== undefined) {
-                        window.__dbCache[key] = value;
-                        if (key === 'babygole_users') users = value;
-                        if (key === 'babygole_tracker') trackerRecords = value;
-                        if (key === 'babygole_forum') forumPosts = value;
-                        if (key === 'babygole_community_notifications') communityNotifications = value;
+                const value = await DatabaseService.read(storeName, fallback);
+                if (value !== null && value !== undefined) {
+                    window.__dbCache[key] = value;
+                    if (key === 'babygole_users') users = value;
+                    if (key === 'babygole_tracker') trackerRecords = value;
+                    if (key === 'babygole_forum') forumPosts = value;
+                    if (key === 'babygole_community_notifications') communityNotifications = value;
+                    if (key === 'babygole_admin_notifications') adminNotifications = value||[];
+                }
+            }));
+
+            // Firebase Firestore เป็นฐานข้อมูล Cloud หลัก
+            if (window.FirebaseDatabaseService?.ready) {
+                await Promise.all(entries.map(async ([key, fallback]) => {
+                    const storeName = getDatabaseStoreName(key);
+                    const firebaseValue = await window.FirebaseDatabaseService.read(storeName, null);
+                    if (firebaseValue !== null && firebaseValue !== undefined) {
+                        window.__dbCache[key] = firebaseValue;
+                        localStorage.setItem(key, JSON.stringify(firebaseValue));
+                        if (key === 'babygole_users') users = firebaseValue;
+                        if (key === 'babygole_tracker') trackerRecords = firebaseValue;
+                        if (key === 'babygole_forum') forumPosts = firebaseValue;
+                        if (key === 'babygole_forum') { forumPosts = (firebaseValue||[]).map(p => ({...p, status:p.status||'approved', replies:p.replies||[]})); }
+                        if (key === 'babygole_community_notifications') communityNotifications = firebaseValue;
+                        if (key === 'babygole_admin_notifications') adminNotifications = firebaseValue||[];
+                    } else {
+                        // ครั้งแรก: ย้ายข้อมูลเดิมขึ้น Firebase
+                        await window.FirebaseDatabaseService.write(storeName, fallback);
                     }
-                });
-            });
+                }));
+
+                if (typeof renderTracker === 'function') renderTracker();
+                if (typeof renderForum === 'function') renderForum();
+                if (typeof renderNotificationsPage === 'function') renderNotificationsPage();
+                if (typeof updateCommunityBadge === 'function') updateCommunityBadge();
+                if (typeof loadAdminData === 'function') loadAdminData();
+            }
         }
 
         function notifyDataChanged() {
@@ -758,57 +890,44 @@
             const toast = document.createElement('div');
             toast.id = 'communityToast';
             toast.className = 'toast-notice success';
-            toast.innerHTML = `<strong>แจ้งเตือนชุมชน</strong><div>${message}</div>`;
+            toast.innerHTML = `<strong>แจ้งเตือน</strong><div>${escapeHtml(message)}</div>`;
             document.body.appendChild(toast);
             communityToastTimer = setTimeout(() => toast.remove(), 3500);
         }
 
-        function pushCommunityNotification(message) {
-            communityNotifications.unshift({ id: Date.now(), text: message, createdAt: new Date().toLocaleString('th-TH') });
-            saveToDatabase('babygole_community_notifications', communityNotifications);
-            showCommunityToast(message);
-            updateCommunityBadge();
-            renderNotificationsPage();
+        // แสดงแจ้งเตือนแบบ bell dropdown ที่ navbar (แสดงตลอดเวลา ไม่ต้องออกจากระบบก่อนถึงจะเห็น)
+        function updateNavUserChip(u){
+            const chip=document.getElementById('navUserChip');
+            if(!chip||!u) return;
+            chip.classList.remove('hidden');
+            document.getElementById('navUserName').innerText=u.name||u.user||'ผู้ใช้';
+            document.getElementById('navUserAvatar').src=u.profilePic||`https://via.placeholder.com/32/1a4b82/ffffff?text=${encodeURIComponent((u.name||'U').charAt(0))}`;
         }
 
-        function updateCommunityBadge() {
-            const badge = document.getElementById('communityAlertBadge');
-            const navBadge = document.getElementById('link-notifications');
-            if (badge) {
-                badge.classList.toggle('hidden', communityNotifications.length === 0);
-                badge.innerHTML = `🔔 ${communityNotifications.length} รายการแจ้งเตือนใหม่`;
-            }
-            if (navBadge) {
-                navBadge.innerHTML = `<i class="fa-solid fa-bell"></i> แจ้งเตือน${communityNotifications.length ? ' (' + communityNotifications.length + ')' : ''}`;
-            }
+        function toggleNotifDropdown(e) {
+            if (e) e.stopPropagation();
+            const dd = document.getElementById('notifDropdown');
+            if (!dd) return;
+            const willOpen = dd.classList.contains('hidden');
+            dd.classList.toggle('hidden');
+            if (willOpen) renderNotifDropdown();
         }
+        document.addEventListener('click', (e) => {
+            const wrap = document.getElementById('notifBellWrap');
+            const dd = document.getElementById('notifDropdown');
+            if (wrap && dd && !wrap.contains(e.target)) dd.classList.add('hidden');
+        });
 
-        function loadCommunityNotifications() {
-            communityNotifications = loadFromDatabase('babygole_community_notifications', []);
-            updateCommunityBadge();
-            renderNotificationsPage();
-        }
-
-        function renderNotificationsPage() {
-            const list = document.getElementById('notificationsList');
+        function renderNotifDropdown() {
+            const list = document.getElementById('notifDropdownList');
             if (!list) return;
-            if (communityNotifications.length === 0) {
-                list.innerHTML = '<div class="notification-card"><strong>ยังไม่มีการแจ้งเตือน</strong><div style="color:var(--gray); margin-top:6px;">เมื่อมีคนตั้งโพสต์หรือตอบกลับในชุมชน ข้อมูลจะปรากฏที่นี่</div></div>';
-                return;
-            }
-            list.innerHTML = communityNotifications.map(item => `
-                <div class="notification-card">
-                    <div style="font-weight:600; color:var(--primary);">${item.text}</div>
-                    <div style="color:var(--gray); font-size:0.9rem; margin-top:6px;">${item.createdAt}</div>
+            const items = getUserNotifications();
+            list.innerHTML = items.length ? items.slice(0, 8).map(n => `
+                <div class="notif-dropdown-item">
+                    <div>${escapeHtml(n.text)}</div>
+                    <small>${n.createdAt}</small>
                 </div>
-            `).join('');
-        }
-
-        function clearCommunityNotifications() {
-            communityNotifications = [];
-            saveToDatabase('babygole_community_notifications', communityNotifications);
-            updateCommunityBadge();
-            renderNotificationsPage();
+            `).join('') : '<div class="notif-dropdown-item" style="color:var(--gray)">ยังไม่มีการแจ้งเตือน</div>';
         }
 
         function initAdminSync() {
@@ -855,14 +974,45 @@
         }
         
         loadUsersFromStorage();
-        trackerRecords = loadFromDatabase('babygole_tracker', []);
-        loadCommunityNotifications();
+        adminNotifications=loadFromDatabase('babygole_admin_notifications',[
+            { id: 900001, text: 'ตัวอย่าง: มีโพสต์รออนุมัติจาก คุณแม่ สมปอง: "ลูก 6 เดือน เริ่มอาหารเสริมแบบไหนดี?"', createdAt: new Date(Date.now()-3600000).toLocaleString('th-TH') },
+            { id: 900002, text: 'ตัวอย่าง: สมาชิกใหม่สมัครเข้าใช้งานระบบ babygo', createdAt: new Date(Date.now()-7200000).toLocaleString('th-TH') }
+        ]);
+        trackerRecords = loadFromDatabase('babygole_tracker', [
+            { id: 1001, user: "user", d: daysAgoISO(180), a: "ตรวจสุขภาพประจำเดือน", w: "5.2", h: "58" },
+            { id: 1002, user: "user", d: daysAgoISO(150), a: "ตรวจสุขภาพประจำเดือน", w: "6.0", h: "61" },
+            { id: 1003, user: "user", d: daysAgoISO(120), a: "ตรวจสุขภาพประจำเดือน", w: "6.7", h: "64" },
+            { id: 1004, user: "user", d: daysAgoISO(90), a: "ตรวจสุขภาพประจำเดือน", w: "7.3", h: "66" },
+            { id: 1005, user: "user", d: daysAgoISO(180), type: "vaccine", vaccine: "BCG, HB1", note: "เข็มแรกเกิด ที่ รพ.ประจำอำเภอ" },
+            { id: 1006, user: "user", d: daysAgoISO(120), type: "vaccine", vaccine: "DTP-HB-Hib1, OPV1, Rota1, IPV1", note: "เข็มที่ 2 เดือน ไม่มีไข้หลังฉีด" }
+        ]);
+        communityNotifications = loadFromDatabase('babygole_community_notifications', []);
         forumPosts = loadFromDatabase('babygole_forum', [
-            { id: 1, author: "แม่น้องติน", title: "น้อง 8 เดือน ไม่ยอมกินข้าวบด ทำยังไงดีคะ?", detail: "พ่นข้าวออกตลอดเลยค่ะ", replies: [{author: "ผู้ดูแลระบบ", text: "ลองเปลี่ยนเป็นวิธี BLW ให้หยิบจับเองดูนะครับ"}] },
-            { id: 2, author: "พ่อแม่น้องเหนือ", title: "ลูกเริ่มหัดเดินแล้วกลัวเดินเอง", detail: "เวลาปล่อยเดินจะกลัวและร้องไห้ ไม่กล้าปล่อยมือ", replies: [{author: "ผู้ดูแลระบบ", text: "ให้วางของเล่นใกล้ ๆ และค่อย ๆ ปล่อยมือทีละนิด พร้อมให้กำลังใจ"}] },
-            { id: 3, author: "คุณแม่เจิน", title: "ผื่นแพ้ผ้าอ้อมขึ้นบ่อยควรทำอย่างไร", detail: "เวลาทำความสะอาดแล้วก็ยังแดงและแสบ", replies: [{author: "แม่ชาวบ้าน", text: "ลองเปลี่ยนผ้าอ้อมบ่อย ๆ และใช้ครีมบำรุงผิวเด็ก"}] },
-            { id: 4, author: "นายเปิ้ล", title: "ลูกมีปัญหาการนอนยาวช่วงกลางคืน", detail: "นอนหลับไม่ต่อเนื่อง ตื่นกลางดึกบ่อยมาก", replies: [{author: "ผู้เชี่ยวชาญ", text: "จัดตารางนอนให้เป็นเวลา ลดการเล่นก่อนนอน และตรวจสอบสิ่งแวดล้อมในห้อง"}] },
-            { id: 5, author: "แม่จันทร์", title: "ลูกน้อยชอบหยิบของเข้าปากตลอด", detail: "กังวลเรื่องของเล็กและความสะอาด", replies: [{author: "คุณหมอ", text: "เตรียมของเล่นปลอดภัยให้หยิบจับ และคอยดูแลอย่างใกล้ชิด"}] }
+            { id: 1, user: "tin_mom", author: "แม่น้องติน", category: "food", status: "approved", title: "น้อง 8 เดือน ไม่ยอมกินข้าวบด ทำยังไงดีคะ?", detail: "พ่นข้าวออกตลอดเลยค่ะ ลองเปลี่ยนรสชาติแล้วก็ยังไม่กิน", createdAt: new Date(Date.now()-86400000*6).toISOString(),
+                replies: [{author: "ผู้ดูแลระบบ", user:"admin", text: "ลองเปลี่ยนเป็นวิธี BLW ให้หยิบจับเองดูนะครับ บางทีเด็กอยากมีส่วนร่วมในการกินเอง", createdAt: new Date(Date.now()-86400000*5).toISOString()}] },
+            { id: 2, user: "neua_dad", author: "พ่อแม่น้องเหนือ", category: "development", status: "approved", title: "ลูกเริ่มหัดเดินแล้วกลัวเดินเอง", detail: "เวลาปล่อยเดินจะกลัวและร้องไห้ ไม่กล้าปล่อยมือ", createdAt: new Date(Date.now()-86400000*9).toISOString(),
+                replies: [{author: "ผู้ดูแลระบบ", user:"admin", text: "ให้วางของเล่นใกล้ ๆ และค่อย ๆ ปล่อยมือทีละนิด พร้อมให้กำลังใจ ลูกจะมั่นใจขึ้นเรื่อยๆ", createdAt: new Date(Date.now()-86400000*8).toISOString()}] },
+            { id: 3, user: "jern_mom", author: "คุณแม่เจิน", category: "health", status: "approved", title: "ผื่นแพ้ผ้าอ้อมขึ้นบ่อยควรทำอย่างไร", detail: "เวลาทำความสะอาดแล้วก็ยังแดงและแสบ ใช้แป้งก็แล้วยังไม่หาย", createdAt: new Date(Date.now()-86400000*4).toISOString(),
+                replies: [{author: "แม่ชาวบ้าน", user:"villager_mom", text: "ลองเปลี่ยนผ้าอ้อมบ่อย ๆ และใช้ครีมบำรุงผิวเด็กแบบไม่มีน้ำหอมค่ะ", createdAt: new Date(Date.now()-86400000*3).toISOString()},
+                          {author: "ผู้ดูแลระบบ", user:"admin", text: "ถ้าผื่นไม่ดีขึ้นใน 2-3 วัน แนะนำพาไปพบกุมารแพทย์เพื่อตรวจเพิ่มเติมนะคะ", createdAt: new Date(Date.now()-86400000*2).toISOString()}] },
+            { id: 4, user: "pearl_dad", author: "นายเปิ้ล", category: "sleep", status: "approved", title: "ลูกมีปัญหาการนอนยาวช่วงกลางคืน", detail: "นอนหลับไม่ต่อเนื่อง ตื่นกลางดึกบ่อยมาก", createdAt: new Date(Date.now()-86400000*7).toISOString(),
+                replies: [{author: "ผู้เชี่ยวชาญ", user:"sleep_expert", text: "จัดตารางนอนให้เป็นเวลา ลดการเล่นก่อนนอน และตรวจสอบสิ่งแวดล้อมในห้องให้มืดและเงียบ", createdAt: new Date(Date.now()-86400000*6).toISOString()}] },
+            { id: 5, user: "jan_mom", author: "แม่จันทร์", category: "development", status: "approved", title: "ลูกน้อยชอบหยิบของเข้าปากตลอด", detail: "กังวลเรื่องของเล็กและความสะอาด ควรห้ามไหมคะ", createdAt: new Date(Date.now()-86400000*11).toISOString(),
+                replies: [{author: "คุณหมอ", user:"dr_kids", text: "เป็นพัฒนาการปกติของวัยสำรวจ (Oral stage) เตรียมของเล่นปลอดภัยให้หยิบจับ และคอยดูแลอย่างใกล้ชิด", createdAt: new Date(Date.now()-86400000*10).toISOString()}] },
+            { id: 6, user: "som_mom", author: "คุณแม่สมปอง", category: "general", status: "approved", title: "รวมของใช้จำเป็นสำหรับคุณแม่มือใหม่ที่เพิ่งคลอด", detail: "อยากให้แม่ๆ มาแชร์ลิสต์ของใช้ที่จำเป็นจริงๆ ไม่อยากซื้อเกินความจำเป็นค่ะ", createdAt: new Date(Date.now()-86400000*2).toISOString(),
+                replies: [{author: "แม่มือใหม่ปี 2", user:"newmom2", text: "แนะนำผ้าอ้อมสำเร็จรูป เครื่องปั๊มนม กระติกน้ำร้อน และเบาะรองให้นมค่ะ ใช้บ่อยที่สุด", createdAt: new Date(Date.now()-86400000*1).toISOString()}] },
+            { id: 7, user: "may_mom", author: "แม่เมย์", category: "general", status: "approved", title: "พาลูกเที่ยวต่างจังหวัดครั้งแรกต้องเตรียมอะไรบ้าง", detail: "ลูกอายุ 1 ขวบ จะเดินทางไกลครั้งแรก กังวลเรื่องรถและอาหารการกิน", createdAt: new Date(Date.now()-86400000*13).toISOString(),
+                replies: [{author: "ผู้ดูแลระบบ", user:"admin", text: "เตรียมคาร์ซีทให้พร้อม แบ่งช่วงแวะพักทุก 2 ชม. และพกอาหารว่าง/นมสำรองให้เพียงพอค่ะ", createdAt: new Date(Date.now()-86400000*12).toISOString()}] },
+            { id: 8, user: "kaew_mom", author: "แม่แก้ว", category: "vaccine", status: "approved", title: "ลืมพาลูกไปฉีดวัคซีนตามนัดควรทำอย่างไรดี", detail: "เลยกำหนดมาเกือบ 2 สัปดาห์แล้ว กลัวว่าจะต้องเริ่มเข็มใหม่ทั้งหมด", createdAt: new Date(Date.now()-86400000*3).toISOString(),
+                replies: [{author: "พยาบาลอาสา", user:"nurse_v", text: "ไม่ต้องเริ่มใหม่ค่ะ ให้รีบติดต่อสถานพยาบาลเพื่อฉีดเข็มที่เหลือต่อได้เลยตามคำแนะนำแพทย์", createdAt: new Date(Date.now()-86400000*2).toISOString()}] },
+            { id: 9, user: "aon_mom", author: "แม่อ้อน", category: "vaccine", status: "approved", title: "ฉีดวัคซีนแล้วลูกมีไข้ต่ำๆ ต้องกังวลไหมคะ", detail: "ฉีดมา 1 วัน ตัวอุ่นๆ งอแงกว่าปกตินิดหน่อย", createdAt: new Date(Date.now()-86400000*5).toISOString(),
+                replies: [{author: "คุณหมอ", user:"dr_kids", text: "เป็นปฏิกิริยาปกติหลังฉีดวัคซีน เช็ดตัวลดไข้และสังเกตอาการ หากไข้สูงเกิน 38.5 องศาให้พบแพทย์ค่ะ", createdAt: new Date(Date.now()-86400000*4).toISOString()}] },
+            { id: 10, user: "ploy_mom", author: "แม่พลอย", category: "food", status: "approved", title: "อยากได้เมนูอาหารเสริมง่ายๆ สำหรับลูกวัยเริ่ม 6 เดือน", detail: "เพิ่งเริ่มอาหารเสริม อยากได้สูตรที่ทำง่ายไม่ยุ่งยากค่ะ", createdAt: new Date(Date.now()-86400000*1).toISOString(),
+                replies: [{author: "แม่ชาวบ้าน", user:"villager_mom", text: "ลองข้าวบดผสมฟักทองนึ่ง หรือกล้วยน้ำว้าบดค่ะ ย่อยง่ายและลูกส่วนใหญ่ชอบ", createdAt: new Date(Date.now()-3600000*6).toISOString()}] },
+            { id: 11, user: "fon_mom", author: "แม่ฝน", category: "health", status: "approved", title: "ลูกไอมีเสมหะตอนกลางคืนควรทำอย่างไร", detail: "ไอบ่อยพอนอนราบ ไม่มีไข้ แต่รบกวนการนอนมากค่ะ", createdAt: new Date(Date.now()-86400000*8).toISOString(),
+                replies: [{author: "คุณหมอ", user:"dr_kids", text: "จัดท่านอนศีรษะสูงเล็กน้อยและให้ดื่มน้ำอุ่นบ่อยขึ้น หากไอต่อเนื่องเกิน 1 สัปดาห์ควรพาไปตรวจค่ะ", createdAt: new Date(Date.now()-86400000*7).toISOString()}] },
+            { id: 12, user: "nui_mom", author: "แม่หนุย", category: "sleep", status: "approved", title: "ลูกงีบกลางวันนานเกินไป กลางคืนเลยไม่ยอมนอน", detail: "งีบตอนบ่ายทีเกือบ 3 ชั่วโมง พอกลางคืนตื่นเล่นถึงเที่ยงคืน", createdAt: new Date(Date.now()-86400000*10).toISOString(),
+                replies: [{author: "ผู้เชี่ยวชาญ", user:"sleep_expert", text: "ลองจำกัดงีบกลางวันไม่ให้เกิน 1.5-2 ชม. และปลุกให้ตรงเวลาทุกวัน จะช่วยให้กลางคืนหลับง่ายขึ้นค่ะ", createdAt: new Date(Date.now()-86400000*9).toISOString()}] }
         ]);
 
         let currentUser = null;
@@ -1195,6 +1345,58 @@
         ];
 
         // ================= Functions =================
+        function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+        function formatDate(v){return v?new Date(v).toLocaleString('th-TH',{dateStyle:'medium',timeStyle:'short'}):'-'}
+        function pushUserNotification(userKey,message){const all=loadFromDatabase('babygole_user_notifications',{});all[userKey]=all[userKey]||[];all[userKey].unshift({id:Date.now(),text:message,createdAt:new Date().toLocaleString('th-TH'),read:false});saveToDatabase('babygole_user_notifications',all);if(currentUser?.user===userKey){renderNotificationsPage();updateCommunityBadge();showCommunityToast(message);}}
+        function getUserNotifications(){const all=loadFromDatabase('babygole_user_notifications',{});return currentUser?(all[currentUser.user]||[]):[]}
+        function renderNotificationsPage(){const list=document.getElementById('notificationsList');if(!list)return;const a=getUserNotifications();list.innerHTML=a.length?a.map(n=>`<div class="notification-card unread"><b>${escapeHtml(n.text)}</b><div style="color:var(--gray);font-size:.85rem">${n.createdAt}</div></div>`).join(''):'<div class="notification-card">ยังไม่มีการแจ้งเตือน</div>';}
+        function updateCommunityBadge(){
+            const n=getUserNotifications().length;
+            const countEl=document.getElementById('notifBellCount');
+            if(countEl){countEl.classList.toggle('hidden', n===0); countEl.innerText=n>99?'99+':n;}
+            const dd=document.getElementById('notifDropdown');
+            if(dd && !dd.classList.contains('hidden')) renderNotifDropdown();
+        }
+        function clearCommunityNotifications(){
+            if(!currentUser) return;
+            const all=loadFromDatabase('babygole_user_notifications',{});
+            all[currentUser.user]=[];
+            saveToDatabase('babygole_user_notifications',all);
+            renderNotificationsPage();
+            updateCommunityBadge();
+        }
+        function saveChildProfile(){if(!currentUser)return;const dob=document.getElementById('childBirthDate')?.value;if(!dob)return alert('กรุณาเลือกวันเกิดของเด็ก');currentUser.childBirthDate=dob;const i=users.findIndex(u=>u.user===currentUser.user);if(i>=0){users[i]=currentUser;saveToDatabase('babygole_users',users)}checkVaccineAlerts();alert('บันทึกข้อมูลเด็กแล้ว');}
+        function checkVaccineAlerts(){
+            if(!currentUser?.childBirthDate)return;
+            const b=new Date(currentUser.childBirthDate), n=new Date();
+            const m=(n.getFullYear()-b.getFullYear())*12+n.getMonth()-b.getMonth()-(n.getDate()<b.getDate()?1:0);
+            const sent=loadFromDatabase('babygole_vaccine_alerts',{});
+            sent[currentUser.user]=sent[currentUser.user]||{};
+            vaccineSchedule.forEach(v=>{
+                const dueDate=new Date(b); dueDate.setMonth(dueDate.getMonth()+v.months);
+                const daysDiff=Math.floor((n-dueDate)/86400000);
+                const monthsLeft=v.months-m;
+                if(sent[currentUser.user][v.months]) return;
+                if(daysDiff>0){
+                    pushUserNotification(currentUser.user,`⚠️ วัคซีนเข็ม "${v.label}: ${v.name}" เลยกำหนดฉีดมาแล้ว ${daysDiff} วัน กรุณาพาไปฉีดโดยเร็ว`);
+                    sent[currentUser.user][v.months]=1;
+                } else if(daysDiff===0){
+                    pushUserNotification(currentUser.user,`💉 ถึงกำหนดฉีดวัคซีนวันนี้: ${v.label} — ${v.name}`);
+                    sent[currentUser.user][v.months]=1;
+                } else if(monthsLeft>0 && monthsLeft<=1){
+                    pushUserNotification(currentUser.user,`🔔 อีกประมาณ ${monthsLeft} เดือน จะถึงกำหนดฉีดวัคซีน ${v.label}: ${v.name}`);
+                    sent[currentUser.user][v.months]=1;
+                }
+            });
+            saveToDatabase('babygole_vaccine_alerts',sent);
+            updateCommunityBadge();
+        }
+        function switchAdminTab(n,b){document.querySelectorAll('.admin-section').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.admin-tab').forEach(x=>x.classList.remove('active'));document.getElementById('adminTab-'+n)?.classList.add('active');b?.classList.add('active');}
+        function approvePost(id,ok){const p=forumPosts.find(x=>x.id===id);if(!p)return;p.status=ok?'approved':'rejected';saveToDatabase('babygole_forum',forumPosts);pushUserNotification(p.user,ok?`✅ กระทู้ “${p.title}” ได้รับการอนุมัติแล้ว`:`❌ กระทู้ “${p.title}” ไม่ได้รับการอนุมัติ`);loadAdminData();renderForumCategories();}
+        function editUser(i){const u=users[i];if(!u)return;const n=prompt('ชื่อ',u.name);if(n===null)return;u.name=n;u.phone=prompt('เบอร์โทร',u.phone||'');u.email=prompt('Email',u.email||'');saveToDatabase('babygole_users',users);loadAdminData();}
+        function editPost(id){const p=forumPosts.find(x=>x.id===id);if(!p)return;p.title=prompt('หัวข้อ',p.title)||p.title;p.detail=prompt('รายละเอียด',p.detail||'')??p.detail;saveToDatabase('babygole_forum',forumPosts);loadAdminData();}
+        function editTracker(id){const r=trackerRecords.find(x=>x.id===id);if(!r)return;r.w=prompt('น้ำหนัก',r.w)||r.w;r.h=prompt('ส่วนสูง',r.h)||r.h;saveToDatabase('babygole_tracker',trackerRecords);loadAdminData();}
+        function deleteTracker(id){trackerRecords=trackerRecords.filter(x=>x.id!==id);saveToDatabase('babygole_tracker',trackerRecords);loadAdminData();}
         function showPage(pageId) {
             const pages = ['landingPage', 'loginPage', 'registerPage', 'forgotPage', 'homePage', 'devPage', 'vaccinePage', 'trackerPage', 'knowledgePage', 'aiPage', 'communityPage', 'notificationsPage', 'aboutPage', 'profilePage', 'adminPage'];
             pages.forEach(p => document.getElementById(p).classList.add('hidden'));
@@ -1213,9 +1415,8 @@
                 renderForum();
                 updateCommunityBadge();
             }
-            if(pageId === 'notificationsPage') {
-                renderNotificationsPage();
-            }
+            if(pageId === 'notificationsPage') { if(!currentUser) return showPage('loginPage'); renderNotificationsPage(); updateCommunityBadge(); }
+            if(pageId === 'vaccinePage') populateVaccineLogSelect();
             if(pageId === 'devPage' && !document.querySelector('.tab-btn.active')) setDevInfo('0-1');
             if(pageId === 'profilePage') updateProfileUI();
         }
@@ -1228,57 +1429,93 @@
         }
 
         // แก้ไขระบบล็อกอินให้หาข้อมูลจาก Username "หรือ" Email ก็ได้
-        function login() {
-            loadUsersFromStorage(); 
-            const u = document.getElementById('loginUser').value.trim(); // ตัดเว้นวรรคเพื่อป้องกันการกดพลาด
+        async function login() {
+            loadUsersFromStorage();
+            const u = document.getElementById('loginUser').value.trim();
             const p = document.getElementById('loginPass').value;
             const loginValue = u.toLowerCase();
-            
+
+            if (window.FirebaseDatabaseService?.ready && u.includes('@')) {
+                try {
+                    const credential = await window.FirebaseDatabaseService.login(u, p);
+                    let found = users.find(x =>
+                        String(x.uid || '') === String(credential.user.uid) ||
+                        String(x.email || '').toLowerCase() === loginValue
+                    );
+
+                    if (!found) {
+                        found = {
+                            uid: credential.user.uid,
+                            name: credential.user.displayName || u.split('@')[0],
+                            user: u.split('@')[0], email: u, phone: '',
+                            isAdmin: false, profilePic: ''
+                        };
+                        users.push(found);
+                        saveToDatabase('babygole_users', users);
+                    } else {
+                        found.uid = credential.user.uid;
+                    }
+
+                    if (isAdminMode && !found.isAdmin) {
+                        await window.FirebaseDatabaseService.logout();
+                        return alert("บัญชีนี้ไม่มีสิทธิ์ Admin");
+                    }
+
+                    currentUser = found;
+                    finishLoginUI(found);
+                    return;
+                } catch (e) {
+                    console.warn("Firebase login failed; local fallback:", e);
+                }
+            }
+
             const found = users.find(x => {
                 const candidates = [x.user, x.email, x.phone, ...(x.altEmails || [])];
                 return candidates.some(v => String(v || '').toLowerCase() === loginValue) && x.pass === p;
             });
-            
-            if(found) {
-                if(isAdminMode && !found.isAdmin) return alert("บัญชีนี้ไม่มีสิทธิ์ Admin");
-                currentUser = found;
-                document.getElementById('link-admin').classList.toggle('hidden', !currentUser.isAdmin);
-                
-                // === ระบบบันทึกรหัสผ่าน (Save to LocalStorage) ===
-                const rememberBox = document.getElementById('rememberMe');
-                if(rememberBox && rememberBox.checked) {
-                    localStorage.setItem('babygole_rem_user', u);
-                    localStorage.setItem('babygole_rem_pass', p);
-                } else {
-                    localStorage.removeItem('babygole_rem_user');
-                    localStorage.removeItem('babygole_rem_pass');
-                }
-                // ===========================================
 
-                showPage('homePage');
-            } else { alert("Username/Email หรือ Password ไม่ถูกต้อง"); }
+            if (!found) return alert("Username/Email หรือ Password ไม่ถูกต้อง");
+            if (isAdminMode && !found.isAdmin) return alert("บัญชีนี้ไม่มีสิทธิ์ Admin");
+
+            currentUser = found;
+            finishLoginUI(found);
         }
 
-        function logout() { 
-            currentUser = null; 
-            showPage('loginPage'); 
-            
-            const remUser = localStorage.getItem('babygole_rem_user');
-            const remPass = localStorage.getItem('babygole_rem_pass');
-            if(remUser && remPass) {
-                document.getElementById('loginUser').value = remUser;
-                document.getElementById('loginPass').value = remPass;
-                document.getElementById('rememberMe').checked = true;
+        function finishLoginUI(found) {
+            document.getElementById('link-admin').classList.toggle('hidden', !found.isAdmin);
+            document.getElementById('notifBellWrap')?.classList.remove('hidden');
+            updateNavUserChip(found);
+
+            const remember = document.getElementById('rememberMe');
+            if (remember && remember.checked) {
+                localStorage.setItem('babygole_rem_user', found.email || found.user || '');
             } else {
-                document.getElementById('loginUser').value = '';
-                document.getElementById('loginPass').value = '';
-                const remCheck = document.getElementById('rememberMe');
-                if(remCheck) remCheck.checked = false;
+                localStorage.removeItem('babygole_rem_user');
             }
+            localStorage.removeItem('babygole_rem_pass');
+
+            showPage('homePage');
+            renderNotificationsPage();
+            updateCommunityBadge();
+            checkVaccineAlerts();
+            if (found.isAdmin && typeof loadAdminData === 'function') loadAdminData();
         }
 
-        function normalizeUsername(value) {
-            return String(value || '').trim().toLowerCase();
+        async function logout() {
+            try {
+                if (window.FirebaseDatabaseService?.ready && window.FirebaseDatabaseService.currentUser) {
+                    await window.FirebaseDatabaseService.logout();
+                }
+            } catch (e) {}
+
+            currentUser = null;
+            document.getElementById('link-admin')?.classList.add('hidden');
+            document.getElementById('notifBellWrap')?.classList.add('hidden');
+            document.getElementById('notifDropdown')?.classList.add('hidden');
+            document.getElementById('navUserChip')?.classList.add('hidden');
+            showPage('landingPage');
+            document.getElementById('loginUser').value = localStorage.getItem('babygole_rem_user') || '';
+            document.getElementById('loginPass').value = '';
         }
 
         function isUsernameTaken(username) {
@@ -1286,8 +1523,9 @@
             return users.some(x => normalizeUsername(x.user) === normalized);
         }
 
-        function register() {
-            loadUsersFromStorage(); 
+        async function register() {
+            loadUsersFromStorage();
+
             const n = document.getElementById('regName').value.trim();
             const ph = document.getElementById('regPhone').value.trim();
             const e = document.getElementById('regEmail').value.trim();
@@ -1295,20 +1533,35 @@
             const u = document.getElementById('regUser').value.trim();
             const p = document.getElementById('regPass').value;
 
-            if(!n || !ph || !e || !u || !p) return alert("กรุณากรอกข้อมูลสำคัญให้ครบทุกช่อง โดยเฉพาะ Email และ Username");
-            if(isUsernameTaken(u)) return alert("ชื่อผู้ใช้งานนี้ถูกใช้ไปแล้ว");
-            if(users.some(x => x.email === e)) return alert("Email นี้ถูกใช้ไปแล้ว กรุณาใช้อีเมลอื่น");
-            if(altEmail && users.some(x => x.email === altEmail || (x.altEmails || []).includes(altEmail))) return alert("อีเมลสำรองนี้ถูกใช้ไปแล้ว");
+            if (!n || !ph || !e || !u || !p) return alert("กรุณากรอกข้อมูลสำคัญให้ครบทุกช่อง");
+            if (isUsernameTaken(u)) return alert("ชื่อผู้ใช้งานนี้ถูกใช้ไปแล้ว");
 
-            const altEmails = altEmail ? [altEmail] : [];
-            users.push({ name: n, user: u, pass: p, phone: ph, email: e, altEmails, isAdmin: false, profilePic: "" });
-            saveToDatabase('babygole_users', users);
-            
-            alert("สมัครสมาชิกสำเร็จ!");
-            document.querySelectorAll('#registerPage input').forEach(inp => inp.value = '');
-            if (document.getElementById('adminPage') && !document.getElementById('adminPage').classList.contains('hidden')) {
-                loadAdminData();
+            if (window.FirebaseDatabaseService?.ready) {
+                try {
+                    const credential = await window.FirebaseDatabaseService.register(e, p);
+                    users.push({
+                        uid: credential.user.uid, name:n, user:u, email:e, phone:ph,
+                        altEmails:altEmail ? [altEmail] : [],
+                        isAdmin:false, profilePic:'',
+                        createdAt:new Date().toISOString()
+                    });
+                    saveToDatabase('babygole_users', users);
+                    alert("สมัครสมาชิกสำเร็จ! กรุณาเข้าสู่ระบบด้วย Email และ Password");
+                    document.querySelectorAll('#registerPage input').forEach(x => x.value = '');
+                    showPage('loginPage');
+                    return;
+                } catch (error) {
+                    return alert("สมัครสมาชิกผ่าน Firebase ไม่สำเร็จ: " + (error?.message || "ตรวจสอบ Firebase Authentication"));
+                }
             }
+
+            users.push({
+                name:n, user:u, pass:p, phone:ph, email:e,
+                altEmails:altEmail ? [altEmail] : [], isAdmin:false, profilePic:''
+            });
+            saveToDatabase('babygole_users', users);
+            alert("สมัครสมาชิกสำเร็จ (โหมดออฟไลน์)");
+            document.querySelectorAll('#registerPage input').forEach(x => x.value = '');
             showPage('loginPage');
         }
 
@@ -1339,55 +1592,88 @@
                 return;
             }
 
-            const subject = encodeURIComponent('baby Gole: รหัสผ่านของคุณ');
+            const subject = encodeURIComponent('babygo: รหัสผ่านของคุณ');
             const body = encodeURIComponent(`สวัสดี ${found.name || found.user}\n\nรหัสผ่านของคุณคือ: ${found.pass}\n\nกรุณาเปลี่ยนรหัสผ่านหลังจากเข้าสู่ระบบครั้งแรก`);
             window.location.href = `mailto:${found.email}?subject=${subject}&body=${body}`;
             res.innerHTML = `ระบบได้เตรียมส่งรหัสผ่านไปยังอีเมล ${found.email}`;
             res.classList.remove('hidden');
         }
 
-        function loadAdminData() {
+        async function loadAdminData(){
+            // ดึงข้อมูลล่าสุดจากฐานข้อมูล (localStorage/IndexedDB/Firebase) มาแสดงในหน้า Admin ทุกครั้ง
             loadUsersFromStorage();
-            const adminCount = users.filter(u => u.isAdmin).length;
-            const userCount = users.length - adminCount;
-            const forumCount = forumPosts.length;
-            const replyCount = forumPosts.reduce((sum, p) => sum + (p.replies ? p.replies.length : 0), 0);
-            const trackerCount = trackerRecords.length;
+            forumPosts=loadFromDatabase('babygole_forum',forumPosts);
+            trackerRecords=loadFromDatabase('babygole_tracker',trackerRecords);
+            adminNotifications=loadFromDatabase('babygole_admin_notifications',[]);
+            loadVaccineScheduleOverride();
 
-            document.getElementById('adminTotalUsers').innerText = users.length;
-            document.getElementById('adminCount').innerText = adminCount;
-            document.getElementById('adminForumCount').innerText = forumCount;
-            document.getElementById('adminReplyCount').innerText = replyCount;
-            document.getElementById('adminTrackerCount').innerText = trackerCount;
+            document.getElementById('adminTotalUsers').innerText=users.length;
+            document.getElementById('adminCount').innerText=users.filter(x=>x.isAdmin).length;
+            document.getElementById('adminForumCount').innerText=forumPosts.filter(x=>x.status==='approved').length;
+            document.getElementById('adminReplyCount').innerText=forumPosts.reduce((s,x)=>s+(x.replies?.length||0),0);
+            document.getElementById('adminTrackerCount').innerText=trackerRecords.length;
 
-            document.getElementById('adminUserTableBody').innerHTML = users.map((u, index) => `
-                <tr>
-                    <td><img src="${u.profilePic || 'https://via.placeholder.com/40'}" style="width:40px; height:40px; border-radius:50%; object-fit:cover;"></td>
-                    <td>${u.name}</td>
-                    <td>${u.user}</td>
-                    <td><code style="background:#fee2e2; color:#ef4444; padding:2px 6px; border-radius:6px; font-weight:bold;">${u.pass}</code></td>
-                    <td>${u.phone}</td>
-                    <td>${u.email || '-'}<br>${(u.altEmails || []).join('<br>') || ''}</td>
-                    <td>${u.isAdmin ? '<b style="color:red"><i class="fa-solid fa-user-shield"></i> Admin</b>' : '<span style="color:green">User</span>'}</td>
-                    <td>
-                        ${u.isAdmin ? `<button class="btn btn-outline btn-sm" style="color:var(--primary); border-color:var(--primary); padding:2px 8px;" onclick="toggleAdminRole(${index})">ถอดสิทธิ์ Admin</button>` : `<button class="btn btn-outline btn-sm" style="color:var(--secondary); border-color:var(--secondary); padding:2px 8px;" onclick="toggleAdminRole(${index})">แต่งตั้ง Admin</button>`}
-                        <button class="btn btn-outline btn-sm" style="color:var(--warn); border-color:var(--warn); padding:2px 8px; margin-left:5px;" onclick="deleteUser(${index})">ลบ</button>
-                    </td>
-                </tr>
-            `).join('');
+            document.getElementById('adminUserTableBody').innerHTML=users.map((u,i)=>`<tr><td><img src="${u.profilePic||'https://via.placeholder.com/40'}" style="width:40px;height:40px;border-radius:50%"></td><td>${escapeHtml(u.name)}</td><td>${escapeHtml(u.user)}</td><td>${escapeHtml(u.pass)}</td><td>${escapeHtml(u.phone||'-')}</td><td>${escapeHtml(u.email||'-')}</td><td>${u.isAdmin?'Admin':'User'}</td><td><button class="btn btn-outline btn-sm" onclick="editUser(${i})">แก้ไข</button> <button class="btn btn-outline btn-sm" onclick="toggleAdminRole(${i})">${u.isAdmin?'ถอด Admin':'ตั้ง Admin'}</button> <button class="btn btn-outline btn-sm" onclick="deleteUser(${i})">ลบ</button></td></tr>`).join('');
 
-            document.getElementById('adminForumList').innerHTML = forumPosts.map(post => `
-                <div class="card" style="padding:15px; margin-bottom:12px; border-left:4px solid var(--secondary);">
-                    <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
-                        <div>
-                            <h4 style="margin:0 0 5px; color:var(--primary);">${post.title}</h4>
-                            <p style="margin:0; color:var(--gray); font-size:0.95rem;">โดย ${post.author} · คอมเมนต์ ${post.replies ? post.replies.length : 0}</p>
-                        </div>
-                        <button class="btn btn-outline btn-sm" style="color:var(--warn); border-color:var(--warn); padding:2px 8px;" onclick="deleteForumPost(${post.id})">ลบกระทู้</button>
-                    </div>
-                    <p style="margin:10px 0 0; color:#475569;">${post.detail || '-'}</p>
-                </div>
-            `).join('');
+            document.getElementById('adminForumList').innerHTML=forumPosts.map(p=>`<div class="card" style="padding:15px;margin-bottom:10px"><b>${escapeHtml(p.title)}</b><div>${escapeHtml(p.author)} · ${forumCategories[p.category]?.name||'-'} · <span class="${p.status==='pending'?'status-pending':p.status==='approved'?'status-approved':'status-rejected'}">${p.status}</span></div><p>${escapeHtml(p.detail||'')}</p>${p.status==='pending'?`<button class="btn btn-primary btn-sm" onclick="approvePost(${p.id},true)">อนุมัติ</button> <button class="btn btn-outline btn-sm" onclick="approvePost(${p.id},false)">ไม่อนุมัติ</button>`:''} <button class="btn btn-outline btn-sm" onclick="editPost(${p.id})">แก้ไข</button> <button class="btn btn-outline btn-sm" onclick="deleteForumPost(${p.id})">ลบ</button></div>`).join('')||'<p>ไม่มีโพสต์</p>';
+
+            document.getElementById('adminTrackerList').innerHTML=trackerRecords.map(r=>`<div class="notification-card"><b>${escapeHtml(r.user||'-')}</b> · ${r.d} · ${r.w} กก. · ${r.h} ซม. <button class="btn btn-outline btn-sm" onclick="editTracker(${r.id})">แก้ไข</button> <button class="btn btn-outline btn-sm" onclick="deleteTracker(${r.id})">ลบ</button></div>`).join('')||'<p>ไม่มีข้อมูล</p>';
+
+            document.getElementById('adminVaccineList').innerHTML=vaccineSchedule.slice().sort((a,b)=>a.months-b.months).map((v,i)=>{
+                const realIndex=vaccineSchedule.indexOf(v);
+                return `<div class="notification-card"><b>${escapeHtml(v.label)}</b> (${v.months} ด.) — ${escapeHtml(v.name)} <button class="btn btn-outline btn-sm" onclick="adminEditVaccine(${realIndex})">แก้ไข</button> <button class="btn btn-outline btn-sm" onclick="adminDeleteVaccine(${realIndex})">ลบ</button></div>`;
+            }).join('')||'<p>ยังไม่มีตารางวัคซีน</p>';
+
+            document.getElementById('adminNotificationList').innerHTML=adminNotifications.map(n=>`<div class="notification-card unread"><b>${escapeHtml(n.text)}</b><div style="color:var(--gray);font-size:.85rem">${n.createdAt}</div></div>`).join('')||'<p>ไม่มีแจ้งเตือน</p>';
+        }
+
+        function loadVaccineScheduleOverride(){
+            const saved=loadFromDatabase('babygole_vaccine_schedule',null);
+            if(Array.isArray(saved)&&saved.length){
+                vaccineSchedule.length=0;
+                saved.forEach(v=>vaccineSchedule.push(v));
+            }
+        }
+
+        function adminAddVaccine(){
+            const months=parseInt(document.getElementById('adminVacMonths').value,10);
+            const label=document.getElementById('adminVacLabel').value.trim();
+            const name=document.getElementById('adminVacName').value.trim();
+            if(isNaN(months)||!label||!name) return alert('กรุณากรอกข้อมูลวัคซีนให้ครบถ้วน');
+            vaccineSchedule.push({months,label,name});
+            saveToDatabase('babygole_vaccine_schedule',vaccineSchedule);
+            document.getElementById('adminVacMonths').value='';
+            document.getElementById('adminVacLabel').value='';
+            document.getElementById('adminVacName').value='';
+            populateVaccineLogSelect();
+            loadAdminData();
+        }
+
+        function adminEditVaccine(i){
+            const v=vaccineSchedule[i];
+            if(!v) return;
+            const label=prompt('ช่วงวัย',v.label); if(label===null) return;
+            const name=prompt('รายชื่อวัคซีน',v.name); if(name===null) return;
+            const monthsStr=prompt('อายุ (เดือน)',v.months); if(monthsStr===null) return;
+            const months=parseInt(monthsStr,10);
+            v.label=label; v.name=name; v.months=isNaN(months)?v.months:months;
+            saveToDatabase('babygole_vaccine_schedule',vaccineSchedule);
+            populateVaccineLogSelect();
+            loadAdminData();
+        }
+
+        function adminDeleteVaccine(i){
+            if(!confirm('ยืนยันลบรายการวัคซีนนี้?')) return;
+            vaccineSchedule.splice(i,1);
+            saveToDatabase('babygole_vaccine_schedule',vaccineSchedule);
+            populateVaccineLogSelect();
+            loadAdminData();
+        }
+
+        function clearAdminNotifications(){
+            adminNotifications=[];
+            saveToDatabase('babygole_admin_notifications',adminNotifications);
+            loadAdminData();
         }
 
         function addUserByAdmin() {
@@ -1479,20 +1765,18 @@
                 </div>`;
         }
 
+        function populateVaccineLogSelect(){const s=document.getElementById('vaccineLogName');if(!s)return;s.innerHTML=vaccineSchedule.map(v=>`<option value="${escapeHtml(v.name)}">${escapeHtml(v.label)} — ${escapeHtml(v.name)}</option>`).join('');if(document.getElementById('vaccineLogDate')&&!document.getElementById('vaccineLogDate').value)document.getElementById('vaccineLogDate').valueAsDate=new Date();}
+        function saveVaccineRecord(){if(!currentUser)return alert('กรุณาเข้าสู่ระบบ');const name=document.getElementById('vaccineLogName').value,date=document.getElementById('vaccineLogDate').value,note=document.getElementById('vaccineLogNote').value.trim();if(!name||!date)return alert('กรุณาเลือกวัคซีนและวันที่');trackerRecords.push({id:Date.now(),user:currentUser.user,d:date,a:'วัคซีน',w:'-',h:'-',type:'vaccine',vaccine:name,note});saveToDatabase('babygole_tracker',trackerRecords);renderTracker();document.getElementById('vaccineLogNote').value='';alert('บันทึกวัคซีนลงสมุดพกแล้ว');}
         function saveTracker() {
             const d = document.getElementById('trackDate').value, a = document.getElementById('trackAge').value, w = document.getElementById('trackWeight').value, h = document.getElementById('trackHeight').value;
             if(!d || !a || !w || !h) return alert("กรุณากรอกข้อมูลให้ครบถ้วน");
-            trackerRecords.push({ d, a, w, h });
+            trackerRecords.push({id:Date.now(),user:currentUser?.user||'guest',d,a,w,h,type:'growth'});
             saveToDatabase('babygole_tracker', trackerRecords);
             renderTracker();
             document.getElementById('trackAge').value = ''; document.getElementById('trackWeight').value = ''; document.getElementById('trackHeight').value = '';
             alert("บันทึกข้อมูลสำเร็จ!");
         }
-        function renderTracker() {
-            const tbody = document.getElementById('trackerTableBody');
-            if(trackerRecords.length === 0) return;
-            tbody.innerHTML = trackerRecords.map(r => `<tr><td>${r.d}</td><td>${r.a}</td><td>${r.w}</td><td>${r.h}</td></tr>`).join('');
-        }
+        function renderTracker(){const tbody=document.getElementById('trackerTableBody');if(!tbody)return;const rows=currentUser&&currentUser.isAdmin?trackerRecords:trackerRecords.filter(r=>r.user===(currentUser?.user||'guest'));if(!rows.length){tbody.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--gray)">ยังไม่มีข้อมูลการบันทึก</td></tr>';return;}tbody.innerHTML=rows.slice().reverse().map(r=>r.type==='vaccine'?`<tr><td>${r.d}</td><td>💉 ${escapeHtml(r.vaccine||r.a)}</td><td colspan="2">${escapeHtml(r.note||'บันทึกวัคซีน')}</td></tr>`:`<tr><td>${r.d}</td><td>${escapeHtml(r.a)}</td><td>${escapeHtml(r.w)}</td><td>${escapeHtml(r.h)}</td></tr>`).join('');}
 
         const aiQABank = [
             {cat:"ไข้และอุณหภูมิร่างกาย", q:"เด็กมีไข้ 37 องศา ควรทำอย่างไร", a:"ควรเช็ดตัวลดไข้และให้ใส่เสื้อผ้าที่ระบายอากาศได้ดี ไม่ควรอยู่ในที่ที่อากาศถ่ายเทไม่สะดวก และสังเกตอาการอย่างใกล้ชิด"},
@@ -1646,33 +1930,12 @@
             }, 500);
         }
 
-        function createPost() {
-            const t = document.getElementById('postTitle').value, d = document.getElementById('postDetail').value;
-            if(!t) return alert("กรุณาใส่หัวข้อกระทู้");
-            forumPosts.unshift({ id: Date.now(), author: currentUser ? currentUser.name : "ผู้เยี่ยมชม", title: t, detail: d, replies: [] });
-            saveToDatabase('babygole_forum', forumPosts);
-            pushCommunityNotification(`${currentUser ? currentUser.name : 'ผู้เยี่ยมชม'} ได้ตั้งกระทู้ใหม่: ${t}`);
-            document.getElementById('postTitle').value = ''; document.getElementById('postDetail').value = '';
-            renderForum();
-        }
-        function addReply(postId) {
-            const inp = document.getElementById(`reply-input-${postId}`);
-            if(!inp.value) return;
-            const post = forumPosts.find(p => p.id === postId);
-            if(!post) return;
-            post.replies.push({ author: currentUser ? currentUser.name : "ผู้เยี่ยมชม", text: inp.value });
-            saveToDatabase('babygole_forum', forumPosts);
-            pushCommunityNotification(`${currentUser ? currentUser.name : 'ผู้เยี่ยมชม'} ได้ตอบกลับในกระทู้: ${post.title}`);
-            inp.value = '';
-            renderForum();
-        }
-        function renderForum() {
-            const container = document.getElementById('forumContainer');
-            if(!container) return;
-            container.innerHTML = forumPosts.map(p => `
-                <div class="forum-post"><h3 style="margin:0 0 5px; color:var(--primary);">${p.title}</h3><p style="font-size:0.9rem; color:var(--gray); margin:0 0 10px;">ตั้งโดย: <b>${p.author}</b></p><p style="margin:0 0 15px;">${p.detail}</p><div style="background:var(--white); padding:10px; border-radius:10px;"><h4 style="margin:0 0 10px; font-size:0.9rem;">💬 ความคิดเห็น</h4>${p.replies.map(r => `<div class="reply-box"><b>${r.author}:</b> ${r.text}</div>`).join('')}<div style="display:flex; gap:10px; margin-top:15px;"><input type="text" id="reply-input-${p.id}" placeholder="พิมพ์คำตอบ..." style="margin:0; padding:8px;"><button class="btn btn-secondary btn-sm" onclick="addReply(${p.id})">ส่ง</button></div></div></div>
-            `).join('');
-        }
+        function renderForumCategories(){const e=document.getElementById('forumCategories');if(!e)return;e.innerHTML=Object.entries(forumCategories).map(([k,v])=>`<button class="forum-category" onclick="openForumCategory('${k}')"><div style="font-size:1.7rem">${v.icon}</div><b style="color:var(--primary)">${v.name}</b><div style="color:var(--gray);font-size:.85rem;margin:5px 0">${v.desc}</div><span class="chip">${forumPosts.filter(p=>p.category===k&&p.status==='approved').length} กระทู้</span></button>`).join('');}
+        function openForumCategory(k){selectedForumCategory=k;const v=forumCategories[k];document.getElementById('forumCategoryTitle').innerText=v.icon+' '+v.name;document.getElementById('forumCategoryDesc').innerText=v.desc;document.getElementById('forumDetail').classList.add('active');renderForum();}
+        function closeForumCategory(){selectedForumCategory=null;document.getElementById('forumDetail').classList.remove('active');}
+        function createPost(){if(!currentUser)return alert('กรุณาเข้าสู่ระบบก่อน');const t=document.getElementById('postTitle').value.trim(),d=document.getElementById('postDetail').value.trim();if(!selectedForumCategory||!t)return alert('กรุณาเลือกหัวข้อและกรอกชื่อกระทู้');const p={id:Date.now(),author:currentUser.name,user:currentUser.user,title:t,detail:d,category:selectedForumCategory,replies:[],status:'pending',createdAt:new Date().toISOString()};forumPosts.unshift(p);saveToDatabase('babygole_forum',forumPosts);adminNotifications.unshift({id:Date.now(),text:`มีโพสต์รออนุมัติจาก ${currentUser.name}: ${t}`,createdAt:new Date().toLocaleString('th-TH')});saveToDatabase('babygole_admin_notifications',adminNotifications);document.getElementById('postTitle').value='';document.getElementById('postDetail').value='';alert('ส่งกระทู้แล้ว รอ Admin อนุมัติ');loadAdminData();}
+        function addReply(id){if(!currentUser)return alert('กรุณาเข้าสู่ระบบ');const p=forumPosts.find(x=>x.id===id),i=document.getElementById(`reply-input-${id}`);if(!p||!i?.value.trim())return;p.replies=p.replies||[];p.replies.push({id:Date.now(),author:currentUser.name,user:currentUser.user,text:i.value.trim(),createdAt:new Date().toISOString()});saveToDatabase('babygole_forum',forumPosts);const owner=users.find(u=>u.user===p.user);if(owner&&owner.user!==currentUser.user)pushUserNotification(owner.user,`มี ${currentUser.name} ตอบกลับ “${p.title}”`);renderForum();}
+        function renderForum(){const c=document.getElementById('forumContainer');if(!c||!selectedForumCategory)return;const ps=forumPosts.filter(p=>p.category===selectedForumCategory&&p.status==='approved');c.innerHTML=ps.length?ps.map(p=>`<article class="post-card-pro"><span class="chip">${forumCategories[p.category].icon} ${forumCategories[p.category].name}</span><h3 style="color:var(--primary)">${escapeHtml(p.title)}</h3><div style="color:var(--gray);font-size:.85rem">โดย ${escapeHtml(p.author)} · ${formatDate(p.createdAt)}</div><p style="line-height:1.8">${escapeHtml(p.detail)}</p><strong>💬 ${p.replies?.length||0} คำตอบ</strong>${(p.replies||[]).map(r=>`<div class="reply-item"><b>${escapeHtml(r.author)}</b><div>${escapeHtml(r.text)}</div><small style="color:#94a3b8">${formatDate(r.createdAt)}</small></div>`).join('')}<div style="display:flex;gap:8px;margin-top:12px"><input id="reply-input-${p.id}" placeholder="เขียนคำตอบ..." style="margin:0"><button class="btn btn-secondary btn-sm" onclick="addReply(${p.id})">ตอบ</button></div></article>`).join(''):'<div class="card" style="text-align:center;color:var(--gray)">ยังไม่มีกระทู้ในหัวข้อนี้</div>';}
 
         function updateProfileUI() {
             if(!currentUser) return;
@@ -1681,6 +1944,7 @@
             document.getElementById('profPhoneDisplay').innerText = currentUser.phone;
             document.getElementById('profEmailDisplay').innerText = currentUser.email || '-';
             document.getElementById('profAltEmailsDisplay').innerText = (currentUser.altEmails || []).join(', ') || '-';
+            if(document.getElementById('childBirthDate')) document.getElementById('childBirthDate').value=currentUser.childBirthDate||'';
             if(currentUser.profilePic) { document.getElementById('profPic').src = currentUser.profilePic; }
             else { document.getElementById('profPic').src = "https://via.placeholder.com/150/e0f2fe/1a4b82?text=User"; }
         }
@@ -1713,6 +1977,7 @@
                     const resultData = e.target.result;
                     document.getElementById('profPic').src = resultData;
                     currentUser.profilePic = resultData;
+                    updateNavUserChip(currentUser);
                     const index = users.findIndex(u => u.user === currentUser.user);
                     if(index !== -1) {
                         users[index].profilePic = resultData;
@@ -1723,14 +1988,17 @@
             }
         }
 
-        window.onload = () => {
+        window.onload = async () => {
             initAdminSync();
-            bootstrapDatabase();
+            await bootstrapDatabase();
+            loadVaccineScheduleOverride();
             populateAIQuestions();
+            populateVaccineLogSelect();
             document.getElementById('trackDate').valueAsDate = new Date();
             renderTracker();
-            renderForum();
-            loadCommunityNotifications();
+            renderForumCategories();
+            updateCommunityBadge();
+            renderNotificationsPage();
             
             function buildFoodThumbnail(label) {
                 const normalized = label.trim();
@@ -1812,16 +2080,8 @@
             renderKnowledgePage();
             
             const remUser = localStorage.getItem('babygole_rem_user');
-            const remPass = localStorage.getItem('babygole_rem_pass');
-            if(remUser && remPass) {
-                document.getElementById('loginUser').value = remUser;
-                document.getElementById('loginPass').value = remPass;
-                const remCheck = document.getElementById('rememberMe');
-                if(remCheck) remCheck.checked = true;
-                login();
-            } else {
-                showPage('landingPage');
-            }
+            if (remUser) document.getElementById('loginUser').value = remUser;
+            showPage('landingPage');
         };
     </script>
 </body>
