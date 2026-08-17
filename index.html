@@ -109,7 +109,6 @@
             <a onclick="showPage('homePage')" id="link-home"><i class="fa-solid fa-house"></i> หน้าแรก</a>
             <a onclick="showPage('devPage')" id="link-dev"><i class="fa-solid fa-child-reaching"></i> พัฒนาการ</a>
             <a onclick="showPage('vaccinePage')" id="link-vaccine"><i class="fa-solid fa-syringe"></i> วัคซีน</a>
-            <a onclick="showPage('foodPage')" id="link-food"><i class="fa-solid fa-bowl-food"></i> โภชนาการ</a>
             <a onclick="showPage('trackerPage')" id="link-tracker"><i class="fa-solid fa-chart-line"></i> สมุดพก</a>
             <a onclick="showPage('knowledgePage')" id="link-knowledge"><i class="fa-solid fa-book"></i> ความรู้</a>
             <a onclick="showPage('aiPage')" id="link-ai"><i class="fa-solid fa-robot"></i> AI วิเคราะห์</a>
@@ -123,16 +122,21 @@
     </nav>
 
     <section id="landingPage" class="landing-bg page-animation">
-        <div class="banner-content" style="position: relative; overflow: hidden;">
-            <div style="position:absolute; inset:0; background:linear-gradient(135deg, rgba(255,255,255,0.9), rgba(240,249,255,0.8)); z-index:0;"></div>
-            <div style="position:relative; z-index:1;">
-                <h1 style="color: var(--primary); margin-top: 0; font-size: 2.2rem;">ยินดีต้อนรับสู่ baby Gole</h1>
-                <p style="color: var(--gray); font-size: 1.1rem;">เว็บไซต์ดูแลเด็กเล็กครบวงจรเพื่อลูกรักของคุณ</p>
-                
-                <button class="btn btn-primary" onclick="showPage('loginPage')">เข้าสู่ระบบ / สมัครสมาชิก</button>
-            </div>
+    <!-- เพิ่มคำสั่งเกี่ยวกับ background ตรง style ของ div นี้ -->
+    <div class="banner-content" style="position: relative; overflow: hidden; background-image: url(C:\091 bb\baby-gole-bg.png); background-size: cover; background-position: center;">
+        
+        <!-- แผ่นสีจางๆ ที่จะทับอยู่บนรูปพื้นหลัง -->
+        <div style="position:absolute; inset:0; background:linear-gradient(135deg, rgba(255,255,255,0.9), rgba(240,249,255,0.8)); z-index:0;"></div>
+        
+        <!-- ส่วนของข้อความและปุ่ม -->
+        <div style="position:relative; z-index:1;">
+            <h1 style="color: var(--primary); margin-top: 0; font-size: 2.2rem;">ยินดีต้อนรับสู่ baby Gole</h1>
+            <p style="color: var(--gray); font-size: 1.1rem;">เว็บไซต์ดูแลเด็กเล็กครบวงจรเพื่อลูกรักของคุณ</p>
+            
+            <button class="btn btn-primary" onclick="showPage('loginPage')">เข้าสู่ระบบ / สมัครสมาชิก</button>
         </div>
-    </section>
+    </div>
+</section>
 
     <section id="loginPage" class="auth-container hidden">
         <div class="auth-card page-animation">
@@ -207,7 +211,6 @@
             <div style="margin-top: 20px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
                 <button class="btn btn-primary" onclick="goToDevFromHome()">ดูพัฒนาการลูกน้อย</button>
                 <button class="btn btn-secondary" onclick="showPage('knowledgePage')">อ่านความรู้ 50+ ข้อ</button>
-                <button class="btn btn-outline" onclick="showPage('foodPage')">ดูเมนูอาหารเด็ก</button>
             </div>
         </div>
 
@@ -302,11 +305,6 @@
             </div>
             <p style="font-size: 0.85rem; color: var(--warn); margin-top: 15px;">* หมายเหตุ: ข้อมูลวัคซีนควรปรึกษากุมารแพทย์ทุกครั้ง เนื่องจากตารางอาจมีการเปลี่ยนแปลงตามสภาวะสุขภาพของเด็ก</p>
         </div>
-    </section>
-
-    <section id="foodPage" class="hidden" style="padding: 40px 10%;">
-        <h2 style="color: var(--primary);" class="page-animation"><i class="fa-solid fa-bowl-food"></i> 50 เมนูโภชนาการลูกรัก (แยกตามช่วงวัย)</h2>
-        <div id="foodContainer" class="page-animation"></div>
     </section>
 
     <section id="trackerPage" class="hidden" style="padding: 40px 10%;">
@@ -1113,7 +1111,7 @@
 
         // ================= Functions =================
         function showPage(pageId) {
-            const pages = ['landingPage', 'loginPage', 'registerPage', 'forgotPage', 'homePage', 'devPage', 'vaccinePage', 'foodPage', 'trackerPage', 'knowledgePage', 'aiPage', 'communityPage', 'notificationsPage', 'aboutPage', 'profilePage', 'adminPage'];
+            const pages = ['landingPage', 'loginPage', 'registerPage', 'forgotPage', 'homePage', 'devPage', 'vaccinePage', 'trackerPage', 'knowledgePage', 'aiPage', 'communityPage', 'notificationsPage', 'aboutPage', 'profilePage', 'adminPage'];
             pages.forEach(p => document.getElementById(p).classList.add('hidden'));
             document.getElementById(pageId).classList.remove('hidden');
 
