@@ -209,6 +209,7 @@
             <a onclick="showPage('devPage')" id="link-dev"><i class="fa-solid fa-child-reaching"></i> พัฒนาการ</a>
             <a onclick="showPage('vaccinePage')" id="link-vaccine"><i class="fa-solid fa-syringe"></i> วัคซีน</a>
             <a onclick="showPage('trackerPage')" id="link-tracker"><i class="fa-solid fa-chart-line"></i> สมุดพก</a>
+            <a onclick="showPage('foodPage')" id="link-food"><i class="fa-solid fa-utensils"></i> เมนูอาหาร</a>
             <a onclick="showPage('knowledgePage')" id="link-knowledge"><i class="fa-solid fa-book"></i> ความรู้</a>
             <a onclick="showPage('aiPage')" id="link-ai"><i class="fa-solid fa-robot"></i> AI วิเคราะห์</a>
             <a onclick="showPage('communityPage')" id="link-community"><i class="fa-solid fa-comments"></i> ชุมชน</a>
@@ -328,7 +329,8 @@
             </div>
             <div style="margin-top: 20px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
                 <button class="btn btn-primary" onclick="showPage('devPage')">ดูพัฒนาการลูกน้อย</button>
-                <button class="btn btn-secondary" onclick="showPage('knowledgePage')">อ่านความรู้ 50+ ข้อ</button>
+                <button class="btn btn-secondary" onclick="showPage('foodPage')">ดูเมนูอาหารตามวัย</button>
+                <button class="btn btn-outline" onclick="showPage('knowledgePage')">อ่านความรู้ 50+ ข้อ</button>
             </div>
         </div>
 
@@ -456,6 +458,25 @@
         </div>
     </section>
 
+    <section id="foodPage" class="hidden" style="padding: 40px 10%;">
+        <div style="text-align: center; margin-bottom: 10px;">
+            <h2 style="color: var(--primary);" class="page-animation"><i class="fa-solid fa-utensils"></i> เมนูอาหารตามช่วงวัย</h2>
+            <p style="color: var(--gray);" class="page-animation">ไอเดียเมนูอาหารเด็กกว่า 90 รายการ แยกตามความสามารถในการเคี้ยว-กลืนของแต่ละช่วงวัย ตั้งแต่เริ่มอาหารเสริม 6 เดือน จนถึงวัย 5 ปี</p>
+        </div>
+        <div class="age-tab page-animation">
+            <button class="tab-btn" id="btn-food-6m" onclick="renderFoodPage('6m')">6 เดือน</button>
+            <button class="tab-btn" id="btn-food-7-8m" onclick="renderFoodPage('7-8m')">7-8 เดือน</button>
+            <button class="tab-btn" id="btn-food-9-12m" onclick="renderFoodPage('9-12m')">9-12 เดือน</button>
+            <button class="tab-btn" id="btn-food-1y" onclick="renderFoodPage('1y')">1 ปีขึ้นไป</button>
+            <button class="tab-btn" id="btn-food-2-3y" onclick="renderFoodPage('2-3y')">2-3 ปี</button>
+            <button class="tab-btn" id="btn-food-3-4y" onclick="renderFoodPage('3-4y')">3-4 ปี</button>
+            <button class="tab-btn" id="btn-food-4-5y" onclick="renderFoodPage('4-5y')">4-5 ปี</button>
+            <button class="tab-btn" id="btn-food-snack" onclick="renderFoodPage('snack')">ของว่างเพื่อสุขภาพ</button>
+        </div>
+        <div id="foodContainer" class="page-animation"></div>
+        <p style="font-size: 0.85rem; color: var(--warn); margin-top: 15px; text-align:center;">* หมายเหตุ: เมนูเหล่านี้เป็นแนวทางเบื้องต้น ควรปรับตามความพร้อมของลูกและคำแนะนำของกุมารแพทย์ หลีกเลี่ยงการปรุงรสจัดหรือใส่น้ำผึ้ง/เกลือ/น้ำตาลในเด็กอายุต่ำกว่า 1 ปี</p>
+    </section>
+
     <section id="knowledgePage" class="hidden" style="padding: 40px 10%;">
         <div style="text-align: center; margin-bottom: 20px;">
             <h2 style="color: var(--primary); margin-bottom: 5px;" class="page-animation"><i class="fa-solid fa-book"></i> คลังความรู้สำหรับคุณพ่อคุณแม่มือใหม่</h2>
@@ -467,7 +488,7 @@
                 <input id="knowledgeSearchBox" type="text" placeholder="ค้นหาความรู้ที่ต้องการ..." oninput="renderKnowledgePage(this.value)">
             </div>
             <div class="knowledge-summary">
-                <span class="knowledge-pill">รวมข้อมูล 12 หมวด</span>
+                <span class="knowledge-pill">แสดงตัวอย่าง 10 ข้อ</span>
                 <span class="knowledge-pill">อัปเดตล่าสุด</span>
             </div>
         </div>
@@ -502,7 +523,7 @@
         </div>
     </section>
 
-    <section id="communityPage" class="hidden" style="padding:40px 7%;"><div style="max-width:1200px;margin:auto"><div class="section-hero"><span class="chip">💬 babygo Community</span><h2 style="color:var(--primary);margin:10px 0">ชุมชนถาม-ตอบสำหรับผู้ปกครอง</h2><p style="color:var(--gray)">เลือกหัวข้อ → เลือกกระทู้ → อ่านคำตอบและร่วมสนทนา</p></div><div class="card"><div class="forum-categories" id="forumCategories"></div><div id="forumDetail" class="forum-detail"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><div><h3 id="forumCategoryTitle" style="color:var(--primary);margin:0"></h3><p id="forumCategoryDesc" style="color:var(--gray)"></p></div><button class="btn btn-outline btn-sm" onclick="closeForumCategory()">← กลับหัวข้อ</button></div><div id="forumContainer"></div><div class="card" style="background:#f8fbff;border:1px dashed #93c5fd"><h4 style="color:var(--primary)">ตั้งกระทู้ใหม่</h4><input id="postTitle" placeholder="หัวข้อคำถาม / เรื่องที่อยากแชร์..."><textarea id="postDetail" rows="3" placeholder="รายละเอียดเพิ่มเติม..."></textarea><button class="btn btn-primary" onclick="createPost()">ส่งกระทู้เพื่อรออนุมัติ</button></div></div></div></div></section>
+    <section id="communityPage" class="hidden" style="padding:40px 7%;"><div style="max-width:1200px;margin:auto"><div class="section-hero"><span class="chip">💬 babygo Community</span><h2 style="color:var(--primary);margin:10px 0">ชุมชนถาม-ตอบสำหรับผู้ปกครอง</h2><p style="color:var(--gray)">ตัวอย่างชุมชน 10 กระทู้ → เลือกหัวข้อ → อ่านคำตอบเดิมทั้งหมด → ร่วมตอบต่อได้ทันที</p></div><div class="card"><div class="forum-categories" id="forumCategories"></div><div id="forumDetail" class="forum-detail"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><div><h3 id="forumCategoryTitle" style="color:var(--primary);margin:0"></h3><p id="forumCategoryDesc" style="color:var(--gray)"></p></div><button class="btn btn-outline btn-sm" onclick="closeForumCategory()">← กลับหัวข้อ</button></div><div id="forumContainer"></div><div class="card" style="background:#f8fbff;border:1px dashed #93c5fd"><h4 style="color:var(--primary)">ตั้งกระทู้ใหม่</h4><input id="postTitle" placeholder="หัวข้อคำถาม / เรื่องที่อยากแชร์..."><textarea id="postDetail" rows="3" placeholder="รายละเอียดเพิ่มเติม..."></textarea><button class="btn btn-primary" onclick="createPost()">ส่งกระทู้เพื่อรออนุมัติ</button></div></div></div></div></section>
 
     <section id="notificationsPage" class="hidden" style="padding: 40px 10%;">
         <div class="card page-animation">
@@ -1009,11 +1030,10 @@
                 replies: [{author: "คุณหมอ", user:"dr_kids", text: "เป็นปฏิกิริยาปกติหลังฉีดวัคซีน เช็ดตัวลดไข้และสังเกตอาการ หากไข้สูงเกิน 38.5 องศาให้พบแพทย์ค่ะ", createdAt: new Date(Date.now()-86400000*4).toISOString()}] },
             { id: 10, user: "ploy_mom", author: "แม่พลอย", category: "food", status: "approved", title: "อยากได้เมนูอาหารเสริมง่ายๆ สำหรับลูกวัยเริ่ม 6 เดือน", detail: "เพิ่งเริ่มอาหารเสริม อยากได้สูตรที่ทำง่ายไม่ยุ่งยากค่ะ", createdAt: new Date(Date.now()-86400000*1).toISOString(),
                 replies: [{author: "แม่ชาวบ้าน", user:"villager_mom", text: "ลองข้าวบดผสมฟักทองนึ่ง หรือกล้วยน้ำว้าบดค่ะ ย่อยง่ายและลูกส่วนใหญ่ชอบ", createdAt: new Date(Date.now()-3600000*6).toISOString()}] },
-            { id: 11, user: "fon_mom", author: "แม่ฝน", category: "health", status: "approved", title: "ลูกไอมีเสมหะตอนกลางคืนควรทำอย่างไร", detail: "ไอบ่อยพอนอนราบ ไม่มีไข้ แต่รบกวนการนอนมากค่ะ", createdAt: new Date(Date.now()-86400000*8).toISOString(),
-                replies: [{author: "คุณหมอ", user:"dr_kids", text: "จัดท่านอนศีรษะสูงเล็กน้อยและให้ดื่มน้ำอุ่นบ่อยขึ้น หากไอต่อเนื่องเกิน 1 สัปดาห์ควรพาไปตรวจค่ะ", createdAt: new Date(Date.now()-86400000*7).toISOString()}] },
-            { id: 12, user: "nui_mom", author: "แม่หนุย", category: "sleep", status: "approved", title: "ลูกงีบกลางวันนานเกินไป กลางคืนเลยไม่ยอมนอน", detail: "งีบตอนบ่ายทีเกือบ 3 ชั่วโมง พอกลางคืนตื่นเล่นถึงเที่ยงคืน", createdAt: new Date(Date.now()-86400000*10).toISOString(),
-                replies: [{author: "ผู้เชี่ยวชาญ", user:"sleep_expert", text: "ลองจำกัดงีบกลางวันไม่ให้เกิน 1.5-2 ชม. และปลุกให้ตรงเวลาทุกวัน จะช่วยให้กลางคืนหลับง่ายขึ้นค่ะ", createdAt: new Date(Date.now()-86400000*9).toISOString()}] }
         ]);
+        // แสดงตัวอย่างชุมชน 10 กระทู้ และคงกระทู้ที่ผู้ใช้สร้างจริงไว้
+        forumPosts = forumPosts.filter(p => !(Number(p.id) === 11 || Number(p.id) === 12));
+        saveToDatabase('babygole_forum', forumPosts);
 
         let currentUser = null;
         let isAdminMode = false;
@@ -1132,7 +1152,7 @@
 
         // --- ข้อมูลโภชนาการ (50+ เมนู) ---
         const foodsData = [
-            { c: "อาหารสำหรับวัย 6 เดือน (บดละเอียด)", items: [
+            { c: "อาหารสำหรับวัย 6 เดือน (บดละเอียด)", age: "6m", items: [
                 "ข้าวบดตำลึงตับหมู",
                 "ซุปฟักทองนมแม่",
                 "อะโวคาโดบดกล้วย",
@@ -1146,7 +1166,7 @@
                 "ข้าวตุ๋นตำลึงหมูสับบด",
                 "ฟักเขียวบดไข่แดง"
             ] },
-            { c: "อาหารสำหรับวัย 7-8 เดือน (บดหยาบ/เนื้อสัตว์สับ)", items: [
+            { c: "อาหารสำหรับวัย 7-8 เดือน (บดหยาบ/เนื้อสัตว์สับ)", age: "7-8m", items: [
                 "ข้าวตุ๋นแครอทไก่สับ",
                 "โจ๊กข้าวกล้องตับหมู",
                 "ซุปมักกะโรนีหมูสับ",
@@ -1162,7 +1182,7 @@
                 "ซุปหัวหอมไข่ตุ๋น",
                 "พาสต้าจิ๋วซอสมะเขือเทศ"
             ] },
-            { c: "อาหารสำหรับวัย 9-12 เดือน (หั่นเต๋า/Finger Food)", items: [
+            { c: "อาหารสำหรับวัย 9-12 เดือน (หั่นเต๋า/Finger Food)", age: "9-12m", items: [
                 "ข้าวผัดสามสีไข่เจียวหั่นเต๋า",
                 "ข้าวปั้นทูน่า",
                 "แพนเค้กกล้วยหอมข้าวโอ๊ต",
@@ -1176,7 +1196,7 @@
                 "ข้าวกล้องคลุกผักกุ้ง",
                 "ข้าวต้มปลาทูผสมผัก"
             ] },
-            { c: "อาหารสำหรับวัย 1 ปีขึ้นไป (ปรุงรสอ่อน/ทานร่วมครอบครัว)", items: [
+            { c: "อาหารสำหรับวัย 1 ปีขึ้นไป (ปรุงรสอ่อน/ทานร่วมครอบครัว)", age: "1y", items: [
                 "ข้าวผัดกุ้งไข่",
                 "สปาเก็ตตี้คาโบนาร่าเด็ก",
                 "ต้มจืดกระดูกหมูอ่อนเห็ดหอม",
@@ -1190,7 +1210,7 @@
                 "แกงส้มชะอมไข่ปลากะพง",
                 "ข้าวต้มไก่ใส่ฟักทอง"
             ] },
-            { c: "อาหารสำหรับวัย 2-3 ปี (ทานเองได้มากขึ้น)", items: [
+            { c: "อาหารสำหรับวัย 2-3 ปี (ทานเองได้มากขึ้น)", age: "2-3y", items: [
                 "ข้าวผัดผักรวมเนื้อไก่",
                 "สลัดฟักทองนิ่ม",
                 "แซนวิชไข่ต้ม",
@@ -1202,7 +1222,7 @@
                 "ขนมปังอบเนยถั่ว",
                 "สลัดผลไม้บดนม"
             ] },
-            { c: "อาหารสำหรับวัย 3-4 ปี (ฝึกทานเองกับครอบครัว)", items: [
+            { c: "อาหารสำหรับวัย 3-4 ปี (ฝึกทานเองกับครอบครัว)", age: "3-4y", items: [
                 "ข้าวผัดแฮมผักรวม",
                 "สปาเก็ตตี้ซอสมะเขือเทศกับเนื้อบด",
                 "ลูกชิ้นทอดนิ่ม",
@@ -1214,7 +1234,7 @@
                 "สลัดผักต้มแครอท",
                 "เส้นก๋วยเตี๋ยวผักต้ม"
             ] },
-            { c: "อาหารสำหรับวัย 4-5 ปี (ร่วมทานครอบครัว)", items: [
+            { c: "อาหารสำหรับวัย 4-5 ปี (ร่วมทานครอบครัว)", age: "4-5y", items: [
                 "ข้าวผัดปลากระพง",
                 "ผัดบล็อกโคลี่ไก่",
                 "สปาเก็ตตี้คาโบนาร่าไก่",
@@ -1226,7 +1246,7 @@
                 "ขนมปังโฮลวีทใส่ชีส",
                 "ข้าวกล้องผัดไข่"
             ] },
-            { c: "เมนูว่างสุขภาพสำหรับเด็ก", items: [
+            { c: "เมนูว่างสุขภาพสำหรับเด็ก", age: "snack", items: [
                 "ขนมปังข้าวไรย์เนยถั่ว",
                 "โยเกิร์ตผลไม้บด",
                 "ลูกเกดและธัญพืชอ่อน",
@@ -1341,6 +1361,26 @@
                 "เรียนรู้การปล่อยวาง และให้ตัวเองพักได้เมื่อต้องการ",
                 "หาเครือข่ายเพื่อนพ่อแม่หรือครอบครัวที่สามารถช่วยแบ่งเบาภาระได้",
                 "พูดคุยกับคู่สมรสเกี่ยวกับหน้าที่การดูแลลูก เพื่อช่วยกันวางแผนอย่างเป็นระบบ"
+            ] },
+            { cat: "โภชนาการและการให้อาหารตามช่วงวัย", items: [
+                "เริ่มอาหารเสริมได้เมื่ออายุประมาณ 6 เดือน โดยเริ่มจากอาหารบดละเอียดครั้งละน้อยๆ วันละ 1 มื้อก่อน",
+                "เพิ่มเนื้อสัมผัสของอาหารให้หยาบขึ้นตามวัย เพื่อฝึกกล้ามเนื้อการเคี้ยวและการพูด",
+                "แนะนำอาหารใหม่ทีละชนิด เว้นระยะ 3-5 วัน เพื่อสังเกตอาการแพ้อาหาร",
+                "เด็กอายุ 9-12 เดือน ควรเริ่มฝึก Finger Food หั่นชิ้นพอดีคำเพื่อฝึกหยิบจับด้วยตัวเอง",
+                "ตั้งแต่ 1 ปีขึ้นไป ลูกสามารถทานอาหารร่วมกับครอบครัวได้ แต่ควรปรุงรสอ่อนกว่าผู้ใหญ่",
+                "จัดมื้ออาหารให้เป็นเวลา วันละ 3 มื้อหลัก และของว่างเพื่อสุขภาพ 1-2 มื้อ",
+                "ไม่ควรบังคับให้ลูกกินหมดจาน ควรให้ลูกหยุดเมื่ออิ่มเพื่อฝึกสังเกตสัญญาณความหิว-อิ่มของตัวเอง",
+                "ให้ลูกได้ลองอาหารหลากหลายชนิดและสีสัน เพื่อสร้างความคุ้นเคยและลดพฤติกรรมเลือกกิน"
+            ] },
+            { cat: "อาหารต้องห้ามและข้อควรระวังด้านโภชนาการ", items: [
+                "ห้ามให้น้ำผึ้งในเด็กอายุต่ำกว่า 1 ปี เสี่ยงต่อโรคโบทูลิซึมในทารก",
+                "หลีกเลี่ยงการเติมเกลือและน้ำตาลในอาหารเด็กอายุต่ำกว่า 1 ปี เพื่อไม่ให้ไตทำงานหนักเกินไป",
+                "ระวังอาหารเสี่ยงติดคอ เช่น องุ่นทั้งลูก ถั่วเม็ด ข้าวโพดคั่ว ลูกชิ้นลูกกลม ควรหั่นหรือบดให้เหมาะกับวัย",
+                "ไม่ควรให้นมวัวเป็นเครื่องดื่มหลักก่อนอายุ 1 ปี แต่สามารถใช้ประกอบอาหารได้เล็กน้อย",
+                "จำกัดน้ำผลไม้และเครื่องดื่มรสหวาน เพราะให้พลังงานสูงแต่ใยอาหารน้อย",
+                "หลีกเลี่ยงอาหารทะเลดิบ ไข่ดิบ และอาหารหมักดองในเด็กเล็ก เพราะเสี่ยงต่อการติดเชื้อ",
+                "สังเกตอาการแพ้อาหาร เช่น ผื่นแดง อาเจียน ท้องเสีย หรือหายใจลำบากหลังทานอาหารชนิดใหม่ หากพบควรหยุดทันทีและพบแพทย์",
+                "จำกัดขนมกรุบกรอบและอาหารแปรรูปสูง เน้นอาหารสดปรุงเองเพื่อควบคุมปริมาณโซเดียมและไขมัน"
             ] }
         ];
 
@@ -1391,6 +1431,52 @@
             saveToDatabase('babygole_vaccine_alerts',sent);
             updateCommunityBadge();
         }
+        function buildFoodThumbnail(label) {
+            const normalized = label.trim();
+            const photoMap = [
+                { keywords: ['ข้าวต้มไก่', 'ไก่', 'ไก่อบ', 'ข้าวไก่'], url: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80' },
+                { keywords: ['ปลาทู', 'ปลา', 'ปลากะพง', 'ปลากะพงนึ่ง', 'ปลาแซลมอน'], url: 'https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=800&q=80' },
+                { keywords: ['หมู', 'หมูปั้น', 'หมูสับ', 'กระดูกหมู', 'หมูตุ๋น'], url: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80' },
+                { keywords: ['กุ้ง', 'กุ้งสด'], url: 'https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=800&q=80' },
+                { keywords: ['ไข่', 'ไข่ม้วน', 'ไข่แดง', 'ไข่คน', 'ไข่เจียว'], url: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800&q=80' },
+                { keywords: ['ฟักทอง', 'ฟักทองอบ', 'ฟักทองผัด'], url: 'https://images.unsplash.com/photo-1518843875459-f738682238a6?auto=format&fit=crop&w=800&q=80' },
+                { keywords: ['ผัก', 'บร็อคโคลี่', 'ผักกาด', 'กะหล่ำ', 'แครอท', 'มะเขือเทศ', 'เห็ดหอม', 'เห็ด'], url: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80' },
+                { keywords: ['ข้าว', 'ข้าวผัด', 'ข้าวปั้น', 'ข้าวต้ม', 'ข้าวกล้อง', 'ข้าวโอ๊ต'], url: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80' },
+                { keywords: ['อุด้ง', 'มักกะโรนี', 'พาสต้า', 'สปาเก็ตตี้', 'เส้น'], url: 'https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?auto=format&fit=crop&w=800&q=80' },
+                { keywords: ['นม', 'ชีส', 'พุดดิ้ง', 'บัวลอย', 'ของหวาน'], url: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=800&q=80' },
+                { keywords: ['แอปเปิ้ล', 'มะละกอ', 'ผลไม้', 'แตงโม', 'มะม่วง', 'สลัด'], url: 'https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=800&q=80' },
+                { keywords: ['ซุป', 'แกงจืด', 'ต้มจืด'], url: 'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80' },
+                { keywords: ['มันฝรั่ง', 'มันเทศ'], url: 'https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=800&q=80' },
+                { keywords: ['แพนเค้ก', 'ขนม', 'แซนวิช'], url: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80' }
+            ];
+
+            const match = photoMap.find(group => group.keywords.some(keyword => normalized.includes(keyword)));
+            return match ? match.url : 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80';
+        }
+
+        function renderFoodPage(range) {
+            document.querySelectorAll('#foodPage .tab-btn').forEach(b => b.classList.remove('active'));
+            const btn = document.getElementById('btn-food-' + range);
+            if (btn) btn.classList.add('active');
+
+            const container = document.getElementById('foodContainer');
+            if (!container) return;
+
+            const cat = foodsData.find(c => c.age === range);
+            if (!cat) { container.innerHTML = ''; return; }
+
+            let html = `<div class="category-header">${cat.c}</div><div class="grid-2">`;
+            cat.items.forEach((item, index) => {
+                html += `
+                    <div class="card" style="border-left:4px solid var(--accent); margin-bottom:0;">
+                        <h4 style="margin:0; color:var(--primary); font-size:1.05rem; line-height:1.6;">🍽️ ${index + 1}. ${item}</h4>
+                    </div>
+                `;
+            });
+            html += `</div>`;
+            container.innerHTML = html;
+        }
+
         function switchAdminTab(n,b){document.querySelectorAll('.admin-section').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.admin-tab').forEach(x=>x.classList.remove('active'));document.getElementById('adminTab-'+n)?.classList.add('active');b?.classList.add('active');}
         function approvePost(id,ok){const p=forumPosts.find(x=>x.id===id);if(!p)return;p.status=ok?'approved':'rejected';saveToDatabase('babygole_forum',forumPosts);pushUserNotification(p.user,ok?`✅ กระทู้ “${p.title}” ได้รับการอนุมัติแล้ว`:`❌ กระทู้ “${p.title}” ไม่ได้รับการอนุมัติ`);loadAdminData();renderForumCategories();}
         function editUser(i){const u=users[i];if(!u)return;const n=prompt('ชื่อ',u.name);if(n===null)return;u.name=n;u.phone=prompt('เบอร์โทร',u.phone||'');u.email=prompt('Email',u.email||'');saveToDatabase('babygole_users',users);loadAdminData();}
@@ -1398,7 +1484,7 @@
         function editTracker(id){const r=trackerRecords.find(x=>x.id===id);if(!r)return;r.w=prompt('น้ำหนัก',r.w)||r.w;r.h=prompt('ส่วนสูง',r.h)||r.h;saveToDatabase('babygole_tracker',trackerRecords);loadAdminData();}
         function deleteTracker(id){trackerRecords=trackerRecords.filter(x=>x.id!==id);saveToDatabase('babygole_tracker',trackerRecords);loadAdminData();}
         function showPage(pageId) {
-            const pages = ['landingPage', 'loginPage', 'registerPage', 'forgotPage', 'homePage', 'devPage', 'vaccinePage', 'trackerPage', 'knowledgePage', 'aiPage', 'communityPage', 'notificationsPage', 'aboutPage', 'profilePage', 'adminPage'];
+            const pages = ['landingPage', 'loginPage', 'registerPage', 'forgotPage', 'homePage', 'devPage', 'vaccinePage', 'trackerPage', 'foodPage', 'knowledgePage', 'aiPage', 'communityPage', 'notificationsPage', 'aboutPage', 'profilePage', 'adminPage'];
             pages.forEach(p => document.getElementById(p).classList.add('hidden'));
             document.getElementById(pageId).classList.remove('hidden');
 
@@ -1418,6 +1504,7 @@
             if(pageId === 'notificationsPage') { if(!currentUser) return showPage('loginPage'); renderNotificationsPage(); updateCommunityBadge(); }
             if(pageId === 'vaccinePage') populateVaccineLogSelect();
             if(pageId === 'devPage' && !document.querySelector('.tab-btn.active')) setDevInfo('0-1');
+            if(pageId === 'foodPage' && !document.querySelector('#foodPage .tab-btn.active')) renderFoodPage('6m');
             if(pageId === 'profilePage') updateProfileUI();
         }
 
@@ -1935,7 +2022,18 @@
         function closeForumCategory(){selectedForumCategory=null;document.getElementById('forumDetail').classList.remove('active');}
         function createPost(){if(!currentUser)return alert('กรุณาเข้าสู่ระบบก่อน');const t=document.getElementById('postTitle').value.trim(),d=document.getElementById('postDetail').value.trim();if(!selectedForumCategory||!t)return alert('กรุณาเลือกหัวข้อและกรอกชื่อกระทู้');const p={id:Date.now(),author:currentUser.name,user:currentUser.user,title:t,detail:d,category:selectedForumCategory,replies:[],status:'pending',createdAt:new Date().toISOString()};forumPosts.unshift(p);saveToDatabase('babygole_forum',forumPosts);adminNotifications.unshift({id:Date.now(),text:`มีโพสต์รออนุมัติจาก ${currentUser.name}: ${t}`,createdAt:new Date().toLocaleString('th-TH')});saveToDatabase('babygole_admin_notifications',adminNotifications);document.getElementById('postTitle').value='';document.getElementById('postDetail').value='';alert('ส่งกระทู้แล้ว รอ Admin อนุมัติ');loadAdminData();}
         function addReply(id){if(!currentUser)return alert('กรุณาเข้าสู่ระบบ');const p=forumPosts.find(x=>x.id===id),i=document.getElementById(`reply-input-${id}`);if(!p||!i?.value.trim())return;p.replies=p.replies||[];p.replies.push({id:Date.now(),author:currentUser.name,user:currentUser.user,text:i.value.trim(),createdAt:new Date().toISOString()});saveToDatabase('babygole_forum',forumPosts);const owner=users.find(u=>u.user===p.user);if(owner&&owner.user!==currentUser.user)pushUserNotification(owner.user,`มี ${currentUser.name} ตอบกลับ “${p.title}”`);renderForum();}
-        function renderForum(){const c=document.getElementById('forumContainer');if(!c||!selectedForumCategory)return;const ps=forumPosts.filter(p=>p.category===selectedForumCategory&&p.status==='approved');c.innerHTML=ps.length?ps.map(p=>`<article class="post-card-pro"><span class="chip">${forumCategories[p.category].icon} ${forumCategories[p.category].name}</span><h3 style="color:var(--primary)">${escapeHtml(p.title)}</h3><div style="color:var(--gray);font-size:.85rem">โดย ${escapeHtml(p.author)} · ${formatDate(p.createdAt)}</div><p style="line-height:1.8">${escapeHtml(p.detail)}</p><strong>💬 ${p.replies?.length||0} คำตอบ</strong>${(p.replies||[]).map(r=>`<div class="reply-item"><b>${escapeHtml(r.author)}</b><div>${escapeHtml(r.text)}</div><small style="color:#94a3b8">${formatDate(r.createdAt)}</small></div>`).join('')}<div style="display:flex;gap:8px;margin-top:12px"><input id="reply-input-${p.id}" placeholder="เขียนคำตอบ..." style="margin:0"><button class="btn btn-secondary btn-sm" onclick="addReply(${p.id})">ตอบ</button></div></article>`).join(''):'<div class="card" style="text-align:center;color:var(--gray)">ยังไม่มีกระทู้ในหัวข้อนี้</div>';}
+        function renderForum(){
+            const c=document.getElementById('forumContainer');
+            if(!c||!selectedForumCategory)return;
+            const ps=forumPosts.filter(p=>p.category===selectedForumCategory&&p.status==='approved');
+            c.innerHTML=ps.length?ps.map(p=>{
+                const replies=(p.replies||[]);
+                const replyHtml=replies.length
+                    ? `<div style="margin-top:12px"><div style="font-weight:700;color:var(--primary);margin-bottom:6px">💬 คำตอบในกระทู้นี้ (${replies.length})</div>${replies.map((r,ri)=>`<div class="reply-item"><div style="font-size:.8rem;color:var(--gray);margin-bottom:3px">คำตอบที่ ${ri+1}</div><b>${escapeHtml(r.author)}</b><div style="margin-top:3px;line-height:1.7">${escapeHtml(r.text)}</div><small style="color:#94a3b8">${formatDate(r.createdAt)}</small></div>`).join('')}</div>`
+                    : '<div style="margin-top:10px;color:var(--gray);font-size:.9rem">ยังไม่มีคำตอบ เป็นคนแรกที่ตอบกระทู้นี้ได้เลย</div>';
+                return `<article class="post-card-pro"><span class="chip">${forumCategories[p.category].icon} ${forumCategories[p.category].name}</span><h3 style="color:var(--primary)">${escapeHtml(p.title)}</h3><div style="color:var(--gray);font-size:.85rem">โดย ${escapeHtml(p.author)} · ${formatDate(p.createdAt)}</div><p style="line-height:1.8">${escapeHtml(p.detail)}</p>${replyHtml}<div style="display:flex;gap:8px;margin-top:12px"><input id="reply-input-${p.id}" placeholder="เขียนคำตอบของคุณ..." style="margin:0"><button class="btn btn-secondary btn-sm" onclick="addReply(${p.id})">ตอบ</button></div></article>`;
+            }).join(''):'<div class="card" style="text-align:center;color:var(--gray)">ยังไม่มีกระทู้ในหัวข้อนี้</div>';
+        }
 
         function updateProfileUI() {
             if(!currentUser) return;
@@ -2000,60 +2098,15 @@
             updateCommunityBadge();
             renderNotificationsPage();
             
-            function buildFoodThumbnail(label) {
-                const normalized = label.trim();
-                const photoMap = [
-                    { keywords: ['ข้าวต้มไก่', 'ไก่', 'ไก่อบ', 'ข้าวไก่'], url: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80' },
-                    { keywords: ['ปลาทู', 'ปลา', 'ปลากะพง', 'ปลากะพงนึ่ง', 'ปลาแซลมอน'], url: 'https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=800&q=80' },
-                    { keywords: ['หมู', 'หมูปั้น', 'หมูสับ', 'กระดูกหมู', 'หมูตุ๋น'], url: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80' },
-                    { keywords: ['กุ้ง', 'กุ้งสด'], url: 'https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=800&q=80' },
-                    { keywords: ['ไข่', 'ไข่ม้วน', 'ไข่แดง', 'ไข่คน', 'ไข่เจียว'], url: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800&q=80' },
-                    { keywords: ['ฟักทอง', 'ฟักทองอบ', 'ฟักทองผัด'], url: 'https://images.unsplash.com/photo-1518843875459-f738682238a6?auto=format&fit=crop&w=800&q=80' },
-                    { keywords: ['ผัก', 'บร็อคโคลี่', 'ผักกาด', 'กะหล่ำ', 'แครอท', 'มะเขือเทศ', 'เห็ดหอม', 'เห็ด'], url: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80' },
-                    { keywords: ['ข้าว', 'ข้าวผัด', 'ข้าวปั้น', 'ข้าวต้ม', 'ข้าวกล้อง', 'ข้าวโอ๊ต'], url: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80' },
-                    { keywords: ['อุด้ง', 'มักกะโรนี', 'พาสต้า', 'สปาเก็ตตี้', 'เส้น'], url: 'https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?auto=format&fit=crop&w=800&q=80' },
-                    { keywords: ['นม', 'ชีส', 'พุดดิ้ง', 'บัวลอย', 'ของหวาน'], url: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=800&q=80' },
-                    { keywords: ['แอปเปิ้ล', 'มะละกอ', 'ผลไม้', 'แตงโม', 'มะม่วง', 'สลัด'], url: 'https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=800&q=80' },
-                    { keywords: ['ซุป', 'แกงจืด', 'ต้มจืด'], url: 'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80' },
-                    { keywords: ['มันฝรั่ง', 'มันเทศ'], url: 'https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=800&q=80' },
-                    { keywords: ['แพนเค้ก', 'ขนม', 'แซนวิช'], url: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80' }
-                ];
-
-                const match = photoMap.find(group => group.keywords.some(keyword => normalized.includes(keyword)));
-                return match ? match.url : 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80';
-            }
-
-            let foodHtml = "";
-            foodsData.forEach(cat => {
-                foodHtml += `<div class="category-header">${cat.c}</div><div class="grid-3">`;
-                cat.items.forEach((item) => {
-                    const thumb = buildFoodThumbnail(item);
-                    foodHtml += `
-                        <div class="card" style="padding:0; overflow:hidden; border-left:4px solid var(--accent);">
-                            <div style="padding:15px 15px 0;">
-                                <h4 style="margin:0; color:var(--primary); font-size:1.05rem;">🍽️ ${item}</h4>
-                            </div>
-                            <img src="${thumb}" alt="${item}" style="width:100%; height:150px; object-fit:cover; display:block; background:linear-gradient(135deg,#60a5fa,#8b5cf6); margin-top:12px;">
-                        </div>
-                    `;
-                });
-                foodHtml += `</div>`;
-            });
-            const foodContainer = document.getElementById('foodContainer');
-            if (foodContainer) {
-                foodContainer.innerHTML = foodHtml;
-            }
-
             function renderKnowledgePage(filterText = '') {
                 const container = document.getElementById('knowledgeContainer');
                 if (!container) return;
 
                 const term = (filterText || '').trim().toLowerCase();
-                const filtered = knowledgeData.filter(cat => {
-                    if (!term) return true;
-                    const catText = `${cat.cat} ${cat.items.join(' ')}`.toLowerCase();
-                    return catText.includes(term);
-                });
+                const allItems = knowledgeData.flatMap(cat => cat.items.map(item => ({ cat: cat.cat, item })));
+                const filtered = term
+                    ? allItems.filter(x => `${x.cat} ${x.item}`.toLowerCase().includes(term))
+                    : allItems.slice(0, 10);
 
                 if (filtered.length === 0) {
                     container.innerHTML = `
@@ -2065,16 +2118,15 @@
                     return;
                 }
 
-                const knowHtml = filtered.map(cat => `
+                const knowHtml = filtered.map((x, index) => `
                     <div class="knowledge-card">
-                        <h3>📌 ${cat.cat}</h3>
-                        <ul>
-                            ${cat.items.map(item => `<li>${item}</li>`).join('')}
-                        </ul>
+                        <h3>📌 ${index + 1}. ${x.cat}</h3>
+                        <ul><li>${x.item}</li></ul>
                     </div>
                 `).join('');
 
-                container.innerHTML = `<div class="grid-2">${knowHtml}</div>`;
+                const note = term ? '' : `<p style="text-align:center;color:var(--gray);margin:0 0 18px;">แสดงตัวอย่างความรู้ 10 ข้อแรก สามารถใช้ช่องค้นหาเพื่อดูหัวข้ออื่นเพิ่มเติม</p>`;
+                container.innerHTML = `${note}<div class="grid-2">${knowHtml}</div>`;
             }
 
             renderKnowledgePage();
