@@ -1617,6 +1617,10 @@
             document.getElementById('loginPass').value = '';
         }
 
+        function normalizeUsername(username) {
+            return String(username || '').trim().toLowerCase();
+        }
+
         function isUsernameTaken(username) {
             const normalized = normalizeUsername(username);
             return users.some(x => normalizeUsername(x.user) === normalized);
