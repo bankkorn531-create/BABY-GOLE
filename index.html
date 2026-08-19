@@ -39,6 +39,9 @@
         .glow { animation: glow 2.8s ease-in-out infinite; }
         .tilt { animation: tilt 3.2s ease-in-out infinite; }
         .hidden { display: none !important; }
+
+        .speak-btn { margin-top: 8px; padding: 6px 10px; font-size: 0.82rem; border-radius: 10px; }
+        .speak-btn:hover { background: var(--soft-blue); }
         
         .card { background: var(--white); border-radius: 20px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; }
         .btn { padding: 12px 25px; border-radius: 12px; border: none; cursor: pointer; font-size: 1em; font-weight: 500; display: inline-block; text-align: center; }
@@ -1497,7 +1500,16 @@
             }
 
             if(pageId === 'adminPage') loadAdminData();
+            if(pageId === 'knowledgePage') {
+                renderKnowledgePage(document.getElementById('knowledgeSearchBox')?.value || '');
+            }
             if(pageId === 'communityPage') {
+                ensureSampleForumData();
+                renderForumCategories();
+                document.getElementById('forumDetail').classList.add('active');
+                document.getElementById('forumCategoryTitle').innerText = '💬 ตัวอย่างชุมชน 10 กระทู้';
+                document.getElementById('forumCategoryDesc').innerText = 'เลือกดูคำถามตัวอย่าง อ่านคำตอบเดิมทั้งหมด แล้วร่วมตอบต่อได้ทันที';
+                selectedForumCategory = '__all__';
                 renderForum();
                 updateCommunityBadge();
             }
@@ -1815,20 +1827,45 @@
         }
 
         function goToDevFromHome() { const age = document.getElementById('homeAgeSelect').value; showPage('devPage'); setDevInfo(age); }
+
+        // --- ระบบอ่านข้อความเป็นเสียง (Speech Synthesis) ---
+        function speakText(text) {
+            if (!('speechSynthesis' in window)) {
+                alert('เบราว์เซอร์นี้ไม่รองรับระบบอ่านข้อความเป็นเสียง');
+                return;
+            }
+            window.speechSynthesis.cancel();
+            const cleanText = String(text || '').replace(/\s+/g, ' ').trim();
+            if (!cleanText) return;
+            const utterance = new SpeechSynthesisUtterance(cleanText);
+            utterance.lang = 'th-TH';
+            utterance.rate = 0.95;
+            utterance.pitch = 1;
+            window.speechSynthesis.speak(utterance);
+        }
+        function stopSpeaking() {
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+        }
+        function readBtn(text) {
+            const safe = escapeHtml(String(text || ''));
+            return `<button type="button" class="btn btn-outline btn-sm speak-btn" onclick="speakText(this.dataset.text)" data-text="${safe}" title="อ่านข้อความนี้เป็นเสียง"><i class="fa-solid fa-volume-high"></i> อ่านให้ฟัง</button>`;
+        }
+
         function setDevInfo(range) {
             const data = devDataMap[range];
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById('btn-dev-' + range).classList.add('active');
 
-            const renderList = (items = []) => `<ul style="margin: 8px 0 0 18px; line-height: 1.7; color: #475569;">${items.map(item => `<li>${item}</li>`).join('')}</ul>`;
+            const renderList = (items = []) => `<ul style="margin: 8px 0 0 18px; line-height: 1.7; color: #475569;">${items.map(item => `<li style="margin-bottom:10px;"><span>${item}</span> ${readBtn(item)}</li>`).join('')}</ul>`;
+            const renderParagraph = (label, text) => `<p style="line-height:1.7;"><b>${label}</b><br><span>${text}</span><br>${readBtn(text)}</p>`;
 
             document.getElementById('devContent').innerHTML = `
                 <div class="card" style="border-top: 5px solid var(--secondary);">
                     <h3 style="color:var(--primary); font-size: 1.5rem; text-align: center;">${data.t}</h3>
                     <hr style="border: 0; border-top: 1px dashed #ccc; margin-bottom: 20px;">
-                    <p style="line-height:1.7;"><b>💪 พัฒนาการด้านร่างกาย:</b><br> ${data.b}</p>
-                    <p style="line-height:1.7;"><b>🧠 พัฒนาการด้านสติปัญญาและการเรียนรู้:</b><br> ${data.s}</p>
-                    <p style="line-height:1.7;"><b>🤝 พัฒนาการด้านอารมณ์และสังคม:</b><br> ${data.a}</p>
+                    ${renderParagraph('💪 พัฒนาการด้านร่างกาย:', data.b)}
+                    ${renderParagraph('🧠 พัฒนาการด้านสติปัญญาและการเรียนรู้:', data.s)}
+                    ${renderParagraph('🤝 พัฒนาการด้านอารมณ์และสังคม:', data.a)}
                     <div style="background: #f0f9ff; border-left: 4px solid var(--secondary); padding: 12px; margin-top: 18px; border-radius: 10px;">
                         <div style="font-weight: bold; color: var(--primary); margin-bottom: 6px;">🍼 คำแนะนำสำหรับคุณแม่มือใหม่</div>
                         ${renderList(data.momTips)}
@@ -1847,7 +1884,7 @@
                     </div>
                     <div style="background: #ecfdf5; border-left: 4px solid var(--success); padding: 12px; margin-top: 12px; border-radius: 10px;">
                         <div style="font-weight: bold; color: #166534; margin-bottom: 6px;">✅ ข้อควรจำ</div>
-                        <div style="color: #475569; line-height: 1.7;">ทุกเด็กพัฒนาต่างกันและไม่จำเป็นต้องเท่ากันเสมอไป ควรให้ลูกเล่น ปลอดภัย และได้รับการดูแลที่อบอุ่นที่สุด</div>
+                        <div style="color: #475569; line-height: 1.7;">ทุกเด็กพัฒนาต่างกันและไม่จำเป็นต้องเท่ากันเสมอไป ควรให้ลูกเล่น ปลอดภัย และได้รับการดูแลที่อบอุ่นที่สุด</div>${readBtn('ทุกเด็กพัฒนาต่างกันและไม่จำเป็นต้องเท่ากันเสมอไป ควรให้ลูกเล่น ปลอดภัย และได้รับการดูแลที่อบอุ่นที่สุด')}
                     </div>
                 </div>`;
         }
@@ -2017,6 +2054,28 @@
             }, 500);
         }
 
+        const sampleForumPosts = [
+            {id:9001,user:"sample_a",author:"นาย ก",category:"food",status:"approved",title:"ลูกวัย 8 เดือน ไม่ค่อยกินข้าว ควรทำอย่างไร",detail:"ลูกกินอาหารน้อยและคายอาหารออกบ่อย อยากได้คำแนะนำจากคุณพ่อคุณแม่ที่มีประสบการณ์",createdAt:new Date(Date.now()-86400000*1).toISOString(),replies:[{id:9101,author:"นาย ข",user:"sample_b",text:"ลองเปลี่ยนเนื้อสัมผัสและให้ลูกหยิบอาหารชิ้นนิ่ม ๆ เองดูครับ ลูกบางคนจะกินได้ดีขึ้นเมื่อได้ลองด้วยตัวเอง",createdAt:new Date(Date.now()-86400000/2).toISOString()}]},
+            {id:9002,user:"sample_c",author:"คุณแม่ฝน",category:"health",status:"approved",title:"ลูกมีผื่นแดงบริเวณแก้ม",detail:"มีผื่นแดงเล็ก ๆ ที่แก้มหลังออกไปข้างนอก ควรดูแลเบื้องต้นอย่างไร",createdAt:new Date(Date.now()-86400000*2).toISOString(),replies:[{id:9102,author:"คุณแม่เมย์",user:"sample_d",text:"ลองล้างหน้าเบา ๆ และหลีกเลี่ยงผลิตภัณฑ์ที่มีน้ำหอมก่อน หากผื่นมากขึ้นควรพบแพทย์ค่ะ",createdAt:new Date(Date.now()-86400000).toISOString()}]},
+            {id:9003,user:"sample_e",author:"พ่อมือใหม่",category:"development",status:"approved",title:"เด็ก 1 ขวบยังไม่เดินเองผิดปกติไหม",detail:"ลูกยืนเกาะได้และเดินเกาะเฟอร์นิเจอร์ แต่ยังไม่กล้าเดินเอง",createdAt:new Date(Date.now()-86400000*3).toISOString(),replies:[{id:9103,author:"นาย ข",user:"sample_b",text:"เด็กแต่ละคนพัฒนาการไม่เท่ากันครับ ลองให้พื้นที่ปลอดภัยสำหรับฝึกเดินและสังเกตพัฒนาการต่อเนื่อง",createdAt:new Date(Date.now()-86400000*2).toISOString()}]},
+            {id:9004,user:"sample_f",author:"คุณแม่อิง",category:"sleep",status:"approved",title:"ลูกตื่นกลางดึกบ่อยมาก",detail:"เข้านอนตามเวลาแต่ตื่นกลางดึกหลายครั้ง มีวิธีช่วยให้นอนต่อเนื่องไหม",createdAt:new Date(Date.now()-86400000*4).toISOString(),replies:[{id:9104,author:"คุณพ่อบอล",user:"sample_g",text:"ลองทำกิจวัตรก่อนนอนแบบเดิมทุกวัน เช่น อาบน้ำ อ่านนิทาน ปิดไฟ และลดสิ่งกระตุ้นก่อนนอนครับ",createdAt:new Date(Date.now()-86400000*3).toISOString()}]},
+            {id:9005,user:"sample_h",author:"แม่พลอย",category:"vaccine",status:"approved",title:"ลืมนัดฉีดวัคซีน 1 เข็ม ต้องเริ่มใหม่ไหม",detail:"เลยนัดมาแล้วประมาณหนึ่งสัปดาห์ กังวลว่าจะต้องเริ่มตารางใหม่",createdAt:new Date(Date.now()-86400000*5).toISOString(),replies:[{id:9105,author:"นาย ข",user:"sample_b",text:"โดยทั่วไปไม่ควรเริ่มตารางใหม่เองครับ ให้ติดต่อสถานพยาบาลเพื่อดูตารางเข็มถัดไปที่เหมาะสม",createdAt:new Date(Date.now()-86400000*4).toISOString()}]},
+            {id:9006,user:"sample_i",author:"คุณแม่แนน",category:"general",status:"approved",title:"ของใช้จำเป็นสำหรับลูกแรกเกิดมีอะไรบ้าง",detail:"อยากเตรียมของให้พอดี ไม่อยากซื้อเกินความจำเป็น",createdAt:new Date(Date.now()-86400000*6).toISOString(),replies:[{id:9106,author:"คุณแม่เมย์",user:"sample_d",text:"เริ่มจากผ้าอ้อม เสื้อผ้า ผ้าเช็ดตัว อุปกรณ์อาบน้ำ และของใช้ให้นมที่จำเป็นก่อนค่ะ",createdAt:new Date(Date.now()-86400000*5).toISOString()}]},
+            {id:9007,user:"sample_j",author:"พ่อภูมิ",category:"food",status:"approved",title:"เริ่มอาหารเสริม 6 เดือน ควรเริ่มจากอะไร",detail:"กำลังจะเริ่มอาหารเสริม อยากได้เมนูที่ทำง่ายสำหรับมือใหม่",createdAt:new Date(Date.now()-86400000*7).toISOString(),replies:[{id:9107,author:"นาย ข",user:"sample_b",text:"เริ่มจากอาหารเนื้อนิ่มและปริมาณเล็กน้อย เช่น ข้าวบดหรือผักบด แล้วค่อย ๆ เพิ่มความหลากหลายครับ",createdAt:new Date(Date.now()-86400000*6).toISOString()}]},
+            {id:9008,user:"sample_k",author:"คุณแม่ดาว",category:"health",status:"approved",title:"ลูกไอช่วงกลางคืนแต่ไม่มีไข้",detail:"มีอาการไอเป็นพัก ๆ ตอนกลางคืน อยากทราบว่าควรสังเกตอะไรบ้าง",createdAt:new Date(Date.now()-86400000*8).toISOString(),replies:[{id:9108,author:"คุณพ่อบอล",user:"sample_g",text:"สังเกตการหายใจ อาการเหนื่อย และระยะเวลาที่ไอครับ หากอาการมากขึ้นหรือหายใจลำบากควรพบแพทย์",createdAt:new Date(Date.now()-86400000*7).toISOString()}]},
+            {id:9009,user:"sample_l",author:"แม่ออม",category:"development",status:"approved",title:"อยากฝึกให้ลูกพูดคำแรก ควรเริ่มอย่างไร",detail:"ลูกเริ่มส่งเสียงและชี้สิ่งของแล้ว อยากช่วยส่งเสริมภาษาให้มากขึ้น",createdAt:new Date(Date.now()-86400000*9).toISOString(),replies:[{id:9109,author:"นาย ข",user:"sample_b",text:"พูดคุยกับลูกบ่อย ๆ ชี้ชื่อสิ่งของ และอ่านนิทานสั้น ๆ ทุกวัน จะช่วยกระตุ้นการสื่อสารได้ครับ",createdAt:new Date(Date.now()-86400000*8).toISOString()}]},
+            {id:9010,user:"sample_m",author:"คุณพ่อก้อง",category:"sleep",status:"approved",title:"กลางวันลูกนอนนาน กลางคืนไม่หลับ",detail:"ลูกงีบช่วงบ่ายนานมาก ทำให้ตอนกลางคืนตื่นเล่น",createdAt:new Date(Date.now()-86400000*10).toISOString(),replies:[{id:9110,author:"คุณแม่เมย์",user:"sample_d",text:"ลองจัดเวลาให้งีบเป็นกิจวัตรและหลีกเลี่ยงการนอนช่วงเย็นมากเกินไป พร้อมทำกิจวัตรก่อนนอนให้สม่ำเสมอค่ะ",createdAt:new Date(Date.now()-86400000*9).toISOString()}]}
+        ];
+
+        function ensureSampleForumData(){
+            const approved = Array.isArray(forumPosts) ? forumPosts.filter(p=>p && p.status==='approved') : [];
+            if(approved.length >= 10) return;
+            const existingIds = new Set((forumPosts||[]).map(p=>p.id));
+            const missing = sampleForumPosts.filter(p=>!existingIds.has(p.id));
+            forumPosts = [...(forumPosts||[]), ...missing];
+            window.__dbCache['babygole_forum'] = forumPosts;
+        }
+
         function renderForumCategories(){const e=document.getElementById('forumCategories');if(!e)return;e.innerHTML=Object.entries(forumCategories).map(([k,v])=>`<button class="forum-category" onclick="openForumCategory('${k}')"><div style="font-size:1.7rem">${v.icon}</div><b style="color:var(--primary)">${v.name}</b><div style="color:var(--gray);font-size:.85rem;margin:5px 0">${v.desc}</div><span class="chip">${forumPosts.filter(p=>p.category===k&&p.status==='approved').length} กระทู้</span></button>`).join('');}
         function openForumCategory(k){selectedForumCategory=k;const v=forumCategories[k];document.getElementById('forumCategoryTitle').innerText=v.icon+' '+v.name;document.getElementById('forumCategoryDesc').innerText=v.desc;document.getElementById('forumDetail').classList.add('active');renderForum();}
         function closeForumCategory(){selectedForumCategory=null;document.getElementById('forumDetail').classList.remove('active');}
@@ -2025,7 +2084,9 @@
         function renderForum(){
             const c=document.getElementById('forumContainer');
             if(!c||!selectedForumCategory)return;
-            const ps=forumPosts.filter(p=>p.category===selectedForumCategory&&p.status==='approved');
+            const ps=(selectedForumCategory==='__all__'
+                ? forumPosts.filter(p=>p.status==='approved').slice(0,10)
+                : forumPosts.filter(p=>p.category===selectedForumCategory&&p.status==='approved'));
             c.innerHTML=ps.length?ps.map(p=>{
                 const replies=(p.replies||[]);
                 const replyHtml=replies.length
@@ -2086,6 +2147,26 @@
             }
         }
 
+        function renderKnowledgePage(filterText = '') {
+            const container = document.getElementById('knowledgeContainer');
+            if (!container) return;
+            const term = (filterText || '').trim().toLowerCase();
+            const allItems = knowledgeData.flatMap(cat => cat.items.map(item => ({ cat: cat.cat, item })));
+            const filtered = term ? allItems.filter(x => `${x.cat} ${x.item}`.toLowerCase().includes(term)) : allItems.slice(0, 10);
+            if (!filtered.length) {
+                container.innerHTML = '<div class="card" style="text-align:center;color:var(--gray)">ไม่พบข้อมูลที่ตรงกับคำค้นหา</div>';
+                return;
+            }
+            const knowHtml = filtered.map((x, index) => `
+                <div class="knowledge-card">
+                    <h3>📌 ${index + 1}. ${escapeHtml(x.cat)}</h3>
+                    <ul><li><span>${escapeHtml(x.item)}</span><br>${readBtn(x.item)}</li></ul>
+                </div>
+            `).join('');
+            const note = term ? '' : '<p style="text-align:center;color:var(--gray);margin:0 0 18px">แสดงตัวอย่างความรู้ 10 ข้อแรก สามารถค้นหาเรื่องอื่นเพิ่มเติมได้</p>';
+            container.innerHTML = `${note}<div class="grid-2">${knowHtml}</div>`;
+        }
+
         window.onload = async () => {
             initAdminSync();
             await bootstrapDatabase();
@@ -2094,41 +2175,10 @@
             populateVaccineLogSelect();
             document.getElementById('trackDate').valueAsDate = new Date();
             renderTracker();
+            ensureSampleForumData();
             renderForumCategories();
             updateCommunityBadge();
             renderNotificationsPage();
-            
-            function renderKnowledgePage(filterText = '') {
-                const container = document.getElementById('knowledgeContainer');
-                if (!container) return;
-
-                const term = (filterText || '').trim().toLowerCase();
-                const allItems = knowledgeData.flatMap(cat => cat.items.map(item => ({ cat: cat.cat, item })));
-                const filtered = term
-                    ? allItems.filter(x => `${x.cat} ${x.item}`.toLowerCase().includes(term))
-                    : allItems.slice(0, 10);
-
-                if (filtered.length === 0) {
-                    container.innerHTML = `
-                        <div class="card" style="max-width: 620px; margin: 0 auto; text-align: center; border-top: 4px solid var(--secondary);">
-                            <h3 style="color: var(--primary); margin-bottom: 10px;">ไม่พบข้อมูลที่ตรงกับคำค้นหา</h3>
-                            <p style="color: var(--gray); margin: 0;">ลองค้นหาด้วยคำอื่น เช่น นมแม่, ไข้, นอนหลับ, วัคซีน</p>
-                        </div>
-                    `;
-                    return;
-                }
-
-                const knowHtml = filtered.map((x, index) => `
-                    <div class="knowledge-card">
-                        <h3>📌 ${index + 1}. ${x.cat}</h3>
-                        <ul><li>${x.item}</li></ul>
-                    </div>
-                `).join('');
-
-                const note = term ? '' : `<p style="text-align:center;color:var(--gray);margin:0 0 18px;">แสดงตัวอย่างความรู้ 10 ข้อแรก สามารถใช้ช่องค้นหาเพื่อดูหัวข้ออื่นเพิ่มเติม</p>`;
-                container.innerHTML = `${note}<div class="grid-2">${knowHtml}</div>`;
-            }
-
             renderKnowledgePage();
             
             const remUser = localStorage.getItem('babygole_rem_user');
