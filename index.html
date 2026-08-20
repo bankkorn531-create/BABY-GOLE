@@ -641,68 +641,6 @@
         </div>
     </section>
 
-    <!-- Firebase / babygo Cloud Database -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
-        import { getAnalytics, isSupported as analyticsSupported } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-analytics.js";
-        import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyAkCxqSC7tdb8LqblFYhHNZ3T2gTlEiOOg",
-            authDomain: "babygo-359f0.firebaseapp.com",
-            projectId: "babygo-359f0",
-            storageBucket: "babygo-359f0.firebasestorage.app",
-            messagingSenderId: "73540120528",
-            appId: "1:73540120528:web:4c50379c4be8211f9013d5",
-            measurementId: "G-VRVC3WT9EX"
-        };
-
-        try {
-            const app = initializeApp(firebaseConfig);
-            try { if (await analyticsSupported()) getAnalytics(app); } catch (e) {}
-            const auth = getAuth(app);
-            const db = getFirestore(app);
-
-            window.FirebaseDatabaseService = {
-                ready: true, auth, db, currentUser: null,
-                async read(storeName, fallback = null) {
-                    try {
-                        const snap = await getDoc(doc(db, "babygole", storeName));
-                        return snap.exists() ? snap.data().value : fallback;
-                    } catch (e) {
-                        console.error("Firebase read:", storeName, e);
-                        return fallback;
-                    }
-                },
-                async write(storeName, value) {
-                    try {
-                        await setDoc(doc(db, "babygole", storeName),
-                            { value, updatedAt: new Date().toISOString() }, { merge: true });
-                    } catch (e) {
-                        console.error("Firebase write:", storeName, e);
-                    }
-                    return value;
-                },
-                login(email, password) { return signInWithEmailAndPassword(auth, email, password); },
-                register(email, password) { return createUserWithEmailAndPassword(auth, email, password); },
-                logout() { return signOut(auth); }
-            };
-
-            onAuthStateChanged(auth, user => {
-                window.FirebaseDatabaseService.currentUser = user || null;
-                window.dispatchEvent(new CustomEvent("babygo-firebase-auth", {detail:user || null}));
-            });
-        } catch (error) {
-            console.error("babygo Firebase initialization failed:", error);
-            window.FirebaseDatabaseService = {
-                ready:false, currentUser:null, error:error,
-                async read(k, fallback=null){return fallback;},
-                async write(k, value){return value;}
-            };
-        }
-    </script>
-
 <script>
         function daysAgoISO(days){ const d=new Date(); d.setDate(d.getDate()-days); return d.toISOString().slice(0,10); }
         const defaultUsers = [
@@ -837,13 +775,6 @@
             // Local IndexedDB/localStorage cache
             DatabaseService.write(storeName, value).catch(() => {});
 
-            // Cloud database: Firebase Firestore
-            if (window.FirebaseDatabaseService?.ready) {
-                window.FirebaseDatabaseService.write(storeName, value).catch((error) => {
-                    console.error("Firebase sync failed:", error);
-                });
-            }
-
             notifyDataChanged();
             return value;
         }
@@ -872,33 +803,6 @@
                     if (key === 'babygole_admin_notifications') adminNotifications = value||[];
                 }
             }));
-
-            // Firebase Firestore เป็นฐานข้อมูล Cloud หลัก
-            if (window.FirebaseDatabaseService?.ready) {
-                await Promise.all(entries.map(async ([key, fallback]) => {
-                    const storeName = getDatabaseStoreName(key);
-                    const firebaseValue = await window.FirebaseDatabaseService.read(storeName, null);
-                    if (firebaseValue !== null && firebaseValue !== undefined) {
-                        window.__dbCache[key] = firebaseValue;
-                        localStorage.setItem(key, JSON.stringify(firebaseValue));
-                        if (key === 'babygole_users') users = firebaseValue;
-                        if (key === 'babygole_tracker') trackerRecords = firebaseValue;
-                        if (key === 'babygole_forum') forumPosts = firebaseValue;
-                        if (key === 'babygole_forum') { forumPosts = (firebaseValue||[]).map(p => ({...p, status:p.status||'approved', replies:p.replies||[]})); }
-                        if (key === 'babygole_community_notifications') communityNotifications = firebaseValue;
-                        if (key === 'babygole_admin_notifications') adminNotifications = firebaseValue||[];
-                    } else {
-                        // ครั้งแรก: ย้ายข้อมูลเดิมขึ้น Firebase
-                        await window.FirebaseDatabaseService.write(storeName, fallback);
-                    }
-                }));
-
-                if (typeof renderTracker === 'function') renderTracker();
-                if (typeof renderForum === 'function') renderForum();
-                if (typeof renderNotificationsPage === 'function') renderNotificationsPage();
-                if (typeof updateCommunityBadge === 'function') updateCommunityBadge();
-                if (typeof loadAdminData === 'function') loadAdminData();
-            }
         }
 
         function notifyDataChanged() {
@@ -1527,46 +1431,12 @@
             document.getElementById('adminToggleLink').innerText = isAdminMode ? "สลับเป็นโหมดผู้ใช้ปกติ" : "เข้าสู่ระบบ Admin";
         }
 
-        // แก้ไขระบบล็อกอินให้หาข้อมูลจาก Username "หรือ" Email ก็ได้
+        // ระบบล็อกอินให้หาข้อมูลจาก Username "หรือ" Email ก็ได้
         async function login() {
             loadUsersFromStorage();
             const u = document.getElementById('loginUser').value.trim();
             const p = document.getElementById('loginPass').value;
             const loginValue = u.toLowerCase();
-
-            if (window.FirebaseDatabaseService?.ready && u.includes('@')) {
-                try {
-                    const credential = await window.FirebaseDatabaseService.login(u, p);
-                    let found = users.find(x =>
-                        String(x.uid || '') === String(credential.user.uid) ||
-                        String(x.email || '').toLowerCase() === loginValue
-                    );
-
-                    if (!found) {
-                        found = {
-                            uid: credential.user.uid,
-                            name: credential.user.displayName || u.split('@')[0],
-                            user: u.split('@')[0], email: u, phone: '',
-                            isAdmin: false, profilePic: ''
-                        };
-                        users.push(found);
-                        saveToDatabase('babygole_users', users);
-                    } else {
-                        found.uid = credential.user.uid;
-                    }
-
-                    if (isAdminMode && !found.isAdmin) {
-                        await window.FirebaseDatabaseService.logout();
-                        return alert("บัญชีนี้ไม่มีสิทธิ์ Admin");
-                    }
-
-                    currentUser = found;
-                    finishLoginUI(found);
-                    return;
-                } catch (e) {
-                    console.warn("Firebase login failed; local fallback:", e);
-                }
-            }
 
             const found = users.find(x => {
                 const candidates = [x.user, x.email, x.phone, ...(x.altEmails || [])];
@@ -1601,12 +1471,6 @@
         }
 
         async function logout() {
-            try {
-                if (window.FirebaseDatabaseService?.ready && window.FirebaseDatabaseService.currentUser) {
-                    await window.FirebaseDatabaseService.logout();
-                }
-            } catch (e) {}
-
             currentUser = null;
             document.getElementById('link-admin')?.classList.add('hidden');
             document.getElementById('notifBellWrap')?.classList.add('hidden');
@@ -1626,6 +1490,15 @@
             return users.some(x => normalizeUsername(x.user) === normalized);
         }
 
+        function isEmailTaken(email) {
+            const normalized = String(email || '').trim().toLowerCase();
+            if (!normalized) return false;
+            return users.some(x =>
+                String(x.email || '').toLowerCase() === normalized ||
+                (x.altEmails || []).some(a => String(a || '').toLowerCase() === normalized)
+            );
+        }
+
         async function register() {
             loadUsersFromStorage();
 
@@ -1638,32 +1511,16 @@
 
             if (!n || !ph || !e || !u || !p) return alert("กรุณากรอกข้อมูลสำคัญให้ครบทุกช่อง");
             if (isUsernameTaken(u)) return alert("ชื่อผู้ใช้งานนี้ถูกใช้ไปแล้ว");
-
-            if (window.FirebaseDatabaseService?.ready) {
-                try {
-                    const credential = await window.FirebaseDatabaseService.register(e, p);
-                    users.push({
-                        uid: credential.user.uid, name:n, user:u, email:e, phone:ph,
-                        altEmails:altEmail ? [altEmail] : [],
-                        isAdmin:false, profilePic:'',
-                        createdAt:new Date().toISOString()
-                    });
-                    saveToDatabase('babygole_users', users);
-                    alert("สมัครสมาชิกสำเร็จ! กรุณาเข้าสู่ระบบด้วย Email และ Password");
-                    document.querySelectorAll('#registerPage input').forEach(x => x.value = '');
-                    showPage('loginPage');
-                    return;
-                } catch (error) {
-                    return alert("สมัครสมาชิกผ่าน Firebase ไม่สำเร็จ: " + (error?.message || "ตรวจสอบ Firebase Authentication"));
-                }
-            }
+            if (isEmailTaken(e)) return alert("อีเมลนี้ถูกใช้กับบัญชีอื่นแล้ว");
+            if (altEmail && isEmailTaken(altEmail)) return alert("อีเมลสำรองนี้ถูกใช้กับบัญชีอื่นแล้ว");
 
             users.push({
                 name:n, user:u, pass:p, phone:ph, email:e,
-                altEmails:altEmail ? [altEmail] : [], isAdmin:false, profilePic:''
+                altEmails:altEmail ? [altEmail] : [], isAdmin:false, profilePic:'',
+                createdAt:new Date().toISOString()
             });
             saveToDatabase('babygole_users', users);
-            alert("สมัครสมาชิกสำเร็จ (โหมดออฟไลน์)");
+            alert("สมัครสมาชิกสำเร็จ");
             document.querySelectorAll('#registerPage input').forEach(x => x.value = '');
             showPage('loginPage');
         }
@@ -1703,7 +1560,7 @@
         }
 
         async function loadAdminData(){
-            // ดึงข้อมูลล่าสุดจากฐานข้อมูล (localStorage/IndexedDB/Firebase) มาแสดงในหน้า Admin ทุกครั้ง
+            // ดึงข้อมูลล่าสุดจากฐานข้อมูล (localStorage/IndexedDB) มาแสดงในหน้า Admin ทุกครั้ง
             loadUsersFromStorage();
             forumPosts=loadFromDatabase('babygole_forum',forumPosts);
             trackerRecords=loadFromDatabase('babygole_tracker',trackerRecords);
